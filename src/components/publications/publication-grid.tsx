@@ -1,45 +1,80 @@
 "use client";
 
-import { BookOpenText, Download, Eye } from "lucide-react";
-import { useState } from "react";
+import { ExternalLink, Search } from "lucide-react";
+import Link from "next/link";
+import { useMemo, useState } from "react";
 
-import { PdfViewerModal } from "@/components/publications/pdf-viewer-modal";
-import { publications } from "@/lib/site-data";
+import { formatGujaratiNumber } from "@/lib/gujarati-format";
 import type { Publication } from "@/lib/types";
 
-export function PublicationGrid() {
-  const [selected, setSelected] = useState<Publication | null>(null);
+export function PublicationGrid({ publications, years }: { publications: Publication[]; years: number[] }) {
+  const [year, setYear] = useState<number | null>(null);
+  const [query, setQuery] = useState("");
+  const filtered = useMemo(() => {
+    const normalized = query.trim().toLocaleLowerCase("gu");
+    return publications.filter((publication) => {
+      const matchesYear = year === null || publication.year === year;
+      const metadata = [publication.titleGu, publication.editionGu, publication.monthGu, publication.year, publication.kind].join(" ").toLocaleLowerCase("gu");
+      return matchesYear && (!normalized || metadata.includes(normalized));
+    });
+  }, [publications, query, year]);
+
+  const reset = () => { setYear(null); setQuery(""); };
 
   return (
-    <>
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {publications.map((publication, index) => (
-          <article key={publication.id} className="card-sacred overflow-hidden">
-            <div className="relative grid aspect-[4/3] place-items-center overflow-hidden bg-[#efe2cf] p-8">
-              <div className="absolute inset-0 pattern-jali opacity-40" />
-              <div className={`relative flex h-full w-[62%] min-w-[150px] max-w-[210px] flex-col justify-between rounded-r-xl border-l-[7px] border-[#51202a] bg-primary p-5 text-primary-foreground shadow-[0_20px_35px_rgba(70,30,30,.18)] ${index % 2 ? "rotate-[1.2deg]" : "-rotate-[1deg]"}`}>
-                <div className="text-[10px] font-bold tracking-[.12em] text-[#f1bd67]">॥ ૐ શ્રી સચ્ચિદાનંદ ॥</div>
-                <div>
-                  <BookOpenText className="mb-3 h-7 w-7 text-[#f1bd67]" />
-                  <div className="font-serif text-2xl font-bold">વેદ રહસ્ય</div>
-                  <div className="mt-2 text-[12px] text-[#ead8cd]">{publication.editionGu}</div>
-                </div>
-                <div className="border-t border-white/15 pt-3 text-[10px] text-[#d9c3b6]">શ્રી સચ્ચિદાનંદ સેવક મંડળ</div>
-              </div>
+    <div>
+      <div className="rounded-[1.25rem] border border-[#d8c4aa] bg-[#fffaf2] p-4 sm:p-5">
+        <div className="grid gap-5 lg:grid-cols-[minmax(15rem,1fr)_auto] lg:items-end">
+          <label className="block">
+            <span className="mb-2 block text-[14px] font-bold text-primary">અંક શોધો</span>
+            <span className="relative block">
+              <Search className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
+              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="અંક, વર્ષ અથવા શીર્ષક શોધો…" className="min-h-12 w-full rounded-xl border border-border-strong bg-white py-3 pl-12 pr-4 text-base outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" />
+            </span>
+          </label>
+          <fieldset>
+            <legend className="mb-2 text-[14px] font-bold text-primary">વર્ષ</legend>
+            <div className="flex flex-wrap gap-2">
+              <button type="button" onClick={() => setYear(null)} aria-pressed={year === null} className="min-h-11 rounded-full border border-border-strong px-4 font-bold aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-white">બધા</button>
+              {years.map((item) => <button key={item} type="button" onClick={() => setYear(item)} aria-pressed={year === item} className="min-h-11 rounded-full border border-border-strong px-4 font-bold aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-white">{formatGujaratiNumber(item)}</button>)}
             </div>
-            <div className="p-5">
-              <div className="text-[11px] font-bold text-gold-deep">{publication.categoryGu} • {publication.year}</div>
-              <h3 className="mt-2 font-serif text-xl font-bold text-primary-strong">{publication.titleGu} — {publication.editionGu}</h3>
-              <p className="mt-3 text-[13px] leading-6 text-muted-foreground">{publication.descriptionGu}</p>
-              <div className="mt-5 grid grid-cols-2 gap-2">
-                <button type="button" onClick={() => setSelected(publication)} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-primary font-bold text-primary-foreground"><Eye className="h-4 w-4" /> વાંચો</button>
-                <a href={publication.pdfUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border font-bold text-primary hover:bg-surface-soft"><Download className="h-4 w-4" /> PDF</a>
-              </div>
-            </div>
-          </article>
-        ))}
+          </fieldset>
+        </div>
       </div>
-      <PdfViewerModal publication={selected} onClose={() => setSelected(null)} />
-    </>
+
+      <p className="mt-6 text-[15px] text-muted-foreground" aria-live="polite">{year ? `${formatGujaratiNumber(year)}ના ` : ""}{formatGujaratiNumber(filtered.length)} અંક</p>
+      {filtered.length ? (
+        <div className="mt-4 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {filtered.map((publication) => <PublicationCard key={publication.id} publication={publication} />)}
+        </div>
+      ) : (
+        <div className="mt-4 rounded-[1.25rem] border border-dashed border-[#c9ad89] bg-[#fffaf2] px-5 py-12 text-center">
+          <h2 className="font-serif text-2xl font-bold text-primary-strong">આ શોધ માટે કોઈ અંક મળ્યો નથી.</h2>
+          <button type="button" onClick={reset} className="mt-5 min-h-11 rounded-full bg-primary px-5 font-bold text-white">બધા અંક જુઓ</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function PublicationCard({ publication }: { publication: Publication }) {
+  return (
+    <article className="flex min-h-[19rem] flex-col overflow-hidden rounded-[1.25rem] border border-[#d8c4aa] bg-surface shadow-[0_12px_30px_rgba(87,22,33,.06)]">
+      <div className="relative flex min-h-40 flex-col justify-between overflow-hidden border-b border-[#d8c4aa] bg-[#f1e5d3] p-5">
+        <div className="absolute inset-0 pattern-jali opacity-20" />
+        <span className="relative self-start rounded-full border border-[#b99568] bg-[#fffaf2] px-3 py-1 text-[11px] font-bold text-gold-deep">ડિજિટલ આવૃત્તિ</span>
+        <div className="relative mt-7">
+          <h2 className="font-serif text-3xl font-bold text-primary-strong">{publication.titleGu}</h2>
+          {(publication.monthGu || publication.year) && <p className="mt-2 text-base font-bold text-primary">{[publication.monthGu, publication.year && formatGujaratiNumber(publication.year)].filter(Boolean).join(" • ")}</p>}
+        </div>
+      </div>
+      <div className="flex flex-1 flex-col p-5">
+        {publication.editionGu && <p className="text-[14px] text-muted-foreground">{publication.editionGu}</p>}
+        <div className="mt-auto grid grid-cols-2 gap-2 pt-6">
+          <Link href={`/publications/${publication.slug}`} className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary px-3 font-bold text-white">વાંચો</Link>
+          <a href={publication.pdfUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border-strong px-3 font-bold text-primary"><ExternalLink className="size-4" /> PDF ખોલો</a>
+        </div>
+      </div>
+    </article>
   );
 }

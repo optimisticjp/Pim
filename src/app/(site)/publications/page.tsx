@@ -1,24 +1,37 @@
-import { Archive, BookOpenCheck } from "lucide-react";
-import { PublicationGrid } from "@/components/publications/publication-grid";
-import { SectionHeading } from "@/components/ui/section-heading";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { BookOpenText } from "lucide-react";
 
-export const metadata = { title: "પ્રકાશન અને વેદ રહસ્ય" };
+import { PublicationGrid } from "@/components/publications/publication-grid";
+import { getPublicationYears, getVedaRahasyaIssues } from "@/lib/publication-data";
+
+export const metadata: Metadata = {
+  title: "વેદ રહસ્ય ડિજિટલ ગ્રંથાલય",
+  description: "વેદ રહસ્યના ઉપલબ્ધ અંકો વર્ષ પ્રમાણે શોધો, વાંચો અને PDF ખોલો.",
+};
 
 export default function PublicationsPage() {
+  const issues = getVedaRahasyaIssues();
   return (
     <>
       <section className="border-b border-border bg-[#f2e7d7]">
-        <div className="container-site section-pad grid gap-8 lg:grid-cols-[1fr_.8fr] lg:items-center">
-          <div><div className="eyebrow">ડિજિટલ ગ્રંથાલય</div><h1 className="display-title mt-5 text-primary-strong">વેદ રહસ્ય અને આશ્રમના ગ્રંથોને ફરી વાંચવા યોગ્ય બનાવીએ.</h1><p className="body-large mt-6">જૂના PDFને માત્ર download links તરીકે નહીં, વર્ષ, અંક, વિષય અને સંબંધિત સત્સંગ સાથે ગોઠવાયેલ ડિજિટલ વારસો બનાવવાનો આધાર.</p></div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-            <div className="rounded-2xl border border-[#d7c0a1] bg-[#fff9ef] p-5"><BookOpenCheck className="h-6 w-6 text-gold-deep" /><div className="mt-4 font-serif text-xl font-bold text-primary">ઓનલાઇન વાંચન</div><p className="mt-2 text-[13px] leading-6 text-muted-foreground">PDF modal અને નવા ટેબ બંને વિકલ્પ.</p></div>
-            <div className="rounded-2xl border border-[#d7c0a1] bg-[#fff9ef] p-5"><Archive className="h-6 w-6 text-gold-deep" /><div className="mt-4 font-serif text-xl font-bold text-primary">વર્ષવાર archive</div><p className="mt-2 text-[13px] leading-6 text-muted-foreground">R2 migration પછી સતત વધતો સંગ્રહ.</p></div>
+        <div className="container-site py-10 sm:py-14 lg:py-16">
+          <div className="max-w-3xl">
+            <div className="eyebrow">ડિજિટલ ગ્રંથાલય</div>
+            <h1 className="mt-4 font-serif text-4xl font-bold leading-[1.25] text-primary-strong sm:text-5xl">વેદ રહસ્યના અંકો એક જ સ્થાન પર</h1>
+            <p className="body-large mt-4 max-w-2xl">વાંચન, મનન અને સ્વાધ્યાય માટે ઉપલબ્ધ અંકો વર્ષ પ્રમાણે શોધો અને સીધા વાંચો.</p>
           </div>
         </div>
       </section>
-      <section className="section-pad">
-        <div className="container-site"><SectionHeading eyebrow="વેદ રહસ્ય" title="પ્રારંભિક ડિજિટલ અંકો" description="હાલ ઉપલબ્ધ public PDFsથી readerનો અનુભવ તૈયાર છે. મૂળ files એકત્ર થતાં તેમને નિયંત્રિત ડિજિટલ archiveમાં સ્થાનાંતરિત કરી શકાય." /><div className="mt-9"><PublicationGrid /></div></div>
-      </section>
+      <main className="section-pad">
+        <div className="container-site">
+          <div className="flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+            <div><p className="eyebrow">વેદ રહસ્ય</p><h2 className="mt-3 font-serif text-3xl font-bold text-primary-strong">ઉપલબ્ધ અંકો</h2></div>
+            <Link href="/contact?type=publication" className="inline-flex min-h-11 items-center gap-2 self-start rounded-full border border-border-strong bg-surface px-5 font-bold text-primary"><BookOpenText className="size-4" /> પ્રકાશન અંગે પૂછપરછ</Link>
+          </div>
+          <div className="mt-7"><PublicationGrid publications={issues} years={getPublicationYears()} /></div>
+        </div>
+      </main>
     </>
   );
 }

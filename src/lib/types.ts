@@ -104,14 +104,25 @@ export interface EventItem {
   live?: boolean;
 }
 
+export type PublicationKind = "veda-rahasya" | "book" | "letter" | "special" | "other";
+
 export interface Publication {
   id: string;
+  slug: string;
+  kind: PublicationKind;
   titleGu: string;
-  editionGu: string;
-  year: number;
-  categoryGu: string;
+  subtitleGu?: string;
+  editionGu?: string;
+  monthGu?: string;
+  year?: number;
+  descriptionGu?: string;
   pdfUrl: string;
-  descriptionGu: string;
+  coverImageUrl?: string;
+  authorGu?: string;
+  publishedAt?: string;
+  pageCount?: number;
+  featured?: boolean;
+  verified: boolean;
 }
 
 export interface SevaActivity {
