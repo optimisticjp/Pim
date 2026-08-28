@@ -9,7 +9,8 @@ import { SevaCard } from "@/components/cards/seva-card";
 import { HomeHero } from "@/components/sections/home-hero";
 import { MadhavRekha } from "@/components/ui/madhav-rekha";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { events, featuredAshrams, sevaActivities, youtubeChannel, youtubeChannelId } from "@/lib/site-data";
+import { getUpcomingEvents } from "@/lib/event-data";
+import { featuredAshrams, sevaActivities, youtubeChannel, youtubeChannelId } from "@/lib/site-data";
 
 const quickActions = [
   { icon: CalendarDays, label: "આગામી કાર્યક્રમો", note: "તારીખ અને સ્થળ જુઓ", href: "/events" },
@@ -19,6 +20,7 @@ const quickActions = [
 ];
 
 export default function HomePage() {
+  const upcomingEvents = getUpcomingEvents().slice(0, 3);
   return (
     <>
       <HomeHero />
@@ -41,7 +43,7 @@ export default function HomePage() {
             <SectionHeading eyebrow="આગામી કાર્યક્રમ" title="આશ્રમ પરિવાર સાથે જોડાયેલા રહો" description="સત્સંગ, પરંપરાગત કાર્યક્રમ અને સેવાકાર્યની ઉપલબ્ધ માહિતી એક જ સ્થાનેથી મેળવો." />
             <Link href="/events" className="inline-flex min-h-12 items-center gap-2 self-start rounded-full border border-border-strong bg-surface px-5 font-bold text-primary transition hover:bg-surface-soft">બધા કાર્યક્રમો <ArrowRight className="h-4 w-4" /></Link>
           </div>
-          <div className="mt-9 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{events.map((event) => <EventCard key={event.id} event={event} />)}</div>
+          {upcomingEvents.length > 0 ? <div className="mt-9 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{upcomingEvents.map((event) => <EventCard key={event.id} event={event} />)}</div> : <div className="mt-7 flex flex-col gap-4 rounded-[1.25rem] border border-[#dbc9b5] bg-[#fffaf3] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6"><p className="font-serif text-lg font-bold text-primary">હાલ નવી તારીખો જાહેર થવાની બાકી છે.</p><div className="flex flex-col gap-2 sm:flex-row"><Link href="/events" className="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-5 font-bold text-white">કાર્યક્રમ પંચિકા જુઓ</Link><Link href="/satsang" className="inline-flex min-h-11 items-center justify-center rounded-full border border-border-strong px-5 font-bold text-primary">સત્સંગ જુઓ</Link></div></div>}
         </div>
       </section>
 

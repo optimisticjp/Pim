@@ -11,6 +11,10 @@ export function getAshramBySlug(slug: string): Ashram | undefined {
   return ashrams.find((ashram) => ashram.slug === slug);
 }
 
+export function getAshramById(id: string): Ashram | undefined {
+  return ashrams.find((ashram) => ashram.id === id && ashram.verified);
+}
+
 export function getAshramRegions(): AshramRegion[] {
   return Array.from(new Set(ashrams.map((ashram) => ashram.region)));
 }
