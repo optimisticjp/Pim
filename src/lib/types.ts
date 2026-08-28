@@ -159,3 +159,30 @@ export interface InquiryRecord {
   status: "new" | "in_progress" | "resolved";
   createdAt: string;
 }
+
+export type ParticipationTrack = "seva" | "youth" | "both" | "information";
+
+export type SevaInterest =
+  | "gau-seva"
+  | "health"
+  | "food"
+  | "environment"
+  | "sanskar"
+  | "event-support"
+  | "youth-mandal"
+  | "media-digital"
+  | "other";
+
+export interface ParticipationInquiry {
+  id: string;
+  fullName: string;
+  phone: string;
+  city: string;
+  track: ParticipationTrack;
+  interests: SevaInterest[];
+  availability?: string;
+  ashramId?: string;
+  message?: string;
+  status: "new" | "in_progress" | "resolved";
+  createdAt: string;
+}

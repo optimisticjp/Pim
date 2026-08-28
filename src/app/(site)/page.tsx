@@ -82,7 +82,7 @@ export default function HomePage() {
       <section className="section-pad border-y border-border/70">
         <div className="container-site">
           <SectionHeading eyebrow="સેવા એટલે સાધના" title="ભક્તિ જ્યારે સમાજ સુધી પહોંચે" description="સમાજ, પ્રકૃતિ અને નવી પેઢી માટે ચાલતી સેવા પ્રવૃત્તિઓને જાણો અને જોડાવાનો માર્ગ મેળવો." />
-          <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{sevaActivities.map((activity) => <SevaCard key={activity.id} activity={activity} />)}</div>
+          <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{sevaActivities.map((activity, index) => <div key={activity.id} className={index >= 3 ? "hidden sm:block" : ""}><SevaCard activity={activity} /></div>)}</div>
           <Link href="/activities" className="mt-8 inline-flex min-h-12 items-center gap-2 rounded-full border border-border-strong bg-surface px-5 font-bold text-primary">બધી સેવા પ્રવૃત્તિઓ <ArrowRight className="h-4 w-4" /></Link>
         </div>
       </section>

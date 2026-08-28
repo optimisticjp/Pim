@@ -66,6 +66,25 @@ CREATE TABLE IF NOT EXISTS inquiries (
   updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Future production flow: public form -> Turnstile -> server validation -> D1
+-- -> committee inbox -> status/assignment -> optional follow-up.
+CREATE TABLE IF NOT EXISTS participation_inquiries (
+  id TEXT PRIMARY KEY,
+  full_name TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  city TEXT NOT NULL,
+  track TEXT NOT NULL CHECK (track IN ('seva','youth','both','information')),
+  interests_json TEXT NOT NULL DEFAULT '[]',
+  availability TEXT,
+  ashram_id TEXT,
+  message TEXT,
+  status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new','in_progress','resolved')),
+  assigned_to TEXT,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (ashram_id) REFERENCES ashrams(id)
+);
+
 CREATE TABLE IF NOT EXISTS committee_roles (
   email TEXT PRIMARY KEY,
   display_name TEXT,
@@ -88,4 +107,5 @@ CREATE TABLE IF NOT EXISTS audit_log (
 CREATE INDEX IF NOT EXISTS idx_events_status_starts ON events(status, starts_at);
 CREATE INDEX IF NOT EXISTS idx_ashrams_region ON ashrams(region_gu);
 CREATE INDEX IF NOT EXISTS idx_inquiries_status_created ON inquiries(status, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_participation_status_created ON participation_inquiries(status, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_publications_year ON publications(year DESC);

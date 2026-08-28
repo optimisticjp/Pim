@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, Radio, X } from "lucide-react";
+import { Home, Menu, Radio, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
@@ -31,17 +31,17 @@ function NavbarContent({ pathname }: { pathname: string }) {
 
         <nav className="hidden items-center gap-1 xl:flex" aria-label="મુખ્ય નેવિગેશન">
           {navItems.map((item) => {
-            const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+            const active = item.href === "/" ? pathname === "/" : pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "rounded-full px-3.5 py-2 text-[14px] font-semibold transition hover:bg-primary/7 hover:text-primary",
+                  "inline-flex items-center gap-1.5 rounded-full px-2.5 py-2 text-[14px] font-semibold whitespace-nowrap transition hover:bg-primary/7 hover:text-primary 2xl:px-3",
                   active ? "bg-primary/9 text-primary" : "text-[#5d514a]",
                 )}
               >
-                {item.label}
+                {item.href === "/" ? <Home className="h-3.5 w-3.5" aria-hidden="true" /> : null}{item.label}
               </Link>
             );
           })}
@@ -70,19 +70,22 @@ function NavbarContent({ pathname }: { pathname: string }) {
       {open ? (
         <div id="mobile-menu" className="border-t border-border bg-[#fbf7ef] px-3 pb-5 pt-3 xl:hidden">
           <nav className="container-site grid gap-1" aria-label="મોબાઇલ નેવિગેશન">
-            {navItems.map((item) => (
+            {navItems.map((item) => {
+              const active = item.href === "/" ? pathname === "/" : pathname === item.href || pathname.startsWith(`${item.href}/`);
+              return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
                   "flex min-h-12 items-center justify-between rounded-xl px-4 text-[16px] font-semibold",
-                  pathname === item.href ? "bg-primary text-primary-foreground" : "hover:bg-surface-soft",
+                  active ? "bg-primary text-primary-foreground" : "hover:bg-surface-soft",
                 )}
               >
-                {item.label}
+                <span className="flex items-center gap-2">{item.href === "/" ? <Home className="h-4 w-4" aria-hidden="true" /> : null}{item.label}</span>
                 <span aria-hidden="true" className="text-gold">›</span>
               </Link>
-            ))}
+              );
+            })}
             <Link href="/satsang" className="mt-2 flex min-h-12 items-center justify-center gap-2 rounded-xl bg-primary px-4 font-bold text-primary-foreground">
               <Radio className="h-4 w-4" /> અધિકૃત સત્સંગ ચેનલ
             </Link>
