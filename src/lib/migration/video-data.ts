@@ -8,3 +8,7 @@ export const historicalVideoCollections: HistoricalVideoCollection[] = [
   { id: "jagdishanandji-videsh-yatra-2011", titleGu: "શ્રી જગદીશાનંદ સાગરજી મહારાજની વિદેશ યાત્રા", sourceTitleEn: "Shree Jagdishanand Sagarji Maharaj's Videsh Yatra", contextGu: "૨૦૧૧", videoCount: 6, sourceUrl: "https://omshreemadhavanandji.org/video_list.php?vgid=2", relatedGuruId: "jagdishanandji", source },
   { id: "with-swami-shree", titleGu: "સ્વામી શ્રી સાથે", sourceTitleEn: "With Swami Shree", videoCount: 3, sourceUrl: "https://omshreemadhavanandji.org/video_list.php?vgid=1", source },
 ];
+
+import historicalVideos from "@/data/historical-videos.json";
+export interface HistoricalVideo { id: string; youtubeId: string; youtubeUrl: string; title: string; duration?: string; context?: string; collectionId: number; sourceUrl: string }
+export const historicalVideoRecords: HistoricalVideo[] = historicalVideos.map((video) => ({ ...video, youtubeId: video.id }));

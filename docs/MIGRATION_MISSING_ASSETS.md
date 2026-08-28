@@ -1,18 +1,22 @@
 # Migration retrieval and missing-asset log
 
-Audit date: 2026-08-28.
+Audit date: 2026-08-28. See `src/data/source-crawl.json` and `src/data/source-assets-check.json` for the complete machine-readable results.
 
-| URL / request | Result | Public impact | Follow-up |
-|---|---|---|---|
-| `https://sachchidanandmadhavanand.org/` | CONNECT tunnel failed, proxy response 403 | No current-site content newly migrated | Re-run from network-enabled environment |
-| Current-site `/robots.txt` and `/sitemap.xml` | CONNECT tunnel failed, proxy response 403 | Navigation inventory unavailable | Re-run controlled audit script |
-| `https://omshreemadhavanandji.org/home.php` | CONNECT tunnel failed, proxy response 403 | No new heritage media downloaded | Re-run from network-enabled environment |
-| `http://omshreemadhavanandji.org/home.php` | HTTP 403 `Forbidden` | HTTP fallback unavailable | Do not bypass access controls |
-| Legacy `/robots.txt` and `/sitemap.xml` | CONNECT tunnel failed, proxy response 403 | Full archive inventory unavailable | Re-run controlled audit script |
-| Web browsing service | 401 Unauthorized | Search-index fallback unavailable | Use authenticated browsing environment |
+## Crawl failures
 
-The three repository-known PDF URLs remain public links but could not be live-checked here. The UI does not reference any newly discovered image, audio, or document URL, so no new broken media is knowingly shipped.
+The bounded crawl completed 160 distinct pages (60 current, 100 legacy) and recorded 24 failures. The current host returned HTTP 503 intermittently for 22 attempted pages after sustained bounded crawling. The current `/publication` and `/download` paths returned HTTP 404; their working equivalents are `/publications` and the discoverable download/audio content pages. Failures remain in the manifest rather than being silently omitted.
 
-## Externally audited URLs used after the blocked crawl
+## Validated assets
 
-The 17 exact Guru portrait URLs supplied by the external audit are now recorded as `staging-remote-review-required`. Local download attempts again received CONNECT proxy `403`, so no corrupt placeholder files were committed. The UI uses a BrandMark fallback on load failure. The 46 source-listed PDF URLs use the confirmed legacy convention and remain remote pending availability and rights validation.
+- All 17 Guru portrait URLs remain distinct remote staging records.
+- All 46 legacy Veda Rahasya PDFs returned valid PDF content.
+- Six flagship legacy Ashram exterior photographs remain available, with stronger current image sets recorded for Surat, Chanod, Sughad, Akru, and Haridwar.
+- Nineteen historical letter scans are recorded remotely and grouped into ten letter records.
+- Twelve source-named photo albums and 42 individual historical YouTube IDs are structured.
+- Seven real Books & Magazines records retain their covers; their legacy download-handler URLs returned HTML and are therefore not exposed as PDF buttons.
+
+## Deferred or unavailable
+
+- Direct YouTube checks were blocked by the environment CONNECT proxy; IDs were extracted from successfully retrieved organizational video-list HTML.
+- Some current-host PDF/audio checks received transient HTTP 503 responses during validation and remain documented rather than promoted as confirmed downloads.
+- Large PDFs, audio, scans, and images remain remote. High-value approved media will move to Cloudflare R2 in the dedicated storage pass; Git remains text-only.
