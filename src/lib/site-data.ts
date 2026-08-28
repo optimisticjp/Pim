@@ -1,9 +1,18 @@
-import type { Ashram, EventItem, NavItem, Publication, SevaActivity } from "@/lib/types";
+import type { Ashram, EventItem, NavItem, Publication, SatsangSeries, SevaActivity } from "@/lib/types";
 
 export const siteName = "શ્રી માધવાનંદ આશ્રમ";
 export const invocation = "॥ ૐ શ્રી સચ્ચિદાનંદ પરબ્રહ્મણે નમઃ ॥";
 export const youtubeChannel = "https://www.youtube.com/@SachchidanandMadhavanand/";
 export const youtubeChannelId = "UCSG8rbkV8b4z-bmm9wLwuTA";
+
+export const satsangSeries: SatsangSeries[] = [
+  { id: "nitya-karma", slug: "nitya-karma", titleGu: "દૈનિક નિત્યકર્મ", descriptionGu: "પાઠ અને ઉપાસના", category: "nitya-karma", verified: false },
+  { id: "guru-gita", slug: "guru-gita", titleGu: "ગુરુ ગીતા", descriptionGu: "પાઠ અને ગુરુતત્ત્વ", category: "guru-gita", verified: false },
+  { id: "katha", slug: "katha", titleGu: "કથા અને જ્ઞાનયજ્ઞ", descriptionGu: "કથા અને આધ્યાત્મિક સ્વાધ્યાય", category: "katha", verified: false },
+  { id: "bhajan", slug: "bhajan", titleGu: "સંતવાણી અને ભજન", descriptionGu: "ભક્તિ, સ્તોત્ર અને સ્મરણ", category: "bhajan", verified: false },
+  { id: "chaturmas", slug: "chaturmas", titleGu: "ચાતુર્માસ", descriptionGu: "વિશેષ સત્સંગ શ્રેણીઓ", category: "chaturmas", verified: false },
+  { id: "latest", slug: "latest", titleGu: "તાજા સત્સંગ", descriptionGu: "અધિકૃત ચેનલના નવા પ્રકાશન", category: "pravachan", verified: true, featured: true },
+];
 
 export const navItems: NavItem[] = [
   { label: "ગુરુપરંપરા", href: "/parampara" },

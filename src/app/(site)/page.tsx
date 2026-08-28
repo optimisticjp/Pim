@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, BookOpenText, CalendarDays, Camera, HeartHandshake, Landmark, MapPin, Radio, ScrollText } from "lucide-react";
 
 import { YouTubeMark } from "@/components/icons/youtube-mark";
+import { YouTubeFacade } from "@/components/media/youtube-facade";
 import { AshramCard } from "@/components/cards/ashram-card";
 import { EventCard } from "@/components/cards/event-card";
 import { SevaCard } from "@/components/cards/seva-card";
@@ -62,11 +63,7 @@ export default function HomePage() {
               <a href={youtubeChannel} target="_blank" rel="noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 font-bold text-white"><YouTubeMark className="h-4 w-4" /> YouTube ચેનલ</a>
             </div>
           </div>
-          <div className="overflow-hidden rounded-[1.5rem] border border-white/15 bg-black shadow-[0_28px_70px_rgba(0,0,0,.3)]">
-            <div className="aspect-video">
-              <iframe className="h-full w-full" src={`https://www.youtube-nocookie.com/embed/videoseries?list=UU${youtubeChannelId.slice(2)}`} title="શ્રી માધવાનંદ આશ્રમના તાજા સત્સંગ" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
-            </div>
-          </div>
+          <YouTubeFacade playlistId={`UU${youtubeChannelId.slice(2)}`} title="શ્રી માધવાનંદ આશ્રમના તાજા સત્સંગ" compact />
         </div>
       </section>
 

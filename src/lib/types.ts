@@ -43,6 +43,57 @@ export interface Ashram {
   descriptionGu?: string;
 }
 
+export type SatsangCategory =
+  | "nitya-karma"
+  | "guru-gita"
+  | "katha"
+  | "bhajan"
+  | "chaturmas"
+  | "pravachan"
+  | "festival"
+  | "other";
+
+export type SatsangMediaType = "video" | "audio";
+
+export interface SatsangLiveStatus {
+  isLive: boolean;
+  videoId?: string;
+  titleGu?: string;
+  startedAt?: string;
+}
+
+export interface SatsangSeries {
+  id: string;
+  slug: string;
+  titleGu: string;
+  descriptionGu?: string;
+  category: SatsangCategory;
+  youtubePlaylistId?: string;
+  youtubeUrl?: string;
+  coverImage?: string;
+  featured?: boolean;
+  verified: boolean;
+}
+
+export interface SatsangVideo {
+  id: string;
+  youtubeVideoId: string;
+  titleGu: string;
+  seriesId?: string;
+  speakerId?: string;
+  eventId?: string;
+  publishedAt?: string;
+  mediaType: SatsangMediaType;
+  audioUrl?: string;
+  durationSeconds?: number;
+  featured?: boolean;
+  verified: boolean;
+  verified: boolean;
+  verificationDate?: string;
+  featured?: boolean;
+  descriptionGu?: string;
+}
+
 export interface EventItem {
   id: string;
   titleGu: string;
