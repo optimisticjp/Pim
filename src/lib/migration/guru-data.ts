@@ -7,6 +7,8 @@ export interface GuruProfile {
   sourceTitleEn: string;
   qualificationGu?: string;
   portraitUrl: string;
+  originalAssetUrl: string;
+  localPath: string | null;
   source: SourceReference;
 }
 
@@ -32,6 +34,10 @@ export const guruProfiles: GuruProfile[] = [
   ["devanandji", "સ્વામી શ્રી દેવાનંદ સાગરજી મહારાજ", "Swami Shree Devanand Sagarji Maharaj"],
   ["dayanandji", "સ્વામી શ્રી દયાનંદ સાગરજી મહારાજ", "Swami Shree Dayanand Sagarji Maharaj"],
   ["ganeshanandji", "સ્વામી શ્રી ગણેશાનંદ સાગરજી મહારાજ", "Swami Shree Ganeshanand Sagarji Maharaj"],
-].map(([id, nameGu, sourceTitleEn, qualificationGu]) => ({ id, slug: id, nameGu, sourceTitleEn, qualificationGu, portraitUrl: portrait(id), source }));
+].map(([id, nameGu, sourceTitleEn, qualificationGu]) => {
+  const originalAssetUrl = portrait(id);
+  const localPath = null;
+  return { id, slug: id, nameGu, sourceTitleEn, qualificationGu, portraitUrl: originalAssetUrl, originalAssetUrl, localPath, source };
+});
 
 export const featuredGuruProfiles = guruProfiles.slice(0, 6);

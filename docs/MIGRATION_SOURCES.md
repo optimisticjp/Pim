@@ -124,3 +124,15 @@ No verified repository contact detail was overwritten. The Akru PIN remains omit
 ## Exclusions and next action
 
 Legacy PHP/theme/code, vendor art, junk links, train information, obsolete apps, and tracking assets are excluded. Next, obtain approved original portraits/PDFs and migrate them to local optimized media/R2; then separately audit the current site when accessible.
+
+## Current official website audit — live pass, 2026-08-28
+
+The bounded crawler reached the current official homepage over HTTPS and recorded its title, internal navigation, 26 image references, and official YouTube reference in `src/data/source-crawl.json`. The homepage did not provide sufficiently unambiguous evidence to supersede repository contact or leadership fields in this pass; those public values therefore remain unchanged. A deeper run remains appropriate because the host intermittently stalls under repeated automated requests.
+
+## Legacy website live audit — 2026-08-28
+
+The legacy homepage and targeted organizational assets were reached successfully. The live homepage exposed 45 distinct image references, including the six flagship Ashram exterior images. All 17 named portraits from `about_us.php` returned real 280×200 JPEG images, had distinct SHA-256 hashes, and were validated and retained as remote staging references. The 46 Veda Rahasya PDF URLs were checked individually: all 46 returned successful PDF responses. The crawl and validation artifacts are committed as `source-crawl.json` and `source-assets-check.json`.
+
+## Source conflict audit
+
+No stronger live evidence was found to replace the repository's main Ashram name, Surat address, phone, email, leadership title, social links, or branch contacts. The current host remains authoritative for future current-information changes; the legacy host remains the archival authority. The official YouTube handle agrees with the repository record. The legacy logo was not substituted for the existing BrandMark because no higher-quality current seal was established.

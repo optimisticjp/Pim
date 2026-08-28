@@ -6,7 +6,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "madhavanandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/madhavanandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "madhavanandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-chidanandji-portrait",
@@ -15,7 +20,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "chidanandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/chidanandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "chidanandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-shivohamji-portrait",
@@ -24,7 +34,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "shivohamji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/shivohamji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "shivohamji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-akhandanandji-portrait",
@@ -33,7 +48,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "akhandanandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/akhandanandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "akhandanandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-jagdishanandji-portrait",
@@ -42,7 +62,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "jagdishanandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/jagdishanandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "jagdishanandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-prakashanandji-portrait",
@@ -51,7 +76,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "prakashanandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/prakashanandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "prakashanandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-hareshanandji-portrait",
@@ -60,7 +90,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "hareshanandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/hareshanandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "hareshanandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-vivekanandji-portrait",
@@ -69,7 +104,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "vivekanandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/vivekanandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "vivekanandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-bhumanandji-portrait",
@@ -78,7 +118,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "bhumanandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/bhumanandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "bhumanandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-mohananandji-portrait",
@@ -87,7 +132,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "mohananandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/mohananandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "mohananandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-sureshwaranandji-portrait",
@@ -96,7 +146,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "sureshwaranandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/sureshwaranandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "sureshwaranandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-brahmanandji-portrait",
@@ -105,7 +160,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "brahmanandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/brahmanandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "brahmanandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-hariharanandji-portrait",
@@ -114,7 +174,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "hariharanandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/hariharanandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "hariharanandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-jayanandji-portrait",
@@ -123,7 +188,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "jayanandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/jayanandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "jayanandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-devanandji-portrait",
@@ -132,7 +202,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "devanandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/devanandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "devanandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-dayanandji-portrait",
@@ -141,7 +216,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "dayanandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/dayanandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "dayanandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "guru-ganeshanandji-portrait",
@@ -150,7 +230,12 @@
     "type": "photo",
     "localPath": null,
     "relatedEntity": "ganeshanandji",
-    "status": "staging-remote-review-required"
+    "status": "remote-staging",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/swamiji/ganeshanandji.jpg",
+    "sourcePage": "https://omshreemadhavanandji.org/about_us.php",
+    "entity": "ganeshanandji",
+    "width": 280,
+    "height": 200
   },
   {
     "id": "veda-rahasya-july-2014-pdf",
@@ -574,5 +659,77 @@
     "localPath": null,
     "relatedEntity": "satsang",
     "status": "repository-supplied-review-required"
+  },
+  {
+    "id": "ashram-surat-exterior",
+    "sourceUrl": "https://omshreemadhavanandji.org/home.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/ashram/surat/img_front.jpg",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/ashram/surat/img_front.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "surat",
+    "entity": "surat",
+    "status": "remote-staging",
+    "sourcePage": "https://omshreemadhavanandji.org/home.php"
+  },
+  {
+    "id": "ashram-chanod-exterior",
+    "sourceUrl": "https://omshreemadhavanandji.org/home.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/ashram/chanod/img_front.jpg",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/ashram/chanod/img_front.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "chanod",
+    "entity": "chanod",
+    "status": "remote-staging",
+    "sourcePage": "https://omshreemadhavanandji.org/home.php"
+  },
+  {
+    "id": "ashram-sughad-exterior",
+    "sourceUrl": "https://omshreemadhavanandji.org/home.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/ashram/sughad/img_front.jpg",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/ashram/sughad/img_front.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "sughad",
+    "entity": "sughad",
+    "status": "remote-staging",
+    "sourcePage": "https://omshreemadhavanandji.org/home.php"
+  },
+  {
+    "id": "ashram-bhavnagar-exterior",
+    "sourceUrl": "https://omshreemadhavanandji.org/home.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/ashram/bhavnagar/img_front.jpg",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/ashram/bhavnagar/img_front.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "bhavnagar",
+    "entity": "bhavnagar",
+    "status": "remote-staging",
+    "sourcePage": "https://omshreemadhavanandji.org/home.php"
+  },
+  {
+    "id": "ashram-akru-exterior",
+    "sourceUrl": "https://omshreemadhavanandji.org/home.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/ashram/akru/img_front.jpg",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/ashram/akru/img_front.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "akru",
+    "entity": "akru",
+    "status": "remote-staging",
+    "sourcePage": "https://omshreemadhavanandji.org/home.php"
+  },
+  {
+    "id": "ashram-haridwar-exterior",
+    "sourceUrl": "https://omshreemadhavanandji.org/home.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/ashram/haridwar/img_front.jpg",
+    "originalAssetUrl": "https://omshreemadhavanandji.org/content/ashram/haridwar/img_front.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "haridwar",
+    "entity": "haridwar",
+    "status": "remote-staging",
+    "sourcePage": "https://omshreemadhavanandji.org/home.php"
   }
 ]

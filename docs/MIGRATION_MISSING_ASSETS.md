@@ -2,17 +2,16 @@
 
 Audit date: 2026-08-28.
 
-| URL / request | Result | Public impact | Follow-up |
-|---|---|---|---|
-| `https://sachchidanandmadhavanand.org/` | CONNECT tunnel failed, proxy response 403 | No current-site content newly migrated | Re-run from network-enabled environment |
-| Current-site `/robots.txt` and `/sitemap.xml` | CONNECT tunnel failed, proxy response 403 | Navigation inventory unavailable | Re-run controlled audit script |
-| `https://omshreemadhavanandji.org/home.php` | CONNECT tunnel failed, proxy response 403 | No new heritage media downloaded | Re-run from network-enabled environment |
-| `http://omshreemadhavanandji.org/home.php` | HTTP 403 `Forbidden` | HTTP fallback unavailable | Do not bypass access controls |
-| Legacy `/robots.txt` and `/sitemap.xml` | CONNECT tunnel failed, proxy response 403 | Full archive inventory unavailable | Re-run controlled audit script |
-| Web browsing service | 401 Unauthorized | Search-index fallback unavailable | Use authenticated browsing environment |
+Both organizational hosts were reachable during this pass. The current host intermittently stalled during recursive requests, so the committed bounded manifest records the successful live homepage pass and the crawler remains reusable for a later expanded run.
 
-The three repository-known PDF URLs remain public links but could not be live-checked here. The UI does not reference any newly discovered image, audio, or document URL, so no new broken media is knowingly shipped.
+## Validated assets
 
-## Externally audited URLs used after the blocked crawl
+- All 17 Guru portrait URLs returned distinct, usable 280×200 JPEG images and remain validated remote staging references.
+- All 46 Veda Rahasya URLs returned successful PDF content; no PDF button needs suppression from this check.
+- Six flagship Ashram exterior photographs returned valid images and remain validated remote staging references.
 
-The 17 exact Guru portrait URLs supplied by the external audit are now recorded as `staging-remote-review-required`. Local download attempts again received CONNECT proxy `403`, so no corrupt placeholder files were committed. The UI uses a BrandMark fallback on load failure. The 46 source-listed PDF URLs use the confirmed legacy convention and remain remote pending availability and rights validation.
+## Still missing or deferred
+
+- Individual historical letter scan URLs were not established; no scan buttons or invented thumbnails are exposed.
+- Individual YouTube IDs, publication book covers, devotional audio, wallpapers, event posters, Sevak/Yuvak photographs, and deeper gallery albums require another targeted extraction pass.
+- Large PDFs remain remote by policy; future approved R2 copies are deferred.
