@@ -1,9 +1,18 @@
-import type { Ashram, EventItem, NavItem, Publication, SevaActivity } from "@/lib/types";
+import type { Ashram, EventItem, NavItem, Publication, SatsangSeries, SevaActivity } from "@/lib/types";
 
 export const siteName = "શ્રી માધવાનંદ આશ્રમ";
 export const invocation = "॥ ૐ શ્રી સચ્ચિદાનંદ પરબ્રહ્મણે નમઃ ॥";
 export const youtubeChannel = "https://www.youtube.com/@SachchidanandMadhavanand/";
 export const youtubeChannelId = "UCSG8rbkV8b4z-bmm9wLwuTA";
+
+export const satsangSeries: SatsangSeries[] = [
+  { id: "nitya-karma", slug: "nitya-karma", titleGu: "દૈનિક નિત્યકર્મ", descriptionGu: "પાઠ અને ઉપાસના", category: "nitya-karma", verified: false },
+  { id: "guru-gita", slug: "guru-gita", titleGu: "ગુરુ ગીતા", descriptionGu: "પાઠ અને ગુરુતત્ત્વ", category: "guru-gita", verified: false },
+  { id: "katha", slug: "katha", titleGu: "કથા અને જ્ઞાનયજ્ઞ", descriptionGu: "કથા અને આધ્યાત્મિક સ્વાધ્યાય", category: "katha", verified: false },
+  { id: "bhajan", slug: "bhajan", titleGu: "સંતવાણી અને ભજન", descriptionGu: "ભક્તિ, સ્તોત્ર અને સ્મરણ", category: "bhajan", verified: false },
+  { id: "chaturmas", slug: "chaturmas", titleGu: "ચાતુર્માસ", descriptionGu: "વિશેષ સત્સંગ શ્રેણીઓ", category: "chaturmas", verified: false },
+  { id: "latest", slug: "latest", titleGu: "તાજા સત્સંગ", descriptionGu: "અધિકૃત ચેનલના નવા પ્રકાશન", category: "pravachan", verified: true, featured: true },
+];
 
 export const navItems: NavItem[] = [
   { label: "ગુરુપરંપરા", href: "/parampara" },
@@ -14,9 +23,6 @@ export const navItems: NavItem[] = [
   { label: "કાર્યક્રમો", href: "/events" },
   { label: "સંપર્ક", href: "/contact" },
 ];
-
-const maps = (query: string) =>
-  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 
 const branch = (
   id: string,
@@ -31,7 +37,6 @@ const branch = (
   localityGu,
   region,
   verified,
-  mapUrl: maps(`Shree Madhavanand Ashram ${localityGu}`),
 });
 
 export const ashrams: Ashram[] = [
@@ -39,11 +44,11 @@ export const ashrams: Ashram[] = [
     id: "surat",
     slug: "surat",
     nameGu: "શ્રી માધવાનંદ આશ્રમ — સુરત",
+    nameEn: "Shree Madhavanand Ashram Surat",
     localityGu: "ઉદયનગર-૧, કતારગામ રોડ, સુરત",
     region: "મુખ્ય કેન્દ્ર",
     addressGu: "ઉદયનગર-૧, કતારગામ રોડ, સુરત, ગુજરાત — ૩૯૫૦૦૪",
     phone: "+91 261 2534610",
-    mapUrl: maps("Shree Madhavanand Ashram Udaynagar 1 Katargam Road Surat 395004"),
     verified: true,
     featured: true,
   },
@@ -51,11 +56,11 @@ export const ashrams: Ashram[] = [
     id: "chanod",
     slug: "chanod",
     nameGu: "શ્રી માધવાનંદ આશ્રમ — ચાણોદ",
+    nameEn: "Shree Madhavanand Ashram Chanod",
     localityGu: "દયારામપુરી, તા. ડભોઇ, જી. વડોદરા",
     region: "મધ્ય ગુજરાત",
     addressGu: "દયારામપુરી, ચાણોદ, તા. ડભોઇ, જી. વડોદરા, ગુજરાત — ૩૯૧૧૦૫",
     phone: "+91 2663 233362",
-    mapUrl: maps("Shree Madhavanand Ashram Dayarampuri Chanod Vadodara 391105"),
     verified: true,
     featured: true,
   },
@@ -63,11 +68,11 @@ export const ashrams: Ashram[] = [
     id: "sughad",
     slug: "sughad",
     nameGu: "આંતરરાષ્ટ્રીય શ્રી માધવાનંદ આશ્રમ — સુઘડ",
+    nameEn: "International Shree Madhavanand Ashram Sughad",
     localityGu: "ઇન્દિરા બ્રિજ નજીક, કોબા સર્કલ, ગાંધીનગર",
     region: "મધ્ય ગુજરાત",
     addressGu: "ઇન્દિરા બ્રિજ, નર્મદા મુખ્ય કેનાલ નજીક, કોબા સર્કલ, સુઘડ, ગાંધીનગર — ૩૮૨૪૨૪",
     phone: "+91 79 23276151",
-    mapUrl: maps("International Shree Madhavanand Ashram Sughad Gandhinagar 382424"),
     verified: true,
     featured: true,
   },
@@ -75,11 +80,11 @@ export const ashrams: Ashram[] = [
     id: "bhavnagar",
     slug: "bhavnagar",
     nameGu: "શ્રી માધવાનંદ આશ્રમ — ભાવનગર",
+    nameEn: "Shree Madhavanand Ashram Bhavnagar",
     localityGu: "પટેલ પાર્ક, ન્યૂ એરોડ્રમ રોડ, ભાવનગર",
     region: "સૌરાષ્ટ્ર",
     addressGu: "૧૦૮૫ પટેલ પાર્ક, ન્યૂ એરોડ્રમ રોડ, ભાવનગર, ગુજરાત — ૩૬૪૦૦૧",
     phone: "+91 278 2201399",
-    mapUrl: maps("Shree Madhavanand Ashram 1085 Patel Park New Aerodrum Road Bhavnagar 364001"),
     verified: true,
     featured: true,
   },
@@ -87,11 +92,11 @@ export const ashrams: Ashram[] = [
     id: "akru",
     slug: "akru",
     nameGu: "શ્રી માધવાનંદ આશ્રમ — આકરુ",
+    nameEn: "Shree Madhavanand Ashram Akru",
     localityGu: "તા. ધંધુકા, જી. અમદાવાદ",
     region: "સૌરાષ્ટ્ર",
     addressGu: "આકરુ, તા. ધંધુકા, જી. અમદાવાદ, ગુજરાત",
     phone: "+91 2713 232633",
-    mapUrl: maps("Shree Madhavanand Ashram Akru Dhandhuka Gujarat"),
     verified: true,
     featured: true,
   },
@@ -99,11 +104,11 @@ export const ashrams: Ashram[] = [
     id: "haridwar",
     slug: "haridwar",
     nameGu: "શ્રી માધવાનંદ આશ્રમ — હરિદ્વાર",
+    nameEn: "Shree Madhavanand Ashram Haridwar",
     localityGu: "દક્ષેશ્વર રોડ, જગજીતપુર, કનખલ",
     region: "ઉત્તર ભારત",
     addressGu: "દક્ષેશ્વર રોડ, જગજીતપુર, કનખલ, હરિદ્વાર, ઉત્તરાખંડ — ૨૪૯૪૦૮",
     phone: "+91 1334 246675",
-    mapUrl: maps("Shree Madhavanand Ashram Daksheswar Road Jagjitpur Kankhal Haridwar 249408"),
     verified: true,
     featured: true,
   },
