@@ -40,13 +40,12 @@ export default async function PublicationPage({ params }: Props) {
             {publication.descriptionGu && <p className="body-large mt-4">{publication.descriptionGu}</p>}
           </div>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a href="#reader" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-primary px-5 font-bold text-white"><FileText className="size-4" /> વાંચો</a>
-            <a href={publication.pdfUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-border-strong bg-surface px-5 font-bold text-primary"><ExternalLink className="size-4" /> PDF નવા ટેબમાં ખોલો</a>
+            {publication.pdfUrl && <><a href="#reader" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-primary px-5 font-bold text-white"><FileText className="size-4" /> વાંચો</a><a href={publication.pdfUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-border-strong bg-surface px-5 font-bold text-primary"><ExternalLink className="size-4" /> PDF નવા ટેબમાં ખોલો</a></>}
             <SharePublication title={publication.titleGu} />
           </div>
         </div>
       </section>
-      <section id="reader" className="section-pad scroll-mt-24">
+      {publication.pdfUrl ? <section id="reader" className="section-pad scroll-mt-24">
         <div className="container-site">
           <div className="mb-5"><h2 className="font-serif text-3xl font-bold text-primary-strong">અંક વાંચો</h2><p className="mt-2 text-[15px] leading-7 text-muted-foreground">જો અહીં PDF ન દેખાય, તો ઉપરના બટનથી તેને નવા ટેબમાં ખોલો.</p></div>
           <div className="hidden overflow-hidden rounded-[1.25rem] border border-border-strong bg-[#ece8e1] shadow-sm sm:block">
@@ -57,7 +56,7 @@ export default async function PublicationPage({ params }: Props) {
             <a href={publication.pdfUrl} target="_blank" rel="noreferrer" className="mt-4 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 font-bold text-white"><ExternalLink className="size-4" /> PDF ખોલો</a>
           </div>
         </div>
-      </section>
+      </section> : <section className="section-pad"><div className="container-site grid gap-6 lg:grid-cols-[.7fr_1.3fr]"><div className="aspect-[4/5] max-w-sm rounded-[1.5rem] border border-[#c9ad89] bg-[#f1e5d3] p-6 pattern-jali"><div className="flex h-full items-end rounded-xl border border-primary/15 bg-[#fffaf2]/90 p-6"><div><p className="eyebrow">આધ્યાત્મિક વાંચન</p><h2 className="mt-3 font-serif text-3xl font-bold text-primary">{publication.titleGu}</h2></div></div></div><div className="self-center"><h2 className="font-serif text-3xl font-bold text-primary-strong">વાંચનનો પરિચય</h2><p className="mt-4 text-[17px] leading-8 text-muted-foreground">{publication.descriptionGu}</p><Link href="/contact?type=publication" className="mt-6 inline-flex min-h-12 items-center rounded-full bg-primary px-5 font-bold text-white">પ્રકાશન અંગે પૂછપરછ</Link></div></div></section>}
       {related.length > 0 && <section className="section-pad border-t border-border bg-[#f2e7d7]"><div className="container-site"><h2 className="font-serif text-3xl font-bold text-primary-strong">આ જ વર્ષના અન્ય અંકો</h2><div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">{related.map((item) => <PublicationCard key={item.id} publication={item} />)}</div></div></section>}
     </main>
   );

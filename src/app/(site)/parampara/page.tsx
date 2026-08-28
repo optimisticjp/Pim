@@ -1,78 +1,55 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Clock3, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, HeartHandshake, Landmark, Leaf, Radio, ScrollText, Sparkles } from "lucide-react";
 
+import { BrandMark } from "@/components/ui/brand-mark";
 import { MadhavRekha } from "@/components/ui/madhav-rekha";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { currentGuidance, heritageModules, paramparaLife } from "@/lib/prototype-content";
+import { featuredAshrams } from "@/lib/site-data";
 
-export const metadata = { title: "ગુરુપરંપરા અને પરિચય" };
+export const metadata: Metadata = { title: "ગુરુપરંપરા અને આશ્રમ પરિચય", description: "વેદ-ઉપનિષદ, ગુરુભક્તિ, સાધના અને સેવાથી જીવંત શ્રી માધવાનંદજી મહારાજની સદ્‌ગુરુ પરંપરા અને આશ્રમ પરિવારનો પરિચય." };
+
+const journey = [
+  ["બાળવયનો વૈરાગ્ય", "ઉપલબ્ધ જાહેર વર્ણન મુજબ શ્રી માધવાનંદજી મહારાજે ૧૨ વર્ષની વયે ઘરત્યાગ કરી આધ્યાત્મિક માર્ગ સ્વીકાર્યો."],
+  ["જ્ઞાનની શોધ", "અંતર્મુખ સાધના સાથે જ્ઞાનના ઊંડા અધ્યયન તરફ યાત્રા આગળ વધી."],
+  ["કાશીનું અધ્યયન", "કાશીમાં આશરે ૧૨ વર્ષ રહી વેદ અને ઉપનિષદનો અભ્યાસ કર્યો હોવાનો જાહેર ઉલ્લેખ મળે છે."],
+  ["વેદાંતની દિશા", "વેદાંતનું જ્ઞાન માત્ર વાંચન નહીં, પણ વિચાર અને આચરણની દિશા બને છે."],
+  ["ગુરુભક્તિ અને સાધના", "શ્રદ્ધા, સ્મરણ, સ્વાધ્યાય અને સાધનાથી પરંપરાનો ભાવ દૈનિક જીવનમાં ઉતરે છે."],
+  ["સેવામાં વિસ્તરતો ભાવ", "માનવસેવા, જીવદયા અને આશ્રમ પરિવાર સાથેનું જોડાણ ભક્તિને સમૂહજીવન સુધી લઈ જાય છે."],
+] as const;
+const paths = [
+  [Radio, "સત્સંગ", "પાઠ, કથા અને પ્રવચન સાથે નિયમિત જોડાણ.", "/satsang"], [Landmark, "આશ્રમ", "નજીકના આશ્રમ પરિવાર અને કેન્દ્રો શોધો.", "/ashrams"], [HeartHandshake, "સેવા", "ભક્તિને સમાજ અને પ્રકૃતિ સુધી પહોંચાડો.", "/activities"], [BookOpen, "પ્રકાશન", "વેદ રહસ્ય અને આધ્યાત્મિક વાંચન મેળવો.", "/publications"],
+] as const;
 
 export default function ParamparaPage() {
-  return (
-    <>
-      <section className="border-b border-border bg-[#f3e7d6]">
-        <div className="container-site section-pad grid gap-10 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
-          <div>
-            <div className="eyebrow">પરિચય અને પરંપરા</div>
-            <h1 className="display-title mt-5 text-primary-strong">ગુરુપરંપરા એટલે જ્ઞાનનો વારસો, જીવનમાં ઉતારવાની જવાબદારી.</h1>
-            <p className="body-large mt-6">શ્રી માધવાનંદજી મહારાજથી શરૂ થયેલી આશરે બે સદી જૂની પરંપરાને વેદ-ઉપનિષદના જ્ઞાન, સાધના, ભક્તિ અને સેવાભાવ સાથે સમજાવતો વિભાગ.</p>
-          </div>
-          <div className="arch-frame pattern-jali border border-primary/15 bg-primary p-6 pt-20 text-primary-foreground sm:p-8 sm:pt-24">
-            <div className="rounded-2xl border border-white/12 bg-[#551821]/80 p-6">
-              <div className="text-[12px] font-bold tracking-[.08em] text-[#efbd6b]">ગુરુવાણીનો મૂળ ભાવ</div>
-              <blockquote className="mt-4 font-serif text-2xl font-semibold leading-relaxed">જ્ઞાન, ભક્તિ અને સેવા જીવનમાં ઉતરે ત્યારે પરંપરા જીવંત રહે છે.</blockquote>
-              <p className="mt-4 text-[12px] leading-6 text-[#d9c8bd]">આ સ્થાન પર સમિતિ દ્વારા મંજૂર ગુરુવાણી, શ્લોક અથવા આશ્રમનો મુખ્ય સંદેશ રજૂ કરી શકાય.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+  return <>
+    <header className="relative overflow-hidden border-b border-border bg-[#f3e7d6]">
+      <div className="pattern-jali absolute inset-y-0 right-0 hidden w-1/2 opacity-35 lg:block" aria-hidden="true" />
+      <div className="container-site relative grid gap-8 py-10 sm:py-14 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:gap-14 lg:py-16">
+        <div><p className="eyebrow">ગુરુપરંપરા અને આશ્રમ પરિચય</p><h1 className="display-title mt-4 max-w-[13ch] text-primary-strong">જ્ઞાનથી જીવન સુધી વહેતી સદ્‌ગુરુ પરંપરા</h1><p className="body-large mt-5 max-w-2xl">વેદ અને ઉપનિષદના જ્ઞાનને ગુરુભક્તિ, સાધના, સ્વાધ્યાય અને સેવા સાથે જીવતો શ્રી માધવાનંદ આશ્રમ પરિવાર.</p></div>
+        <div className="sacred-arch bg-primary px-5 pb-6 pt-16 text-center text-white shadow-[0_24px_60px_rgba(87,22,33,.18)] sm:px-8 sm:pt-20"><div className="border border-white/15 bg-[#571621]/80 p-6 sm:p-8"><BrandMark className="mx-auto h-14 w-14 border-[#efbd6b]/50 bg-[#681c29] text-[#efbd6b]" /><p className="mt-5 text-xs font-bold tracking-[.1em] text-[#efbd6b]">શ્રી સચ્ચિદાનંદ માધવાનંદ સદ્‌ગુરુ પરંપરા</p><h2 className="mt-4 font-serif text-2xl font-bold leading-snug">ધર્મ • ભક્તિ • જ્ઞાન • વૈરાગ્ય</h2><p className="mt-4 text-sm leading-7 text-[#eadbd0]">શાંતિમાં સ્થિર, જ્ઞાનમાં પ્રકાશિત અને સેવાથી સમાજ સાથે જોડાયેલી પરંપરા.</p></div></div>
+      </div>
+    </header>
 
-      <section className="section-pad bg-surface">
-        <div className="container-site">
-          <SectionHeading eyebrow="મૂળ યાત્રા" title="શ્રી માધવાનંદજી મહારાજની આધ્યાત્મિક શોધ" description="ઉપલબ્ધ આશ્રમ દસ્તાવેજોમાં દર્શાવાયેલી મુખ્ય વિગતોને સરળ અને ગૌરવપૂર્ણ રીતે રજૂ કરતો પરિચય." />
-          <div className="mt-10 grid gap-5 lg:grid-cols-4">
-            {[
-              { icon: Sparkles, title: "ઘરત્યાગ", value: "૧૨ વર્ષની વયે", copy: "ઉપલબ્ધ વર્ણન મુજબ શ્રી માધવાનંદજી મહારાજે નાની વયે જ ઘરત્યાગ કરીને આધ્યાત્મિક માર્ગ સ્વીકાર્યો." },
-              { icon: Clock3, title: "કાશીમાં અભ્યાસ", value: "૧૨ વર્ષ", copy: "કાશીમાં રહી વેદ, ઉપનિષદ અને તત્ત્વજ્ઞાનના મર્મનું વિગતવાર અધ્યયન કર્યું હોવાનો ઉલ્લેખ મળે છે." },
-              { icon: BookOpen, title: "જ્ઞાનની દિશા", value: "વેદ • ઉપનિષદ", copy: "પરંપરાનો આધ્યાત્મિક આધાર વેદાંત, સ્વાધ્યાય, ગુરુભક્તિ અને સાધનાને કેન્દ્રમાં રાખે છે." },
-              { icon: Sparkles, title: "અવિરત પરંપરા", value: "આશરે ૨૦૦ વર્ષ", copy: "આ પરંપરા ગુજરાત અને ભારતના અનેક આશ્રમ કેન્દ્રો અને સેવક મંડળો સુધી વિસ્તરી છે." },
-            ].map(({ icon: Icon, title, value, copy }) => (
-              <article key={title} className="card-sacred p-6">
-                <Icon className="h-6 w-6 text-gold-deep" />
-                <div className="mt-5 text-[12px] font-bold text-muted-foreground">{title}</div>
-                <div className="mt-1 font-serif text-2xl font-bold text-primary">{value}</div>
-                <p className="mt-3 text-[13px] leading-6 text-muted-foreground">{copy}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+    <section className="py-12 sm:py-16"><div className="container-site grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-14"><SectionHeading eyebrow="અમે કોણ છીએ?" title="વેદ-ઉપનિષદના જ્ઞાન અને સેવાથી જોડાયેલ આશ્રમ પરિવાર" /><div className="space-y-4 text-[17px] leading-8 text-muted-foreground"><p>શ્રી માધવાનંદ આશ્રમ એક સામાજિક-આધ્યાત્મિક પરંપરાનો પરિવાર છે, જેના કેન્દ્રમાં વેદ-ઉપનિષદનું જ્ઞાન, ગુરુ પ્રત્યેની શ્રદ્ધા અને નિઃસ્વાર્થ સેવાનો ભાવ છે.</p><p>આશ્રમ જીવનમાં સત્સંગ અને સ્વાધ્યાય અંતરની દિશા આપે છે; સેવા અને સામૂહિક જોડાણ એ દિશાને રોજિંદા જીવનમાં વ્યક્ત કરે છે. અનેક આશ્રમ કેન્દ્રો એક જ સદ્‌ભાવથી ભક્તો, પરિવારો અને નવી પેઢીને જોડે છે.</p></div></div></section>
 
-      <section className="section-pad">
-        <div className="container-site">
-          <SectionHeading eyebrow="જીવનમાં ઉતરતી પરંપરા" title="ધર્મ, ભક્તિ, જ્ઞાન અને વૈરાગ્ય" description="ગુરુપરંપરાનો ડિજિટલ પરિચય ત્યારે જ જીવંત લાગે, જ્યારે મૂલ્યોને સ્પષ્ટ અને રોજિંદા જીવન સાથે જોડીને સમજાવી શકાય." align="center" />
-          <div className="mt-10"><MadhavRekha /></div>
-        </div>
-      </section>
+    <section className="border-y border-border bg-surface py-12 sm:py-16"><div className="container-site grid gap-10 lg:grid-cols-[1.05fr_.95fr] lg:items-start lg:gap-14"><div><p className="eyebrow">પરંપરાનું મૂળ</p><h2 className="section-title mt-3 text-primary-strong">શ્રી માધવાનંદજી મહારાજ</h2><p className="mt-5 text-[17px] leading-8 text-muted-foreground">જાહેર ઐતિહાસિક સામગ્રી પરંપરાને આશરે બે સદી જૂની અને શ્રી માધવાનંદજી મહારાજ સાથે જોડાયેલી કહે છે. તેમાં બાળવયે ઘરત્યાગ, કાશીમાં દીર્ઘ અધ્યયન અને વેદ-ઉપનિષદના અભ્યાસનો ઉલ્લેખ છે. આ ઐતિહાસિક આધાર આજે પણ જ્ઞાન, ગુરુભક્તિ અને સેવાથી જીવંત રહેતી દિશાનું મૂળ છે.</p><div className="mt-7 border-l-2 border-gold pl-5"><p className="text-xs font-bold text-gold-deep">પરંપરાનો જીવનમૂલ્ય</p><p className="mt-2 font-serif text-2xl font-bold leading-relaxed text-primary">જ્ઞાન જીવનને દિશા આપે, ભક્તિ હૃદયને નમ્ર બનાવે અને સેવા એ ભાવને જગત સુધી પહોંચાડે.</p></div></div><dl className="grid gap-3 sm:grid-cols-2">{[["૧૨ વર્ષની વયે","ઘરત્યાગ અને આધ્યાત્મિક માર્ગ"],["કાશી","વેદ અને ઉપનિષદનું અધ્યયન"],["આશરે ૧૨ વર્ષ","કાશીમાં અભ્યાસનો જાહેર ઉલ્લેખ"],["આશરે બે સદી","પરંપરાનો જાહેર ઐતિહાસિક ઉલ્લેખ"]].map(([dt,dd])=><div key={dt} className="rounded-2xl border border-border bg-background p-5"><dt className="font-serif text-2xl font-bold text-primary">{dt}</dt><dd className="mt-2 text-sm leading-6 text-muted-foreground">{dd}</dd></div>)}</dl></div></section>
 
-      <section className="section-pad bg-[#3a161d] text-[#f5e9dc]">
-        <div className="container-site grid gap-8 lg:grid-cols-[1fr_.9fr] lg:items-center">
-          <div>
-            <div className="text-[12px] font-bold tracking-[.08em] text-[#e3ab55]">આજનું માર્ગદર્શન</div>
-            <h2 className="section-title mt-4 text-white">પરંપરા સમય સાથે આગળ વધે, મૂળ સાથે જોડાયેલી રહે.</h2>
-            <p className="mt-5 max-w-2xl text-[16px] leading-8 text-[#d8c7bb]">ઉપલબ્ધ સંશોધન નોંધો વર્તમાન માર્ગદર્શનને પરમ પૂજ્ય શ્રી ૧૦૦૮ મહામંડલેશ્વર સ્વામી શ્રી જગદીશાનંદ સાગરજી મહારાજ સાથે જોડે છે. આ વિભાગમાં સમિતિ દ્વારા મંજૂર જીવનપરિચય, સંદેશ અને સંબંધિત સત્સંગ ગોઠવી શકાય.</p>
-          </div>
-          <div className="rounded-2xl border border-white/12 bg-white/5 p-6 sm:p-7">
-            <div className="text-[12px] font-bold text-[#e3ab55]">આ વિભાગ આગળ કેવી રીતે વધશે?</div>
-            <ul className="mt-4 space-y-3 text-[14px] leading-7 text-[#dbcbbf]">
-              <li>• દરેક ગુરુ/સ્વામીજી માટે ચકાસેલ જીવનપરિચય</li>
-              <li>• સંબંધિત પ્રવચન, પ્રકાશન અને ફોટો સંગ્રહ</li>
-              <li>• ઐતિહાસિક પત્રો માટે ડિજિટલ archive</li>
-              <li>• વર્ષ અને પ્રસંગ આધારિત timeline</li>
-            </ul>
-            <Link href="/publications" className="mt-6 inline-flex items-center gap-2 font-bold text-[#f2bd66]">વારસાગત પ્રકાશન જુઓ <ArrowRight className="h-4 w-4" /></Link>
-          </div>
-        </div>
-      </section>
-    </>
-  );
+    <section className="py-12 sm:py-16"><div className="container-site"><SectionHeading eyebrow="આધ્યાત્મિક યાત્રા" title="વૈરાગ્યથી સેવા સુધીનો જીવંત પ્રવાહ" description="ચોક્કસ વર્ષો ગોઠવ્યા વિના, પ્રમાણિત ઐતિહાસિક આધાર અને પરંપરાના વિષયાત્મક જીવનપ્રવાહને સાથે વાંચો." /><ol className="relative mt-9 grid gap-0 md:grid-cols-2 md:gap-x-10"><div className="absolute bottom-3 left-[.68rem] top-3 w-px bg-gold/50 md:left-1/2" aria-hidden="true" />{journey.map(([title,copy],i)=><li key={title} className={`relative mb-5 pl-10 md:w-full ${i%2 ? "md:col-start-2 md:pl-10" : "md:col-start-1 md:pr-10 md:pl-0"}`}><span className={`absolute top-5 grid h-6 w-6 place-items-center rounded-full border border-gold bg-background text-[10px] font-bold text-primary ${i%2 ? "left-[-.75rem]" : "left-0 md:left-auto md:right-[-.75rem]"}`}>{i+1}</span><article className="rounded-2xl border border-border bg-surface p-5"><h3 className="font-serif text-xl font-bold text-primary">{title}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{copy}</p></article></li>)}</ol></div></section>
+
+    <section className="border-y border-border bg-[#f1e5d3] py-12 sm:py-16"><div className="container-site"><SectionHeading eyebrow="ચાર આધાર" title="સંતુલિત આધ્યાત્મિક જીવનની માધવ રેખા" align="center" /><div className="mt-8"><MadhavRekha /></div></div></section>
+
+    <section className="py-12 sm:py-16"><div className="container-site"><SectionHeading eyebrow="જીવનમાં ઉતરતી પરંપરા" title="પરંપરા રોજિંદા જીવનમાં કેવી રીતે વ્યક્ત થાય છે?" /><div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{paramparaLife.map(([title,copy],i)=><article key={title} className={`rounded-[1.25rem] border p-5 sm:p-6 ${i===4?"border-sacred-green/25 bg-[#e8eee8]":"border-border bg-surface"}`}><Sparkles className="size-5 text-gold-deep" aria-hidden="true"/><h3 className="mt-4 font-serif text-xl font-bold text-primary">{title}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{copy}</p></article>)}</div></div></section>
+
+    <section className="border-y border-border bg-surface py-12 sm:py-16"><div className="container-site"><SectionHeading eyebrow="વારસાની અનેક બારીઓ" title="સ્મૃતિ, વાંચન અને સત્સંગનો સમૃદ્ધ સંગ્રહ" /><div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{heritageModules.map(([title,copy,href],i)=><Link key={title} href={href} className={`group flex min-h-44 flex-col rounded-[1.25rem] border p-5 transition hover:-translate-y-0.5 hover:border-primary/30 ${i===0?"border-primary/20 bg-primary text-white":"border-border bg-background"}`}><ScrollText className={`size-5 ${i===0?"text-[#efbd6b]":"text-gold-deep"}`} /><h3 className={`mt-5 font-serif text-xl font-bold ${i===0?"text-white":"text-primary"}`}>{title}</h3><p className={`mt-2 flex-1 text-sm leading-6 ${i===0?"text-white/75":"text-muted-foreground"}`}>{copy}</p><span className="mt-4 inline-flex items-center gap-2 text-sm font-bold">વિગત જુઓ <ArrowRight className="size-4"/></span></Link>)}</div></div></section>
+
+    <section className="bg-[#37151c] py-12 text-white sm:py-16"><div className="container-site grid gap-8 lg:grid-cols-[.72fr_1.28fr] lg:items-center"><div><Leaf className="size-7 text-[#efbd6b]"/><p className="mt-4 text-xs font-bold text-[#efbd6b]">આજનું માર્ગદર્શન</p><h2 className="mt-3 font-serif text-3xl font-bold leading-tight sm:text-4xl">મૂળ સાથે જોડાયેલી, સેવા સાથે આગળ વધતી પરંપરા</h2></div><div className="rounded-2xl border border-white/15 bg-white/5 p-6 sm:p-8"><p className="font-serif text-2xl font-bold leading-relaxed">{currentGuidance.nameGu}</p><p className="mt-4 text-[16px] leading-8 text-[#d8c7bb]">{currentGuidance.copyGu}</p></div></div></section>
+
+    <section className="py-12 sm:py-16"><div className="container-site"><SectionHeading eyebrow="પરંપરા આજે ક્યાં જીવંત છે?" title="સત્સંગથી સેવા સુધી આગળ વધો" /><div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4">{paths.map(([Icon,title,copy,href])=><Link key={href} href={href} className="rounded-2xl border border-border bg-surface p-4 sm:p-5"><Icon className="size-5 text-gold-deep"/><h3 className="mt-4 font-serif text-xl font-bold text-primary">{title}</h3><p className="mt-2 hidden text-sm leading-6 text-muted-foreground sm:block">{copy}</p><span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-primary">જોડાઓ <ArrowRight className="size-4"/></span></Link>)}</div></div></section>
+
+    <section className="border-y border-border bg-[#e8eee8] py-12 sm:py-16"><div className="container-site grid gap-8 lg:grid-cols-[.72fr_1.28fr]"><SectionHeading eyebrow="આશ્રમ પરિવાર" title="એક પરંપરા, અનેક આશ્રમ કેન્દ્રો" description="ગુજરાતથી ઉત્તર ભારત સુધીના કેન્દ્રો સત્સંગ, સાધના અને સેવા માટે આશ્રમ પરિવારને જોડે છે." /><div className="grid gap-3 sm:grid-cols-2">{featuredAshrams.slice(0,6).map(a=><Link key={a.id} href={`/ashrams/${a.slug}`} className="flex min-h-16 items-center justify-between rounded-2xl border border-sacred-green/15 bg-background px-4 py-3 font-bold text-primary"><span>{a.localityGu.split(",")[0]}</span><ArrowRight className="size-4"/></Link>)}</div></div></section>
+
+    <section className="bg-primary py-12 text-white"><div className="container-site flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between"><div><p className="text-sm font-bold text-[#efbd6b]">પરંપરાની સાથે આગળ વધો</p><h2 className="mt-2 font-serif text-3xl font-bold">સત્સંગ સાંભળો, આશ્રમ શોધો અને સ્વાધ્યાય વાંચો.</h2></div><div className="flex flex-col gap-2 sm:flex-row"><Link href="/satsang" className="inline-flex min-h-12 items-center justify-center rounded-full bg-white px-5 font-bold text-primary">સત્સંગ જુઓ</Link><Link href="/ashrams" className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/30 px-5 font-bold">આશ્રમ શોધો</Link><Link href="/publications" className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/30 px-5 font-bold">વેદ રહસ્ય વાંચો</Link></div></div></section>
+  </>;
 }

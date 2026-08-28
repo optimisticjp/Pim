@@ -7,6 +7,7 @@ import { AshramCard } from "@/components/cards/ashram-card";
 import { EventCard } from "@/components/cards/event-card";
 import { SevaCard } from "@/components/cards/seva-card";
 import { HomeHero } from "@/components/sections/home-hero";
+import { HomeIdentityCard } from "@/components/sections/home-identity-card";
 import { MadhavRekha } from "@/components/ui/madhav-rekha";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { getUpcomingEvents } from "@/lib/event-data";
@@ -34,10 +35,11 @@ export default function HomePage() {
               <span className="mt-1 hidden text-xs text-muted-foreground sm:block">{note}</span>
             </Link>
           ))}
+          <HomeIdentityCard variant="compact" className="col-span-2 mt-2 md:col-span-4 lg:hidden" />
         </div>
       </section>
 
-      <section className="section-pad">
+      <section className="py-11 sm:py-16 lg:py-20">
         <div className="container-site">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <SectionHeading eyebrow="આગામી કાર્યક્રમ" title="આશ્રમ પરિવાર સાથે જોડાયેલા રહો" description="સત્સંગ, પરંપરાગત કાર્યક્રમ અને સેવાકાર્યની ઉપલબ્ધ માહિતી એક જ સ્થાનેથી મેળવો." />
@@ -47,7 +49,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-pad border-y border-border/70 bg-surface">
+      <section className="border-y border-border/70 bg-surface py-11 sm:py-16 lg:py-20">
         <div className="container-site grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-center lg:gap-16">
           <SectionHeading eyebrow="ગુરુપરંપરા અને ઓળખ" title="ચાર દિશાઓ, એક સંતુલિત જીવનમાર્ગ" description="ધર્મ, ભક્તિ, જ્ઞાન અને વૈરાગ્ય — પરંપરાના આ ચાર આધારને આચરણ અને સ્વાધ્યાય સાથે જીવવાનો માર્ગ." />
           <MadhavRekha />
@@ -82,21 +84,21 @@ export default function HomePage() {
       <section className="section-pad border-y border-border/70">
         <div className="container-site">
           <SectionHeading eyebrow="સેવા એટલે સાધના" title="ભક્તિ જ્યારે સમાજ સુધી પહોંચે" description="સમાજ, પ્રકૃતિ અને નવી પેઢી માટે ચાલતી સેવા પ્રવૃત્તિઓને જાણો અને જોડાવાનો માર્ગ મેળવો." />
-          <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{sevaActivities.map((activity, index) => <div key={activity.id} className={index >= 3 ? "hidden sm:block" : ""}><SevaCard activity={activity} /></div>)}</div>
+          <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{sevaActivities.slice(0, 3).map((activity) => <SevaCard key={activity.id} activity={activity} />)}</div>
           <Link href="/activities" className="mt-8 inline-flex min-h-12 items-center gap-2 rounded-full border border-border-strong bg-surface px-5 font-bold text-primary">બધી સેવા પ્રવૃત્તિઓ <ArrowRight className="h-4 w-4" /></Link>
         </div>
       </section>
 
       <section className="section-pad bg-[#f1e5d3]">
         <div className="container-site">
-          <SectionHeading eyebrow="જ્ઞાન અને વારસો" title="વાંચનથી સંરક્ષણ સુધી" description="ઉપલબ્ધ પ્રકાશનો વાંચો અને સમિતિ દ્વારા ચકાસાતી વારસાગત સામગ્રી માટે તૈયાર થતા ડિજિટલ સંગ્રહને જાણો." />
+          <SectionHeading eyebrow="જ્ઞાન અને વારસો" title="વાંચનથી સંરક્ષણ સુધી" description="આધ્યાત્મિક વાંચન, પરંપરાની ઓળખ અને આશ્રમ પરિવારના પ્રસંગો સાથે જોડાઓ." />
           <div className="mt-9 grid gap-5 lg:grid-cols-[1.18fr_.91fr_.91fr]">
             {[
               { icon: BookOpenText, title: "વેદ રહસ્ય ડિજિટલ સંગ્રહ", copy: "ઉપલબ્ધ જૂના અંકોને વર્ષ અને અંક પ્રમાણે વાંચો અને PDF ખોલો.", href: "/publications", cta: "પ્રકાશનો વાંચો", featured: true },
               { icon: ScrollText, title: "ગુરુપરંપરાનો વારસો", copy: "પરંપરાની ઉપલબ્ધ માહિતી અને ડિજિટલ અભિલેખાગારનું માળખું જાણો.", href: "/parampara", cta: "પરંપરા જાણો" },
-              { icon: Camera, title: "પ્રસંગ સંગ્રહ", copy: "સમિતિ દ્વારા ચકાસાયેલી સામગ્રી ઉમેરાય ત્યારે અહીંથી પ્રસંગો સુધી પહોંચો.", href: "/events", cta: "પ્રસંગો જુઓ" },
+              { icon: Camera, title: "પ્રસંગ સંગ્રહ", copy: "સત્સંગ, ઉત્સવ અને સેવાપ્રસંગોની સ્મૃતિ સાથે જોડાઓ.", href: "/events", cta: "પ્રસંગો જુઓ" },
             ].map(({ icon: Icon, title, copy, href, cta, featured }) => (
-              <article key={title} className={`flex min-h-[18rem] flex-col rounded-[1.4rem] border p-6 sm:p-7 ${featured ? "border-primary/20 bg-primary text-primary-foreground" : "border-[#d8c2a5] bg-[#fffaf1]"}`}>
+              <article key={title} className={`flex min-h-[14rem] flex-col rounded-[1.4rem] border p-6 sm:p-7 ${featured ? "border-primary/20 bg-primary text-primary-foreground" : "border-[#d8c2a5] bg-[#fffaf1]"}`}>
                 <Icon className={`h-7 w-7 ${featured ? "text-[#efbd6b]" : "text-gold-deep"}`} />
                 <h2 className={`mt-7 font-serif text-2xl font-bold leading-snug ${featured ? "text-white" : "text-primary-strong"}`}>{title}</h2>
                 <p className={`mt-3 flex-1 text-[15px] leading-7 ${featured ? "text-[#eadbd0]" : "text-muted-foreground"}`}>{copy}</p>
@@ -111,10 +113,10 @@ export default function HomePage() {
         <div className="container-site rounded-[1.75rem] border border-primary/15 bg-[#fff9ef] px-5 py-9 sm:px-9 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-12 lg:py-11">
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 text-sm font-bold text-gold-deep"><HeartHandshake className="h-5 w-5" /> આશ્રમ પરિવાર સાથે જોડાઓ</div>
-            <h2 className="mt-3 font-serif text-[clamp(1.8rem,3vw,2.7rem)] font-bold leading-tight text-primary-strong">પ્રશ્ન, સેવા કે કાર્યક્રમ અંગે વાત કરવી છે?</h2>
-            <p className="mt-4 text-[16px] leading-7 text-muted-foreground">સંપર્ક ફોર્મ મોકલો. ઉપલબ્ધ અને ચકાસેલી માહિતીના આધારે આશ્રમ પરિવાર તરફથી માર્ગદર્શન મળશે.</p>
+            <h2 className="mt-3 font-serif text-[clamp(1.8rem,3vw,2.7rem)] font-bold leading-tight text-primary-strong">સંપર્ક અને આશ્રમ વિગતો</h2>
+            <p className="mt-4 text-[16px] leading-7 text-muted-foreground">મુખ્ય આશ્રમની ચકાસેલી સંપર્ક વિગતો, સરનામું અને પૂછપરછના માર્ગ એક જ સ્થળે જુઓ.</p>
           </div>
-          <Link href="/contact" className="mt-7 inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 font-bold text-primary-foreground lg:mt-0">સંપર્ક કરો <ArrowRight className="h-4 w-4" /></Link>
+          <Link href="/contact" className="mt-7 inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 font-bold text-primary-foreground lg:mt-0">સંપર્ક જુઓ <ArrowRight className="h-4 w-4" /></Link>
         </div>
       </section>
     </>
