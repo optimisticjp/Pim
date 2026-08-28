@@ -17,6 +17,8 @@ CREATE TABLE IF NOT EXISTS ashrams (
 CREATE TABLE IF NOT EXISTS events (
   id TEXT PRIMARY KEY,
   slug TEXT NOT NULL UNIQUE,
+  kind TEXT NOT NULL DEFAULT 'other' CHECK (kind IN ('satsang','festival','seva','medical','yatra','youth','publication','other')),
+  schedule_type TEXT NOT NULL DEFAULT 'dated' CHECK (schedule_type IN ('dated','recurring','announcement')),
   title_gu TEXT NOT NULL,
   description_gu TEXT NOT NULL,
   starts_at TEXT,
@@ -26,6 +28,7 @@ CREATE TABLE IF NOT EXISTS events (
   image_key TEXT,
   youtube_url TEXT,
   registration_url TEXT,
+  is_verified INTEGER NOT NULL DEFAULT 0,
   status TEXT NOT NULL DEFAULT 'draft' CHECK (status IN ('draft','review','published','archived','cancelled')),
   is_featured INTEGER NOT NULL DEFAULT 0,
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,

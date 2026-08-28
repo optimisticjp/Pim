@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { events } from "@/lib/site-data";
+import { getPublishedEvents } from "@/lib/event-data";
 
 export async function GET() {
-  return NextResponse.json({ items: events }, { headers: { "cache-control": "public, max-age=60" } });
+  return NextResponse.json({ items: getPublishedEvents() }, { headers: { "cache-control": "public, max-age=60" } });
 }
 
 export async function POST(request: Request) {

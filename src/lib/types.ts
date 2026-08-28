@@ -92,16 +92,32 @@ export interface SatsangVideo {
   descriptionGu?: string;
 }
 
+export type EventKind = "satsang" | "festival" | "seva" | "medical" | "yatra" | "youth" | "publication" | "other";
+export type EventStatus = "draft" | "review" | "published" | "archived" | "cancelled";
+export type EventScheduleType = "dated" | "recurring" | "announcement";
+
 export interface EventItem {
   id: string;
+  slug: string;
+  kind: EventKind;
+  scheduleType: EventScheduleType;
   titleGu: string;
-  eyebrowGu: string;
-  descriptionGu: string;
-  scheduleGu: string;
-  venueGu: string;
-  href: string;
-  tone: "maroon" | "gold" | "green";
-  live?: boolean;
+  eyebrowGu?: string;
+  descriptionGu?: string;
+  /** ISO date, or ISO 8601 datetime with an explicit timezone offset. */
+  startsAt?: string;
+  endsAt?: string;
+  recurringLabelGu?: string;
+  venueGu?: string;
+  ashramId?: string;
+  mapUrl?: string;
+  posterImageUrl?: string;
+  livestreamUrl?: string;
+  registrationUrl?: string;
+  contactUrl?: string;
+  featured?: boolean;
+  status: EventStatus;
+  verified: boolean;
 }
 
 export type PublicationKind = "veda-rahasya" | "book" | "letter" | "special" | "other";
