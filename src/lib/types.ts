@@ -9,17 +9,38 @@ export type AshramRegion =
   | "મહારાષ્ટ્ર"
   | "વિદેશ";
 
+export type AshramAmenity =
+  | "ઉતારા વ્યવસ્થા"
+  | "અન્નક્ષેત્ર / પ્રસાદ"
+  | "ગૌશાળા"
+  | "પાર્કિંગ"
+  | "પુસ્તકાલય"
+  | "સત્સંગ હોલ"
+  | "વ્હીલચેર પ્રવેશ"
+  | "યાત્રાળુ સુવિધા";
+
 export interface Ashram {
   id: string;
   slug: string;
   nameGu: string;
+  nameEn?: string;
   localityGu: string;
   region: AshramRegion;
+  districtGu?: string;
+  cityGu?: string;
   addressGu?: string;
+  addressEn?: string;
+  contactPersonGu?: string;
   phone?: string;
-  mapUrl: string;
+  whatsapp?: string;
+  mapUrl?: string;
+  latitude?: number;
+  longitude?: number;
+  amenities?: AshramAmenity[];
   verified: boolean;
+  verificationDate?: string;
   featured?: boolean;
+  descriptionGu?: string;
 }
 
 export interface EventItem {
