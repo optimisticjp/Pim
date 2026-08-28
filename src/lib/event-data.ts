@@ -1,4 +1,5 @@
 import { events } from "@/lib/site-data";
+import { compareEventStartToNow } from "@/lib/event-format";
 import type { EventItem, EventKind } from "@/lib/types";
 
 function isPublic(event: EventItem) {
@@ -23,7 +24,7 @@ export function getEventBySlug(slug: string): EventItem | undefined {
 
 export function getUpcomingEvents(now = new Date()): EventItem[] {
   return getPublishedEvents()
-    .filter((event) => event.status === "published" && event.scheduleType === "dated" && event.startsAt && eventTime(event) >= now.getTime())
+    .filter((event) => event.status === "published" && event.scheduleType === "dated" && event.startsAt && compareEventStartToNow(event.startsAt, now) >= 0)
     .sort((a, b) => eventTime(a) - eventTime(b));
 }
 
@@ -33,7 +34,7 @@ export function getRecurringProgrammes(): EventItem[] {
 
 export function getArchivedEvents(now = new Date()): EventItem[] {
   return getPublishedEvents()
-    .filter((event) => event.scheduleType === "dated" && event.startsAt && eventTime(event) < now.getTime())
+    .filter((event) => event.scheduleType === "dated" && event.startsAt && compareEventStartToNow(event.startsAt, now) < 0)
     .sort((a, b) => eventTime(b) - eventTime(a));
 }
 

@@ -31,3 +31,22 @@ export function formatEventDateTime(value: string) {
 export function isDateOnly(value: string) {
   return dateOnlyPattern.test(value);
 }
+
+export function getIndiaCalendarDate(value: Date): string {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).formatToParts(value);
+  const part = (type: Intl.DateTimeFormatPartTypes) => parts.find((item) => item.type === type)?.value ?? "";
+  return `${part("year")}-${part("month")}-${part("day")}`;
+}
+
+export function compareEventStartToNow(startsAt: string, now: Date): number {
+  if (isDateOnly(startsAt)) {
+    const today = getIndiaCalendarDate(now);
+    return startsAt === today ? 0 : startsAt > today ? 1 : -1;
+  }
+  return new Date(startsAt).getTime() - now.getTime();
+}

@@ -28,13 +28,13 @@ export function EventCard({ event }: { event: EventItem }) {
           {event.eyebrowGu && <p className="text-xs font-bold text-gold-deep">{event.eyebrowGu}</p>}
           <h3 className="mt-1 font-serif text-[1.4rem] font-bold leading-snug text-primary-strong">{event.titleGu}</h3>
           {(event.venueGu || ashram) && <p className="mt-3 flex items-start gap-2 text-sm leading-6 text-muted-foreground"><MapPin className="mt-0.5 size-4 shrink-0 text-gold-deep" aria-hidden="true" />{event.venueGu ?? ashram?.nameGu}</p>}
-          {event.livestreamUrl && <p className="mt-2 flex items-center gap-2 text-sm font-bold text-[#294c45]"><Radio className="size-4" aria-hidden="true" /> લાઇવ પ્રસારણ ઉપલબ્ધ</p>}
+          {event.status !== "cancelled" && event.livestreamUrl && <p className="mt-2 flex items-center gap-2 text-sm font-bold text-[#294c45]"><Radio className="size-4" aria-hidden="true" /> લાઇવ પ્રસારણ ઉપલબ્ધ</p>}
         </div>
       </div>
       <div className="mt-5 flex flex-wrap gap-2 border-t border-border pt-4">
         <Link href={`/events/${event.slug}`} className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-primary px-4 text-sm font-bold text-primary-foreground">વિગત જુઓ <ArrowRight className="size-4" aria-hidden="true" /></Link>
         {mapUrl && <a href={mapUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-border-strong px-4 text-sm font-bold text-primary">દિશા મેળવો <ExternalLink className="size-3.5" aria-hidden="true" /><span className="sr-only">(નવા ટેબમાં)</span></a>}
-        {event.registrationUrl && <a href={event.registrationUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-border-strong px-4 text-sm font-bold text-primary">નોંધણી <ExternalLink className="size-3.5" aria-hidden="true" /><span className="sr-only">(નવા ટેબમાં)</span></a>}
+        {event.status !== "cancelled" && event.registrationUrl && <a href={event.registrationUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-border-strong px-4 text-sm font-bold text-primary">નોંધણી <ExternalLink className="size-3.5" aria-hidden="true" /><span className="sr-only">(નવા ટેબમાં)</span></a>}
       </div>
     </article>
   );
