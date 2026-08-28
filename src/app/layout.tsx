@@ -1,6 +1,21 @@
 import type { Metadata, Viewport } from "next";
+import { Noto_Sans_Gujarati, Noto_Serif_Gujarati } from "next/font/google";
 
 import "./globals.css";
+
+const gujaratiSans = Noto_Sans_Gujarati({
+  variable: "--font-gujarati-sans",
+  subsets: ["gujarati"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
+
+const gujaratiSerif = Noto_Serif_Gujarati({
+  variable: "--font-gujarati-serif",
+  subsets: ["gujarati"],
+  display: "swap",
+  weight: ["500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sachchidanandmadhavanand.org"),
@@ -42,7 +57,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="gu">
+    <html lang="gu" className={`${gujaratiSans.variable} ${gujaratiSerif.variable}`}>
       <body>{children}</body>
     </html>
   );

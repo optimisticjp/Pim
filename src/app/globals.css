@@ -1,9 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700&family=Noto+Serif+Gujarati:wght@500;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
-  --font-gujarati-sans: "Noto Sans Gujarati";
-  --font-gujarati-serif: "Noto Serif Gujarati";
   --background: #fbf7ef;
   --surface: #fffdf8;
   --surface-soft: #f6efe3;
