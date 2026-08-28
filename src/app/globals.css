@@ -153,6 +153,17 @@
     border-radius: 999px 999px 1.4rem 1.4rem;
   }
 
+  .sacred-arch {
+    border-radius: 48% 48% 1.5rem 1.5rem / 24% 24% 1.5rem 1.5rem;
+  }
+
+  .home-hero-pattern {
+    background:
+      radial-gradient(circle at 82% 38%, rgba(199, 129, 43, .14), transparent 24rem),
+      linear-gradient(90deg, transparent 49.9%, rgba(113, 31, 45, .025) 50%, transparent 50.1%);
+    background-size: auto, 4rem 4rem;
+  }
+
   .tap-target { min-height: 44px; min-width: 44px; }
 }
 
@@ -160,6 +171,10 @@
   body { font-size: 16.5px; }
   .container-site { width: min(100% - 1.25rem, 76rem); }
   .section-pad { padding-block: 4.4rem; }
+}
+
+@media (min-width: 1280px) {
+  .container-site { width: min(100% - 4rem, 80rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
