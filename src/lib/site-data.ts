@@ -15,6 +15,7 @@ export const satsangSeries: SatsangSeries[] = [
 ];
 
 export const navItems: NavItem[] = [
+  { label: "મુખપૃષ્ઠ", href: "/" },
   { label: "ગુરુપરંપરા", href: "/parampara" },
   { label: "આશ્રમ", href: "/ashrams" },
   { label: "સેવા", href: "/activities" },

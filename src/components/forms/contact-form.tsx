@@ -11,7 +11,10 @@ const initial = { fullName: "", phone: "", city: "", type: "general", message: "
 
 export function ContactForm() {
   const params = useSearchParams();
-  const defaultType = useMemo(() => (params.get("type") === "seva" ? "seva" : "general"), [params]);
+  const defaultType = useMemo(() => {
+    const requested = params.get("type");
+    return requested === "seva" || requested === "event" || requested === "publication" ? requested : "general";
+  }, [params]);
   const [form, setForm] = useState({ ...initial, type: defaultType });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState("");
@@ -56,7 +59,7 @@ export function ContactForm() {
         <div>
           <CheckCircle2 className="mx-auto h-12 w-12 text-sacred-green" />
           <h2 className="mt-5 font-serif text-3xl font-bold text-primary">આભાર. આપનો સંદેશ નોંધાયો છે.</h2>
-          <p className="mx-auto mt-3 max-w-lg text-[14px] leading-7 text-muted-foreground">આ પૂર્વદર્શન સંસ્કરણમાં સંદેશ તમારા બ્રાઉઝરના demo inboxમાં દેખાશે. પ્રોડક્શન પહેલાં આ જ workflow D1 સાથે જોડાશે.</p>
+          <p className="mx-auto mt-3 max-w-lg text-[14px] leading-7 text-muted-foreground">આપે મોકલેલી વિગતોના આધારે યોગ્ય માર્ગદર્શન આપવા માટે સંપર્ક કરવામાં આવી શકે છે.</p>
           <button type="button" onClick={() => setStatus("idle")} className="mt-6 min-h-11 rounded-full bg-primary px-6 font-bold text-primary-foreground">બીજો સંદેશ મોકલો</button>
         </div>
       </div>
@@ -83,7 +86,7 @@ export function ContactForm() {
       <button type="submit" disabled={status === "loading"} className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 font-bold text-primary-foreground disabled:opacity-60 sm:w-auto">
         {status === "loading" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />} ફોર્મ મોકલો
       </button>
-      <p className="mt-4 text-[11px] leading-5 text-muted-foreground">પ્રોડક્શન પહેલાં આ ફોર્મમાં Cloudflare Turnstile અને server-side D1 storage જોડવાનું નક્કી છે.</p>
+      <p className="mt-4 text-[12px] leading-5 text-muted-foreground">માત્ર જરૂરી સંપર્ક વિગતો મોકલો. સંવેદનશીલ વ્યક્તિગત અથવા નાણાકીય માહિતી અહીં ન લખશો.</p>
     </form>
   );
 }
