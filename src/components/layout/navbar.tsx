@@ -50,7 +50,7 @@ function NavbarContent({ pathname }: { pathname: string }) {
         <div className="flex items-center gap-2">
           <Link
             href="/satsang"
-            className="hidden min-h-11 items-center gap-2 rounded-full bg-primary px-4 text-[14px] font-bold text-primary-foreground shadow-sm transition hover:bg-primary-strong md:flex"
+            className="hidden min-h-11 items-center gap-2 rounded-full bg-primary px-4 text-[14px] font-bold text-primary-foreground shadow-sm transition hover:bg-primary-strong 2xl:flex"
           >
             <Radio className="h-4 w-4" /> સત્સંગ જુઓ
           </Link>

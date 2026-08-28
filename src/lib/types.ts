@@ -118,6 +118,8 @@ export interface EventItem {
   featured?: boolean;
   status: EventStatus;
   verified: boolean;
+  /** Staging-only editorial record; replace or verify before primary-domain launch. */
+  prototype?: boolean;
 }
 
 export type PublicationKind = "veda-rahasya" | "book" | "letter" | "special" | "other";
@@ -132,13 +134,15 @@ export interface Publication {
   monthGu?: string;
   year?: number;
   descriptionGu?: string;
-  pdfUrl: string;
+  pdfUrl?: string;
   coverImageUrl?: string;
   authorGu?: string;
   publishedAt?: string;
   pageCount?: number;
   featured?: boolean;
   verified: boolean;
+  /** Staging-only editorial record; replace or verify before primary-domain launch. */
+  prototype?: boolean;
 }
 
 export interface SevaActivity {

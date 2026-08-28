@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BookOpenText } from "lucide-react";
 
 import { PublicationGrid } from "@/components/publications/publication-grid";
-import { getPublicationYears, getVedaRahasyaIssues } from "@/lib/publication-data";
+import { getPublicationYears, getPublications } from "@/lib/publication-data";
 
 export const metadata: Metadata = {
   title: "વેદ રહસ્ય ડિજિટલ ગ્રંથાલય",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default function PublicationsPage() {
-  const issues = getVedaRahasyaIssues();
+  const issues = getPublications();
   return (
     <>
       <section className="border-b border-border bg-[#f2e7d7]">
@@ -26,7 +26,7 @@ export default function PublicationsPage() {
       <main className="section-pad">
         <div className="container-site">
           <div className="flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
-            <div><p className="eyebrow">વેદ રહસ્ય</p><h2 className="mt-3 font-serif text-3xl font-bold text-primary-strong">ઉપલબ્ધ અંકો</h2></div>
+            <div><p className="eyebrow">વેદ રહસ્ય અને આધ્યાત્મિક વાંચન</p><h2 className="mt-3 font-serif text-3xl font-bold text-primary-strong">પસંદ કરેલું ગ્રંથાલય</h2></div>
             <Link href="/contact?type=publication" className="inline-flex min-h-11 items-center gap-2 self-start rounded-full border border-border-strong bg-surface px-5 font-bold text-primary"><BookOpenText className="size-4" /> પ્રકાશન અંગે પૂછપરછ</Link>
           </div>
           <div className="mt-7"><PublicationGrid publications={issues} years={getPublicationYears()} /></div>

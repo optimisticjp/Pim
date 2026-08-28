@@ -1,21 +1,24 @@
 import { events } from "@/lib/site-data";
+import { prototypeEvents } from "@/lib/prototype-content";
 import { compareEventStartToNow } from "@/lib/event-format";
 import type { EventItem, EventKind } from "@/lib/types";
 
 function isPublic(event: EventItem) {
-  return event.verified && (event.status === "published" || event.status === "cancelled");
+  return (event.verified || event.prototype) && (event.status === "published" || event.status === "cancelled" || event.status === "archived");
 }
+
+const publicSeed = [...events, ...prototypeEvents];
 
 function eventTime(event: EventItem) {
   return event.startsAt ? new Date(event.startsAt).getTime() : Number.NaN;
 }
 
 export function getEvents(): EventItem[] {
-  return events;
+  return publicSeed;
 }
 
 export function getPublishedEvents(): EventItem[] {
-  return events.filter(isPublic);
+  return publicSeed.filter(isPublic);
 }
 
 export function getEventBySlug(slug: string): EventItem | undefined {

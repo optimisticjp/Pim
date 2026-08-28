@@ -70,9 +70,9 @@ export function PublicationCard({ publication }: { publication: Publication }) {
       </div>
       <div className="flex flex-1 flex-col p-5">
         {publication.editionGu && <p className="text-[14px] text-muted-foreground">{publication.editionGu}</p>}
-        <div className="mt-auto grid grid-cols-2 gap-2 pt-6">
+        <div className={`mt-auto grid gap-2 pt-6 ${publication.pdfUrl ? "grid-cols-2" : "grid-cols-1"}`}>
           <Link href={`/publications/${publication.slug}`} className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary px-3 font-bold text-white">વાંચો</Link>
-          <a href={publication.pdfUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border-strong px-3 font-bold text-primary"><ExternalLink className="size-4" /> PDF ખોલો</a>
+          {publication.pdfUrl && <a href={publication.pdfUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border-strong px-3 font-bold text-primary"><ExternalLink className="size-4" /> PDF ખોલો</a>}
         </div>
       </div>
     </article>
