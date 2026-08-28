@@ -1,332 +1,1414 @@
 {
-  "checkedAt": "2026-08-28T16:03:48.772Z",
+  "checkedAt": "2026-08-28T16:51:23.620Z",
   "summary": {
-    "checked": 46,
-    "valid": 46,
-    "invalid": 0
+    "checked": 170,
+    "valid": 92,
+    "invalid": 78,
+    "pdfs": 86,
+    "audio": 41,
+    "youtube": 43
   },
   "results": [
     {
-      "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-April-2015.pdf",
-      "status": 200,
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Aakru-Jajo-Darshan-Jajo.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Aakru-Jajo-Darshan-Jajo.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Alakh-Niranjan-Jay-Sachchidanand.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Alakh-Niranjan-Jay-Sachchidanand.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Amara-Dukhada-Ne-Talo.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Amara-Dukhada-Ne-Talo.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Bhave-Bhaji-Le-Kailash-Pati.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Bhave-Bhaji-Le-Kailash-Pati.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Bol-Sachchidanand-Bol-Madhavanand.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Bol-Sachchidanand-Bol-Madhavanand.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Chinta-Rahit-Jivo.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Chinta-Rahit-Jivo.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Dejo-Darshan-Tame.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Dejo-Darshan-Tame.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Gametevo-Gano-Mujane-Guruji.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Gametevo-Gano-Mujane-Guruji.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Guru-Malya-Gunkari-Re.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Guru-Malya-Gunkari-Re.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Guru-Tame-Chho-Ame-Tamara.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Guru-Tame-Chho-Ame-Tamara.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Halo-Halo-Darshan-Karva-Swamijina.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Halo-Halo-Darshan-Karva-Swamijina.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Hoji-Re-Swami-Jug-Jugna.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Hoji-Re-Swami-Jug-Jugna.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Jago-Have-Udhdhar-Potano.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Jago-Have-Udhdhar-Potano.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Jai-Sadguru-Swamiji-Arti.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Jai-Sadguru-Swamiji-Arti.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Madhav-Anand-Anand.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Madhav-Anand-Anand.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Man-To-Maya-No-Chhe.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Man-To-Maya-No-Chhe.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Parodha-Na-Prabhatiya.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Parodha-Na-Prabhatiya.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Sahaj-Samadhi-Lagi-Re.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Sahaj-Samadhi-Lagi-Re.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Sane-Chinta-Kare-Chhe.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Sane-Chinta-Kare-Chhe.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Tara-Ghat-Ma-Govind-Bole.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Tara-Ghat-Ma-Govind-Bole.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/down_mobring/Tuto-Samaran-Kar-Sachchidanand-Nu.mp3",
+      "finalUrl": "https://omshreemadhavanandji.org/content/down_mobring/Tuto-Samaran-Kar-Sachchidanand-Nu.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/pub_book/Guru-Mahima.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_book/Guru-Mahima.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/pub_book/Ishavasyopnishad.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_book/Ishavasyopnishad.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/pub_book/Ishwar-Swarup-Varnanmala.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_book/Ishwar-Swarup-Varnanmala.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/pub_book/Madhavanandji-Jivanlila-Updesh.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_book/Madhavanandji-Jivanlila-Updesh.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/pub_book/Nirvan-Smaranika.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_book/Nirvan-Smaranika.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/pub_book/Shree-Guru-Gita-Small.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_book/Shree-Guru-Gita-Small.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/pub_book/Shree-Sadguru-Mahima.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_book/Shree-Sadguru-Mahima.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-April-2015.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-April-2015.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-April-2016.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-April-2016.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-April-2017.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-April-2017.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-April-2018.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-April-2018.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-August-2014.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-August-2014.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-August-2015.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-August-2015.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-August-2016.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-August-2016.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-August-2017.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-August-2017.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-December-2014.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-December-2014.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-December-2015.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-December-2015.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-December-2016.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-December-2016.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-December-2017.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-December-2017.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-February-2015.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-February-2015.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-February-2016.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-February-2016.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-February-2017.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-February-2017.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-February-2018.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-February-2018.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-January-2015.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-January-2015.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-January-2016.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-January-2016.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-January-2017.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-January-2017.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-January-2018.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-January-2018.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-July-2014.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-July-2014.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-July-2015.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-July-2015.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-July-2016.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-July-2016.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-July-2017.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-July-2017.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-June-2015.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-June-2015.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-June-2016.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-June-2016.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-June-2017.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-June-2017.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-March-2015.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-March-2015.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-March-2016.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-March-2016.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-March-2017.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-March-2017.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-March-2018.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-March-2018.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-May-2015.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-May-2015.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-May-2016.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-May-2016.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-May-2017.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-May-2017.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-November-2014.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-November-2014.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-November-2015.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-November-2015.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-November-2016.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-November-2016.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-November-2017.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-November-2017.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-October-2014.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-October-2014.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-October-2015.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-October-2015.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-October-2016.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-October-2016.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-October-2017.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-October-2017.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-September-2014.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-September-2014.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-September-2015.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-September-2015.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-September-2016.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-September-2016.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
     },
     {
       "url": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-September-2017.pdf",
-      "status": 200,
+      "finalUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-September-2017.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
       "contentType": "application/pdf",
-      "size": null,
-      "ok": true
+      "size": 1
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/publication_bk.php?d=Guru-Mahima.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/publication_bk.php?d=Guru-Mahima.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "size": null
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/publication_bk.php?d=Ishavasyopnishad.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/publication_bk.php?d=Ishavasyopnishad.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "size": null
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/publication_bk.php?d=Ishwar-Swarup-Varnanmala.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/publication_bk.php?d=Ishwar-Swarup-Varnanmala.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "size": null
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/publication_bk.php?d=Madhavanandji-Jivanlila-Updesh.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/publication_bk.php?d=Madhavanandji-Jivanlila-Updesh.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "size": null
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/publication_bk.php?d=Nirvan-Smaranika.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/publication_bk.php?d=Nirvan-Smaranika.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "size": null
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/publication_bk.php?d=Shree-Guru-Gita-Small.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/publication_bk.php?d=Shree-Guru-Gita-Small.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "size": null
+    },
+    {
+      "url": "https://omshreemadhavanandji.org/publication_bk.php?d=Shree-Sadguru-Mahima.pdf",
+      "finalUrl": "https://omshreemadhavanandji.org/publication_bk.php?d=Shree-Sadguru-Mahima.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "size": null
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Aakru-Jajo-Darshan-Jajo.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Aakru-Jajo-Darshan-Jajo.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Alakh-Niranjan-Jay-Sachchidanand.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Alakh-Niranjan-Jay-Sachchidanand.mp3",
+      "kind": "audio",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Amara-Dukhada-Ne-Talo.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Amara-Dukhada-Ne-Talo.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Bhave-Bhaji-Le-Kailash-Pati.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Bhave-Bhaji-Le-Kailash-Pati.mp3",
+      "kind": "audio",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Bol-Sachchidanand-Bol-Madhavanand.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Bol-Sachchidanand-Bol-Madhavanand.mp3",
+      "kind": "audio",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Chinta-Rahit-Jivo.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Chinta-Rahit-Jivo.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Dejo-Darshan-Tame.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Dejo-Darshan-Tame.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Gametevo-Gano-Mujane-Guruji.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Gametevo-Gano-Mujane-Guruji.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Guru-Mahima.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Guru-Mahima.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Guru-Malya-Gunkari-Re.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Guru-Malya-Gunkari-Re.mp3",
+      "kind": "audio",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 100
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Guru-Tame-Chho-Ame-Tamara.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Guru-Tame-Chho-Ame-Tamara.mp3",
+      "kind": "audio",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 100
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Halo-Halo-Darshan-Karva-Swamijina.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Halo-Halo-Darshan-Karva-Swamijina.mp3",
+      "kind": "audio",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Hoji-Re-Swami-Jug-Jugna.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Hoji-Re-Swami-Jug-Jugna.mp3",
+      "kind": "audio",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 100
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ishavasyopnishad.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ishavasyopnishad.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 100
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ishwar-Swarup-Varnanmala.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ishwar-Swarup-Varnanmala.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Jago-Have-Udhdhar-Potano.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Jago-Have-Udhdhar-Potano.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Madhav-Anand-Anand.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Madhav-Anand-Anand.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Madhavanandji-Jivanlila-Updesh.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Madhavanandji-Jivanlila-Updesh.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Man-To-Maya-No-Chhe.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Man-To-Maya-No-Chhe.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Nirvan-Smaranika.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Nirvan-Smaranika.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Parodha-Na-Prabhatiya-1.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Parodha-Na-Prabhatiya-1.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Sahaj-Samadhi-Lagi-Re.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Sahaj-Samadhi-Lagi-Re.mp3",
+      "kind": "audio",
+      "ok": true,
+      "status": 206,
+      "contentType": "audio/mpeg",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Sane-Chinta-Kare-Chhe.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Sane-Chinta-Kare-Chhe.mp3",
+      "kind": "audio",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Shree-Guru-Gita-Small.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Shree-Guru-Gita-Small.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Shree-Sadguru-Mahima.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Shree-Sadguru-Mahima.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Tara-Ghat-Ma-Govind-Bole.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Tara-Ghat-Ma-Govind-Bole.mp3",
+      "kind": "audio",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 100
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Tuto-Samaran-Kar-Sachchidanand-Nu.mp3",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Tuto-Samaran-Kar-Sachchidanand-Nu.mp3",
+      "kind": "audio",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 100
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-April-2018.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-April-2018.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 100
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-December-2017.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-December-2017.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 100
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-February-2018.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-February-2018.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-January-2018.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-January-2018.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-March-2018.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-March-2018.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-November-2017.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-November-2017.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-October-2017.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-October-2017.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-September-2017.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2023/01/Ved-Rahasya-September-2017.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 100
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/April-24-Ved-Rahashya.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/April-24-Ved-Rahashya.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/August-24-Ved-Rahashya.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/August-24-Ved-Rahashya.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 100
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/February-24-Ved-Rahashya.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/February-24-Ved-Rahashya.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 100
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/July-24-Ved-Rahashya.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/July-24-Ved-Rahashya.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 100
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/June-24-Ved-Rahashya.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/June-24-Ved-Rahashya.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/kirtankalika.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/kirtankalika.pdf",
+      "kind": "pdf",
+      "ok": true,
+      "status": 206,
+      "contentType": "application/pdf",
+      "size": 1
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/March-24-Ved-Rahashya.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/March-24-Ved-Rahashya.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/Nov-24-Ved-Rahashya.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/Nov-24-Ved-Rahashya.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/October-24-Ved-Rahashya.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/October-24-Ved-Rahashya.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/September-24-Ved-Rahashya.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/07/September-24-Ved-Rahashya.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/11/11-25-Ved-Rahashya-ANK-Madhavanand.pdf",
+      "finalUrl": "https://sachchidanandmadhavanand.org/wp-content/uploads/2025/11/11-25-Ved-Rahashya-ANK-Madhavanand.pdf",
+      "kind": "pdf",
+      "ok": false,
+      "status": 503,
+      "contentType": "text/plain",
+      "size": 91
+    },
+    {
+      "url": "https://www.youtube.com/embed/wI_XfUE0rEk",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/embed/wI_XfUE0rEk\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=1iAEOMhY4yw",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=1iAEOMhY4yw\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=2dGIPnyx-lI",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=2dGIPnyx-lI\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=3V0sk5dWrt0",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=3V0sk5dWrt0\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=7pPEYvKtIK4",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=7pPEYvKtIK4\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=8ZwOMWEe57c",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=8ZwOMWEe57c\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=AV8ONoWc5Cc",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=AV8ONoWc5Cc\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=b6odMtcgpJA",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=b6odMtcgpJA\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=b7QHjZs2dl0",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=b7QHjZs2dl0\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=B90wmjH2MKA",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=B90wmjH2MKA\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=BGNZeC0Ksso",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=BGNZeC0Ksso\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=bnOYu1wF6OA",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=bnOYu1wF6OA\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=BScrq_xwVR0",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=BScrq_xwVR0\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=eEHrDrBUVXc",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=eEHrDrBUVXc\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=EZyrBIdYrzs",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=EZyrBIdYrzs\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=GSkBQwG-3Xo",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=GSkBQwG-3Xo\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=h44t0CvyyBs",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=h44t0CvyyBs\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=HPobTEd3v4A",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=HPobTEd3v4A\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=IFDjSEb4DZk",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=IFDjSEb4DZk\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=IfR2rXVU2Do",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=IfR2rXVU2Do\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=kxt7ZTQKg2Q",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=kxt7ZTQKg2Q\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Lh58SWisZLo",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=Lh58SWisZLo\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=lxHh4-dvj88",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=lxHh4-dvj88\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=M6TYxcuVTg0",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=M6TYxcuVTg0\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=NZfUTLCiT4w",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=NZfUTLCiT4w\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=ovE61Yky5Ug",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=ovE61Yky5Ug\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=oZZQbd8puPI",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=oZZQbd8puPI\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=pxuJcWoEEtk",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=pxuJcWoEEtk\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=qmzKm7kPV8M",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=qmzKm7kPV8M\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=qxDqbxtMjUI",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=qxDqbxtMjUI\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=QZLcwWkQW-M",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=QZLcwWkQW-M\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=s5fqh3_UEmA",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=s5fqh3_UEmA\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=sIkgJMNiGq8",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=sIkgJMNiGq8\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=SOYYOYLHBVs",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=SOYYOYLHBVs\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=UPH3tG9KNok",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=UPH3tG9KNok\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=V5oo889qhZ8",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=V5oo889qhZ8\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=vMPjFsfWCTY",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=vMPjFsfWCTY\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=w0ob9LldFkE",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=w0ob9LldFkE\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=yRGqurClxKM",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=yRGqurClxKM\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=ZdxeFdUs-AI",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=ZdxeFdUs-AI\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=ZEr_BeB4Urk",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=ZEr_BeB4Urk\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=ZqS2HlpGhdE",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=ZqS2HlpGhdE\ncurl: (56) CONNECT tunnel failed, response 403\n"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=zuvaP_QPozI",
+      "kind": "youtube",
+      "ok": false,
+      "error": "Command failed: curl -sSL --max-time 25 --range 0-0 -o /dev/null -A MadhavanandAssetChecker/2.0 -w __ASSET_META__%{http_code}|%{content_type}|%{size_download}|%{url_effective} https://www.youtube.com/watch?v=zuvaP_QPozI\ncurl: (56) CONNECT tunnel failed, response 403\n"
     }
   ]
 }

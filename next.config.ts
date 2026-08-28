@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: "omshreemadhavanandji.org",
         pathname: "/content/**",
       },
+      {
+        protocol: "https",
+        hostname: "sachchidanandmadhavanand.org",
+        pathname: "/wp-content/uploads/**",
+      },
     ],
   },
 };

@@ -1,0 +1,8 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import { historicalLetters } from "@/lib/migration/letter-data";
+
+export const metadata: Metadata = { title: "ઐતિહાસિક પત્રો", description: "માધવાનંદ પરિવાર માટે સંરક્ષિત સ્વામી શ્રીના ઉપલબ્ધ ઐતિહાસિક પત્રોની પ્રતિઓ." };
+export default function HistoricalLettersPage() {
+  return <main><header className="border-b border-border bg-[#efe1ce]"><div className="container-site py-12 sm:py-16"><p className="eyebrow">વારસા સંગ્રહ</p><h1 className="display-title mt-4 text-primary-strong">ઐતિહાસિક પત્રો</h1><p className="body-large mt-4 max-w-2xl">માધવાનંદ પરિવાર માટે સંરક્ષિત ઉપલબ્ધ પત્રપ્રતિઓ. તારીખ, લેખક અથવા પ્રાપ્તકર્તા સ્પષ્ટ ન હોય ત્યાં કોઈ અનુમાન ઉમેરાયું નથી.</p></div></header><section className="section-pad"><div className="container-site grid gap-6 md:grid-cols-2">{historicalLetters.map((letter) => <article key={letter.id} className="overflow-hidden rounded-[1.35rem] border border-border bg-surface"><div className="relative aspect-[4/3] bg-[#eadcc8]"><Image src={letter.scanImages[0]} alt={`${letter.titleGu}ની પ્રથમ ઉપલબ્ધ પ્રતિ`} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" /></div><div className="p-5"><h2 className="font-serif text-2xl font-bold text-primary">{letter.titleGu}</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">{letter.descriptionGu}</p><div className="mt-4 flex flex-wrap gap-2">{letter.scanImages.map((scan, index) => <a key={scan} href={scan} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-full border border-border-strong px-4 font-bold text-primary">પ્રતિ {index + 1} જુઓ</a>)}</div></div></article>)}</div></section></main>;
+}

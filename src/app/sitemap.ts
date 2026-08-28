@@ -4,7 +4,7 @@ import { getAshrams } from "@/lib/ashram-data";
 import { getPublications } from "@/lib/publication-data";
 import { getPublishedEvents } from "@/lib/event-data";
 
-const routes = ["", "/parampara", "/heritage", "/heritage/gallery", "/heritage/gallery/guru-parampara-portraits", "/ashrams", "/activities", "/satsang", "/publications", "/events", "/contact"];
+const routes = ["", "/parampara", "/heritage", "/heritage/gallery", "/heritage/letters", "/heritage/gallery/guru-parampara-portraits", "/ashrams", "/activities", "/satsang", "/publications", "/events", "/contact"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const branchRoutes = getAshrams().map((ashram) => `/ashrams/${ashram.slug}`);

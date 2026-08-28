@@ -1,10 +1,10 @@
 # Madhavanand heritage migration inventory
 
-Audit updated: 2026-08-28. This ledger distinguishes externally audited legacy-source records from unavailable current-site information. Public staging use does not remove the launch rights and committee review requirement.
+Audit updated: 2026-08-28. This ledger records the bounded live audit of both organizational sites. Public staging use does not remove the launch rights and committee review requirement.
 
 ## Retrieval status
 
-The current source `https://sachchidanandmadhavanand.org/` remains unavailable in this environment (CONNECT proxy `403`). No information is attributed to it in this pass. Direct legacy downloads were also proxy-blocked, so the exact externally audited URLs supplied for PR #10 are used remotely on staging and retained in the manifest.
+Both approved organizational hosts were crawled live. The generated manifest and its recorded HTTP failures are authoritative for this pass; binaries remain remote staging references.
 
 ## Guru / spiritual personality records
 
@@ -34,7 +34,7 @@ All records below come from `https://omshreemadhavanandji.org/about_us.php`; no 
 
 | Source page | Type | Source statement | Provider credit | Migrated | Review |
 |---|---|---|---|---|---|
-| `https://omshreemadhavanandji.org/letter.php` | letter archive | Historical letters written by Swami Shree are preserved for the Madhavanand Parivar. | Shree Devarajbhai Premjibhai Monpara (Navda) | Context/module yes; scans unavailable | Required |
+| `https://omshreemadhavanandji.org/letter.php` | letter archive | Historical letters written by Swami Shree are preserved for the Madhavanand Parivar. | Shree Devarajbhai Premjibhai Monpara (Navda) | Context plus 19 remote scans | Required |
 
 ## Yuvak Mandal
 
@@ -119,20 +119,30 @@ Index: `https://omshreemadhavanandji.org/publication_vedarahasya.php`. PDF namin
 
 ## Protected fields and conflicts
 
-No verified repository contact detail was overwritten. The Akru PIN remains omitted pending review. Current guidance remains `prototypeReviewRequired`; the inaccessible current site was not used to promote it.
+No verified repository contact detail was overwritten. The Akru PIN remains omitted pending review. Current guidance remains `prototypeReviewRequired`; current-site wording is recorded for committee comparison without silently promoting the field.
 
 ## Exclusions and next action
 
-Legacy PHP/theme/code, vendor art, junk links, train information, obsolete apps, and tracking assets are excluded. Next, obtain approved original portraits/PDFs and migrate them to local optimized media/R2; then separately audit the current site when accessible.
+Legacy PHP/theme/code, vendor art, junk links, train information, obsolete apps, and tracking assets are excluded. Next, obtain approved original media and migrate high-value assets to R2 in the dedicated storage pass; continue targeted current-site retries where the host returned HTTP 503.
 
-## Current official website audit — live pass, 2026-08-28
+## Deep crawl correction — PR #11
 
-The bounded crawler reached the current official homepage over HTTPS and recorded its title, internal navigation, 26 image references, and official YouTube reference in `src/data/source-crawl.json`. The homepage did not provide sufficiently unambiguous evidence to supersede repository contact or leadership fields in this pass; those public values therefore remain unchanged. A deeper run remains appropriate because the host intermittently stalls under repeated automated requests.
+The committed live manifest was regenerated with a limit of 100 attempts per domain and concurrency 2. It contains **160 distinct HTML pages**: **60 current-site pages** and **100 legacy pages**. The crawl discovered **3,528 distinct images**, **86 PDF references**, **41 audio references**, and **43 YouTube links**. There were **24 recorded request failures**: 22 intermittent current-host HTTP 503 responses and two confirmed current-site HTTP 404 routes (`/publication` and `/download`). Explicit priority seeds ensure important routes are attempted before discovered utility links; feeds, comment feeds, XML-RPC, WordPress JSON endpoints, oEmbed routes, tracking parameters, and unrelated hosts are excluded.
 
-## Legacy website live audit — 2026-08-28
+### Current official website audit
 
-The legacy homepage and targeted organizational assets were reached successfully. The live homepage exposed 45 distinct image references, including the six flagship Ashram exterior images. All 17 named portraits from `about_us.php` returned real 280×200 JPEG images, had distinct SHA-256 hashes, and were validated and retained as remote staging references. The 46 Veda Rahasya PDF URLs were checked individually: all 46 returned successful PDF responses. The crawl and validation artifacts are committed as `source-crawl.json` and `source-assets-check.json`.
+The current-site portion yielded 767 distinct images, 26 PDF references, and 20 audio references across 60 successful pages. A targeted retry of `/about-us` identifies the living continuation of the tradition with Shri Jagdishanand Sagarji Maharaj; this is recorded as source wording rather than used to expand or alter public honorifics. The current contact page confirms Surat at Udaynagar-1, Katargam Road, Surat 395004 and phone `+91 0261 2534610`; it publishes `omShreeMadhavanandji@gmail.com`, while the footer publishes `madhvanandashramsurat@gmail.com`. These two email variants are retained as a source conflict rather than silently replacing repository data.
 
-## Source conflict audit
+The current site links its YouTube handle, Facebook profile, Instagram profile, and WhatsApp community; exact URLs are recorded in `current-site-audit.ts`. It exposes 50-plus Ashram entries and provides richer image sets for Surat (9), Chanod (9), Sughad (12), Akru (6), and Haridwar (20). Bhavnagar did not expose a comparable dedicated image set, so the validated legacy exterior remains its preferred image. The official logo URL is recorded for provenance without replacing the existing BrandMark.
 
-No stronger live evidence was found to replace the repository's main Ashram name, Surat address, phone, email, leadership title, social links, or branch contacts. The current host remains authoritative for future current-information changes; the legacy host remains the archival authority. The official YouTube handle agrees with the repository record. The legacy logo was not substituted for the existing BrandMark because no higher-quality current seal was established.
+The current photo archive exposes 12 named album pages covering Guru memories, Gurukul/Ashram life, festivals, Bhagwat Saptah, and blood-donation Seva. These are now structured as gallery albums with remote images. The historical-letter page yielded 19 full scan URLs, grouped into 10 letter records without inventing authors, recipients, or dates.
+
+### Legacy website audit
+
+The legacy portion reached the 100-page bound and yielded 2,761 distinct images, 60 PDF references, 21 audio references, and 43 YouTube links. All four requested video collections were crawled; 42 individual historical YouTube records include source titles, IDs, durations, contexts, collection relationships, and source pages. The remaining YouTube link is the current/legacy homepage embed discovered by the general crawler.
+
+Books & Magazines yielded seven named books and seven cover records. Its seven apparent `publication_bk.php?d=...pdf` download endpoints return HTML rather than PDF content, so the books are integrated without active PDF buttons. The 46 Veda Rahasya PDFs remain independently valid. The download archive yielded 21 devotional audio URLs; the current site mirrors 20 of them and also exposes newer audio references.
+
+### Asset validation
+
+The regenerated checker evaluated 170 discovered remote references. All **46 Veda Rahasya PDFs passed**. The check report records other successes and failures without converting HTML download handlers into valid PDFs. During the final run, the current host intermittently returned 503 for some assets and the environment's CONNECT proxy rejected direct YouTube verification; the 42 YouTube IDs remain source-extracted from the successfully crawled legacy HTML rather than claimed as network-validated by the checker.
