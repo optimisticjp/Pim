@@ -1,15 +1,14 @@
 "use client";
 
 import { Plus, Trash2 } from "lucide-react";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { getPreviewEvents, savePreviewEvents } from "@/lib/demo-store";
 import type { EventItem } from "@/lib/types";
 
 export function EventManager() {
-  const [rows, setRows] = useState<EventItem[]>([]);
+  const [rows, setRows] = useState<EventItem[]>(getPreviewEvents);
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
-  useEffect(() => setRows(getPreviewEvents()), []);
 
   function add(event: FormEvent) {
     event.preventDefault();

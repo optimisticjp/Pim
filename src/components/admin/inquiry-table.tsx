@@ -1,7 +1,7 @@
 "use client";
 
 import { Download, RotateCcw } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getPreviewInquiries, updateInquiryStatus } from "@/lib/demo-store";
 import type { InquiryRecord } from "@/lib/types";
 
@@ -9,8 +9,7 @@ const statusLabels = { new: "નવું", in_progress: "પ્રક્રિ�
 const typeLabels = { general: "સામાન્ય", seva: "સેવા", event: "કાર્યક્રમ", publication: "પ્રકાશન" };
 
 export function InquiryTable() {
-  const [rows, setRows] = useState<InquiryRecord[]>([]);
-  useEffect(() => setRows(getPreviewInquiries()), []);
+  const [rows, setRows] = useState<InquiryRecord[]>(getPreviewInquiries);
 
   function change(id: string, status: InquiryRecord["status"]) { setRows(updateInquiryStatus(id, status)); }
   function exportCsv() {
