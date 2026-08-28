@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "madhavanand-ashram-web",
+  "name": "pim",
   "compatibility_date": "2026-08-28",
   "compatibility_flags": [
     "nodejs_compat"
@@ -16,11 +16,5 @@
   },
   "images": {
     "binding": "IMAGES"
-  },
-  "kv_namespaces": [
-    {
-      "binding": "VINEXT_KV_CACHE",
-      "id": "<your-kv-namespace-id>"
-    }
-  ]
+  }
 }
