@@ -35,7 +35,7 @@ export default function HomePage() {
               <span className="mt-1 hidden text-xs text-muted-foreground sm:block">{note}</span>
             </Link>
           ))}
-          <HomeIdentityCard variant="compact" className="col-span-2 mt-2 lg:hidden" />
+          <HomeIdentityCard variant="compact" className="col-span-2 mt-2 md:col-span-4 lg:hidden" />
         </div>
       </section>
 
