@@ -1,5 +1,15 @@
 export type NavItem = { label: string; href: string };
 
+export type SourceStatus = "verified-current" | "verified-legacy" | "source-derived" | "prototype" | "review-required";
+
+export interface SourceReference {
+  sourceSite: "current" | "legacy" | "repository";
+  sourceUrl: string;
+  sourceLabel: string;
+  status: SourceStatus;
+  reviewRequired?: boolean;
+}
+
 export type AshramRegion =
   | "મુખ્ય કેન્દ્ર"
   | "મધ્ય ગુજરાત"

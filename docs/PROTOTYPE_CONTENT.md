@@ -14,6 +14,12 @@ The staging public site intentionally renders a mature, populated experience on 
 - Existing unverified Satsang series in `src/lib/site-data.ts` provide six content pathways while the official YouTube uploads facade remains the canonical playable media surface.
 - Ashram names and verified contacts remain source data. No synthetic address or phone is added.
 
+## Source-derived migration layer
+
+`src/lib/migration/heritage-data.ts` contains source-traceable heritage records and wraps the three repository-known legacy publication records with provenance. `src/data/migration-media.json` is the machine-readable asset ledger. These records are not prototype records, but their historical wording and remote files still require committee launch review. `/heritage` presents only this documented subset; it does not imply that the inaccessible source sites were freshly verified.
+
+Status vocabulary is centralized in `src/lib/types.ts`: `verified-current`, `verified-legacy`, `source-derived`, `prototype`, and `review-required`.
+
 ## Before primary-domain launch
 
 - [ ] Remove or replace prototype events.

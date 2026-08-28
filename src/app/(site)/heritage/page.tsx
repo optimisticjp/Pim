@@ -1,0 +1,65 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight, BookOpenText, ExternalLink, LibraryBig, Radio, ScrollText } from "lucide-react";
+
+import { SectionHeading } from "@/components/ui/section-heading";
+import { heritagePublications, heritageRecords } from "@/lib/migration/heritage-data";
+
+export const metadata: Metadata = {
+  title: "વારસા સંગ્રહ",
+  description: "શ્રી માધવાનંદજી મહારાજ, ગુરુપરંપરા અને ઉપલબ્ધ વેદ રહસ્ય પ્રકાશનોનો સ્રોતસચેત ડિજિટલ વારસા પ્રવેશ.",
+};
+
+export default function HeritagePage() {
+  const history = heritageRecords.filter((record) => record.kind !== "channel");
+  return <main>
+    <header className="relative overflow-hidden border-b border-border bg-[#efe1ce]">
+      <div className="pattern-jali absolute inset-0 opacity-30" aria-hidden="true" />
+      <div className="container-site relative py-12 sm:py-16 lg:py-20">
+        <p className="eyebrow">વારસા સંગ્રહ</p>
+        <h1 className="display-title mt-4 max-w-[13ch] text-primary-strong">સ્મૃતિને સંદર્ભ સાથે સાચવતો ડિજિટલ વારસો</h1>
+        <p className="body-large mt-5 max-w-3xl">ગુરુપરંપરાની ઉપલબ્ધ ઐતિહાસિક નોંધો, વેદ રહસ્યના અંકો અને અધિકૃત સત્સંગ તરફનો શાંત, સંપાદકીય પ્રવેશ.</p>
+      </div>
+    </header>
+
+    <section className="section-pad">
+      <div className="container-site grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:gap-14">
+        <SectionHeading eyebrow="પરંપરાનું મૂળ" title="પ્રમાણિત નોંધ જેટલું જ કહીએ" description="આ સંગ્રહ અપૂર્ણ હોવા છતાં ઉપયોગી છે. ચોક્કસ વર્ષ, ઉપાધિ કે ઓળખ સ્રોત વિના ઉમેરવામાં આવતી નથી." />
+        <div className="grid gap-4 sm:grid-cols-2">
+          {history.map((record, index) => <article key={record.id} className={`rounded-[1.35rem] border p-6 ${index === 0 ? "border-primary/20 bg-primary text-white sm:row-span-2" : "border-[#d8c2a5] bg-surface"}`}>
+            <ScrollText className={`size-6 ${index === 0 ? "text-[#efbd6b]" : "text-gold-deep"}`} aria-hidden="true" />
+            <h2 className={`mt-8 font-serif text-2xl font-bold ${index === 0 ? "text-white" : "text-primary-strong"}`}>{record.titleGu}</h2>
+            <p className={`mt-3 leading-8 ${index === 0 ? "text-[#eadbd0]" : "text-muted-foreground"}`}>{record.descriptionGu}</p>
+            <Link href="/parampara" className="mt-6 inline-flex min-h-11 items-center gap-2 font-bold">ગુરુપરંપરા વાંચો <ArrowRight className="size-4" /></Link>
+          </article>)}
+        </div>
+      </div>
+    </section>
+
+    <section className="border-y border-border bg-surface section-pad">
+      <div className="container-site">
+        <SectionHeading eyebrow="ડિજિટલ ગ્રંથાલય" title="વેદ રહસ્યના ઉપલબ્ધ વારસા અંકો" description="જૂની વેબસાઇટમાંથી રિપોઝિટરીમાં પહેલેથી નોંધાયેલા ત્રણ અંકો. મૂળ ફાઇલોનું ભાવિ R2 સ્થાનાંતરણ અને સમિતિ મંજૂરી બાકી છે." />
+        <div className="mt-9 grid gap-5 md:grid-cols-3">
+          {heritagePublications.map((publication) => <article key={publication.id} className="flex min-h-72 flex-col overflow-hidden rounded-[1.25rem] border border-[#d8c4aa] bg-[#fffaf2]">
+            <div className="pattern-jali flex flex-1 flex-col justify-end border-b border-[#d8c4aa] bg-[#f1e5d3] p-5">
+              <BookOpenText className="size-6 text-gold-deep" aria-hidden="true" />
+              <h2 className="mt-8 font-serif text-2xl font-bold text-primary-strong">{publication.titleGu}</h2>
+              <p className="mt-2 font-bold text-primary">{publication.editionGu}</p>
+            </div>
+            <div className="grid grid-cols-2 gap-2 p-4">
+              <Link href={`/publications/${publication.slug}`} className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary px-3 font-bold text-white">વાંચો</Link>
+              {publication.pdfUrl ? <a href={publication.pdfUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border-strong px-3 font-bold text-primary">PDF <ExternalLink className="size-4" /></a> : null}
+            </div>
+          </article>)}
+        </div>
+      </div>
+    </section>
+
+    <section className="section-pad">
+      <div className="container-site grid gap-5 md:grid-cols-2">
+        <Link href="/publications" className="rounded-[1.25rem] border border-border bg-surface p-6"><LibraryBig className="size-6 text-gold-deep" /><h2 className="mt-5 font-serif text-2xl font-bold text-primary">ડિજિટલ ગ્રંથાલય</h2><p className="mt-2 leading-7 text-muted-foreground">પ્રકાશન પ્રકાર, વર્ષ અને વર્ણન દ્વારા ઉપલબ્ધ સંગ્રહ શોધો.</p><span className="mt-5 inline-flex min-h-11 items-center gap-2 font-bold text-primary">પ્રકાશનો જુઓ <ArrowRight className="size-4" /></span></Link>
+        <Link href="/satsang" className="rounded-[1.25rem] bg-[#37151c] p-6 text-white"><Radio className="size-6 text-[#efbd6b]" /><h2 className="mt-5 font-serif text-2xl font-bold">જીવંત સત્સંગ વારસો</h2><p className="mt-2 leading-7 text-[#d8c7bb]">અધિકૃત YouTube ચેનલ પર ઉપલબ્ધ પ્રવચન અને પાઠ સાથે જોડાઓ.</p><span className="mt-5 inline-flex min-h-11 items-center gap-2 font-bold">સત્સંગ જુઓ <ArrowRight className="size-4" /></span></Link>
+      </div>
+    </section>
+  </main>;
+}
