@@ -1,11 +1,11 @@
-import { publications } from "@/lib/site-data";
 import { prototypePublications } from "@/lib/prototype-content";
+import { legacyVedaRahasyaIssues } from "@/lib/migration/veda-rahasya-data";
 import type { Publication, PublicationKind } from "@/lib/types";
 
 // Repository boundary: D1 and R2 can replace this seed-backed implementation
 // without changing archive or reader components.
 export function getPublications(): Publication[] {
-  return [...publications, ...prototypePublications].filter((publication) => publication.verified || publication.prototype);
+  return [...legacyVedaRahasyaIssues, ...prototypePublications].filter((publication) => publication.verified || publication.prototype);
 }
 
 export function getPublicationBySlug(slug: string): Publication | undefined {

@@ -1,5 +1,6 @@
 import { events } from "@/lib/site-data";
 import { prototypeEvents } from "@/lib/prototype-content";
+import { legacyArchivedEvents } from "@/lib/migration/legacy-event-data";
 import { compareEventStartToNow } from "@/lib/event-format";
 import type { EventItem, EventKind } from "@/lib/types";
 
@@ -7,7 +8,7 @@ function isPublic(event: EventItem) {
   return (event.verified || event.prototype) && (event.status === "published" || event.status === "cancelled" || event.status === "archived");
 }
 
-const publicSeed = [...events, ...prototypeEvents];
+const publicSeed = [...events, ...prototypeEvents, ...legacyArchivedEvents];
 
 function eventTime(event: EventItem) {
   return event.startsAt ? new Date(event.startsAt).getTime() : Number.NaN;

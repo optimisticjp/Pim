@@ -1,5 +1,15 @@
 export type NavItem = { label: string; href: string };
 
+export type SourceStatus = "verified-current" | "verified-legacy" | "source-derived" | "prototype" | "review-required";
+
+export interface SourceReference {
+  sourceSite: "current" | "legacy" | "repository";
+  sourceUrl: string;
+  sourceLabel: string;
+  status: SourceStatus;
+  reviewRequired?: boolean;
+}
+
 export type AshramRegion =
   | "મુખ્ય કેન્દ્ર"
   | "મધ્ય ગુજરાત"
@@ -120,6 +130,8 @@ export interface EventItem {
   verified: boolean;
   /** Staging-only editorial record; replace or verify before primary-domain launch. */
   prototype?: boolean;
+  /** Source page for source-derived archive records. */
+  sourceUrl?: string;
 }
 
 export type PublicationKind = "veda-rahasya" | "book" | "letter" | "special" | "other";
@@ -143,6 +155,7 @@ export interface Publication {
   verified: boolean;
   /** Staging-only editorial record; replace or verify before primary-domain launch. */
   prototype?: boolean;
+  sourceUrl?: string;
 }
 
 export interface SevaActivity {

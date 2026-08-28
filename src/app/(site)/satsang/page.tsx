@@ -7,6 +7,7 @@ import { YouTubeFacade } from "@/components/media/youtube-facade";
 import { SatsangShare } from "@/components/satsang/satsang-share";
 import { getOfficialUploadsPlaylistId, getOfficialYouTubeChannel, getSatsangLiveStatus, getSatsangSeries } from "@/lib/satsang-data";
 import type { SatsangCategory } from "@/lib/types";
+import { historicalVideoCollections } from "@/lib/migration/video-data";
 
 export const metadata = {
   title: "સત્સંગ મંડપ | ગુજરાતી ગુરુવાણી, પાઠ, કથા અને ભજન",
@@ -87,6 +88,8 @@ export default function SatsangPage() {
           </article>
         </div>
       </section>
+
+      <section className="border-y border-border bg-[#f1e5d3] py-11 sm:py-16" aria-labelledby="historical-heading"><div className="container-site"><p className="eyebrow">પ્રસંગ સ્મૃતિ</p><h2 id="historical-heading" className="mt-3 font-serif text-3xl font-bold text-primary-strong sm:text-4xl">ઐતિહાસિક સત્સંગ સંગ્રહ</h2><p className="mt-3 max-w-2xl leading-7 text-muted-foreground">Legacy video galleryમાં નોંધાયેલા ચાર સંગ્રહ. વ્યક્તિગત video IDs હજુ ઉપલબ્ધ નથી, તેથી playback બનાવવાને બદલે મૂળ archive સુરક્ષિત રીતે ખોલવામાં આવે છે.</p><div className="mt-8 grid gap-4 md:grid-cols-2">{historicalVideoCollections.map(item=><a key={item.id} href={item.sourceUrl} target="_blank" rel="noreferrer" className="group rounded-[1.25rem] border border-[#d0b796] bg-[#fffaf2] p-5 transition hover:border-primary/30"><YouTubeMark className="size-6 text-primary"/><h3 className="mt-5 font-serif text-xl font-bold text-primary">{item.titleGu}</h3>{item.contextGu?<p className="mt-2 text-sm text-muted-foreground">{item.contextGu}</p>:null}<span className="mt-5 inline-flex min-h-11 items-center gap-2 font-bold text-primary">{item.videoCount} વિડિયોનો સંગ્રહ <ExternalLink className="size-4"/></span></a>)}</div></div></section>
 
       <section className="border-y border-border bg-surface-soft py-11 sm:py-16" aria-labelledby="resources-heading">
         <div className="container-site flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between">

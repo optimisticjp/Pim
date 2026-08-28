@@ -95,7 +95,7 @@ export default function HomePage() {
           <div className="mt-9 grid gap-5 lg:grid-cols-[1.18fr_.91fr_.91fr]">
             {[
               { icon: BookOpenText, title: "વેદ રહસ્ય ડિજિટલ સંગ્રહ", copy: "ઉપલબ્ધ જૂના અંકોને વર્ષ અને અંક પ્રમાણે વાંચો અને PDF ખોલો.", href: "/publications", cta: "પ્રકાશનો વાંચો", featured: true },
-              { icon: ScrollText, title: "ગુરુપરંપરાનો વારસો", copy: "પરંપરાની ઉપલબ્ધ માહિતી અને ડિજિટલ અભિલેખાગારનું માળખું જાણો.", href: "/parampara", cta: "પરંપરા જાણો" },
+              { icon: ScrollText, title: "વારસા સંગ્રહ", copy: "પરંપરાની સ્રોતસચેત નોંધો અને ઉપલબ્ધ ડિજિટલ પ્રકાશનો વાંચો.", href: "/heritage", cta: "વારસો જુઓ" },
               { icon: Camera, title: "પ્રસંગ સંગ્રહ", copy: "સત્સંગ, ઉત્સવ અને સેવાપ્રસંગોની સ્મૃતિ સાથે જોડાઓ.", href: "/events", cta: "પ્રસંગો જુઓ" },
             ].map(({ icon: Icon, title, copy, href, cta, featured }) => (
               <article key={title} className={`flex min-h-[14rem] flex-col rounded-[1.4rem] border p-6 sm:p-7 ${featured ? "border-primary/20 bg-primary text-primary-foreground" : "border-[#d8c2a5] bg-[#fffaf1]"}`}>
