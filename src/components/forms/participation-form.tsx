@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 
 import { addPreviewParticipation } from "@/lib/demo-store";
 import type { Ashram, ParticipationInquiry, ParticipationTrack, SevaInterest } from "@/lib/types";
@@ -24,8 +24,12 @@ const blank = { fullName: "", phone: "", city: "", interests: [] as SevaInterest
 
 export function ParticipationForm({ ashrams }: { ashrams: Pick<Ashram, "id" | "nameGu" | "localityGu">[] }) {
   const params = useSearchParams();
-  const defaultTrack = useMemo<ParticipationTrack>(() => params.get("track") === "youth" ? "youth" : "seva", [params]);
-  const [form, setForm] = useState({ ...blank, track: defaultTrack });
+  const requestedTrack: ParticipationTrack = params.get("track") === "youth" ? "youth" : "seva";
+  return <ParticipationFormFields key={requestedTrack} ashrams={ashrams} initialTrack={requestedTrack} />;
+}
+
+function ParticipationFormFields({ ashrams, initialTrack }: { ashrams: Pick<Ashram, "id" | "nameGu" | "localityGu">[]; initialTrack: ParticipationTrack }) {
+  const [form, setForm] = useState({ ...blank, track: initialTrack });
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
   const [error, setError] = useState("");
 
@@ -41,16 +45,18 @@ export function ParticipationForm({ ashrams }: { ashrams: Pick<Ashram, "id" | "n
     setStatus("loading");
     try {
       const response = await fetch("/api/participation", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(form) });
-      const result = await response.json() as { message?: string };
+      const result = await response.json() as { message?: string; mode?: "preview" };
       if (!response.ok) throw new Error(result.message || "વિનંતી સ્વીકારી શકાઈ નથી.");
+      if (result.mode !== "preview") throw new Error("હાલ ઑનલાઇન રસ નોંધણી ઉપલબ્ધ નથી. કૃપા કરીને મુખ્ય આશ્રમનો ફોન દ્વારા સંપર્ક કરો.");
       const record: ParticipationInquiry = { id: `part-${Date.now()}`, ...form, fullName: form.fullName.trim(), phone: form.phone.trim(), city: form.city.trim(), message: form.message.trim() || undefined, availability: form.availability || undefined, ashramId: form.ashramId || undefined, status: "new", createdAt: new Date().toISOString() };
-      addPreviewParticipation(record); setForm({ ...blank, track: defaultTrack }); setStatus("success");
+      addPreviewParticipation(record); setForm({ ...blank, track: initialTrack }); setStatus("success");
     } catch (caught) { setStatus("idle"); setError(caught instanceof Error ? caught.message : "ફોર્મ મોકલવામાં અડચણ આવી. ફરી પ્રયાસ કરો."); }
   }
 
-  if (status === "success") return <div className="card-sacred grid min-h-[360px] place-items-center p-6 text-center sm:p-9"><div><CheckCircle2 className="mx-auto h-12 w-12 text-sacred-green" aria-hidden="true" /><h2 className="mt-5 font-serif text-2xl font-bold text-primary sm:text-3xl">આભાર. સેવા માટે આપનો રસ નોંધાયો છે.</h2><p className="mx-auto mt-3 max-w-xl leading-7 text-muted-foreground">આપની પસંદગી અને સંપર્ક વિગતોના આધારે આગળના માર્ગદર્શન માટે સંપર્ક કરવામાં આવી શકે છે. ફોર્મ મોકલવાથી જોડાણ અથવા સેવા ફાળવણી નિશ્ચિત થતી નથી.</p><div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/ashrams" className="inline-flex min-h-12 items-center justify-center rounded-full bg-primary px-5 font-bold text-white">આશ્રમ શોધો</Link><Link href="/satsang" className="inline-flex min-h-12 items-center justify-center rounded-full border border-border-strong px-5 font-bold text-primary">સત્સંગ જુઓ</Link></div></div></div>;
+  if (status === "success") return <div className="card-sacred grid min-h-[360px] place-items-center p-6 text-center sm:p-9"><div><CheckCircle2 className="mx-auto h-12 w-12 text-sacred-green" aria-hidden="true" /><h2 className="mt-5 font-serif text-2xl font-bold text-primary sm:text-3xl">ફોર્મનું પૂર્વદર્શન પૂર્ણ થયું.</h2><p className="mx-auto mt-3 max-w-xl leading-7 text-muted-foreground">આ માહિતી આશ્રમ સમિતિ સુધી પહોંચી નથી અને માત્ર આ ઉપકરણ પરના પૂર્વદર્શન માટે રહે છે. સત્તાવાર રીતે સેવા માટે જોડાવા ચકાસેલી સંપર્ક વિગતો દ્વારા મુખ્ય આશ્રમનો ફોન પર સંપર્ક કરો.</p><div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/ashrams" className="inline-flex min-h-12 items-center justify-center rounded-full bg-primary px-5 font-bold text-white">આશ્રમ શોધો</Link><Link href="/satsang" className="inline-flex min-h-12 items-center justify-center rounded-full border border-border-strong px-5 font-bold text-primary">સત્સંગ જુઓ</Link></div></div></div>;
 
   return <form onSubmit={submit} className="card-sacred p-5 sm:p-7" noValidate>
+    <div className="mb-6 rounded-2xl border border-[#d8c2a5] bg-[#fff8ec] p-4 text-[14px] leading-7 text-[#554842]"><strong className="block text-primary">હાલ આ ફોર્મ પૂર્વદર્શન માટે છે.</strong>અહીં આપેલી વિગતો આશ્રમ સમિતિ સુધી મોકલાતી નથી અને માત્ર આ ઉપકરણ પર રહે છે. સત્તાવાર સેવા જોડાણ માટે મુખ્ય આશ્રમનો ફોન દ્વારા સંપર્ક કરો.</div>
     <div className="grid gap-4 sm:grid-cols-2">
       <Field label="પૂર્ણ નામ *" htmlFor="participation-name"><input id="participation-name" required minLength={2} maxLength={120} value={form.fullName} onChange={(e) => setForm({ ...form, fullName: e.target.value })} className="field" autoComplete="name" /></Field>
       <Field label="મોબાઇલ નંબર *" htmlFor="participation-phone"><input id="participation-phone" required minLength={7} maxLength={30} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="field" inputMode="tel" autoComplete="tel" /></Field>
