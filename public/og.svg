@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fbf7ef"/>
+  <circle cx="1020" cy="80" r="260" fill="#c7812b" opacity=".12"/>
+  <circle cx="100" cy="620" r="280" fill="#711f2d" opacity=".07"/>
+  <path d="M760 520V300c0-130 100-210 210-210s210 80 210 210v220" fill="none" stroke="#711f2d" stroke-width="4" opacity=".25"/>
+  <text x="85" y="120" fill="#9a601f" font-size="32" font-family="sans-serif">॥ ૐ શ્રી સચ્ચિદાનંદ પરબ્રહ્મણે નમઃ ॥</text>
+  <text x="85" y="270" fill="#571621" font-size="78" font-weight="700" font-family="serif">શ્રી માધવાનંદ આશ્રમ</text>
+  <text x="85" y="360" fill="#4f433d" font-size="38" font-family="sans-serif">સત્સંગથી આત્મકલ્યાણ, સેવાથી સમાજકલ્યાણ</text>
+  <rect x="85" y="430" width="250" height="64" rx="32" fill="#711f2d"/>
+  <text x="134" y="472" fill="#fff9ef" font-size="26" font-weight="700" font-family="sans-serif">જય સચ્ચિદાનંદ</text>
+</svg>
