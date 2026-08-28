@@ -88,9 +88,7 @@ export interface SatsangVideo {
   durationSeconds?: number;
   featured?: boolean;
   verified: boolean;
-  verified: boolean;
   verificationDate?: string;
-  featured?: boolean;
   descriptionGu?: string;
 }
 
