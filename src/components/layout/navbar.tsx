@@ -3,17 +3,20 @@
 import Link from "next/link";
 import { Menu, Radio, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { BrandMark } from "@/components/ui/brand-mark";
 import { navItems, siteName } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
-  const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => setOpen(false), [pathname]);
+  return <NavbarContent key={pathname} pathname={pathname} />;
+}
+
+function NavbarContent({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/80 bg-[#fbf7ef]/94 backdrop-blur-xl">
