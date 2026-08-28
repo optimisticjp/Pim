@@ -26,6 +26,12 @@ Other branch names are migrated only as directory names from the legacy branch l
 
 Legacy public PDFs are referenced remotely for preview. Before production, obtain committee-approved original PDF files and migrate them to Cloudflare R2.
 
+The current archive contains only the three legacy URLs already present in project data: June 2017, May 2016 and July 2014. No cover image, author, page count or publication date has been asserted for these records. Their remote availability should be rechecked with the committee before launch.
+
+### Future full-text search
+
+Full-text search is intentionally deferred until approved source files are available. The planned pipeline is: approved PDF in R2 → Gujarati text extraction (OCR only where required) → normalized page-level text in a searchable index → topic query → issue-and-page results linked back to the stable publication page. Editors must review extraction quality before an issue becomes searchable. The current interface searches metadata only; it does not search inside PDFs.
+
 ## YouTube
 
 Official channel supplied by project owner:
