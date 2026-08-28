@@ -130,6 +130,8 @@ export interface EventItem {
   verified: boolean;
   /** Staging-only editorial record; replace or verify before primary-domain launch. */
   prototype?: boolean;
+  /** Source page for source-derived archive records. */
+  sourceUrl?: string;
 }
 
 export type PublicationKind = "veda-rahasya" | "book" | "letter" | "special" | "other";
@@ -153,6 +155,7 @@ export interface Publication {
   verified: boolean;
   /** Staging-only editorial record; replace or verify before primary-domain launch. */
   prototype?: boolean;
+  sourceUrl?: string;
 }
 
 export interface SevaActivity {

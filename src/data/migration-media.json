@@ -1,6 +1,578 @@
 [
-  {"id":"veda-rahasya-june-2017-pdf","sourceUrl":"https://omshreemadhavanandji.org/home.php","assetUrl":"https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-June-2017.pdf","type":"pdf","localPath":null,"relatedEntity":"veda-rahasya-june-2017","status":"remote-review-required"},
-  {"id":"veda-rahasya-may-2016-pdf","sourceUrl":"https://www.omshreemadhavanandji.org/","assetUrl":"https://www.omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-May-2016.pdf","type":"pdf","localPath":null,"relatedEntity":"veda-rahasya-may-2016","status":"remote-review-required"},
-  {"id":"veda-rahasya-july-2014-pdf","sourceUrl":"https://www.omshreemadhavanandji.org/","assetUrl":"https://www.omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-July-2014.pdf","type":"pdf","localPath":null,"relatedEntity":"veda-rahasya-july-2014","status":"remote-review-required"},
-  {"id":"official-youtube-channel","sourceUrl":"https://www.youtube.com/@SachchidanandMadhavanand/","assetUrl":"https://www.youtube.com/@SachchidanandMadhavanand/","type":"video-channel","localPath":null,"relatedEntity":"satsang","status":"repository-supplied-review-required"}
+  {
+    "id": "guru-madhavanandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/madhavanandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "madhavanandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-chidanandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/chidanandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "chidanandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-shivohamji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/shivohamji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "shivohamji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-akhandanandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/akhandanandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "akhandanandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-jagdishanandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/jagdishanandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "jagdishanandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-prakashanandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/prakashanandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "prakashanandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-hareshanandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/hareshanandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "hareshanandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-vivekanandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/vivekanandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "vivekanandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-bhumanandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/bhumanandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "bhumanandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-mohananandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/mohananandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "mohananandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-sureshwaranandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/sureshwaranandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "sureshwaranandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-brahmanandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/brahmanandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "brahmanandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-hariharanandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/hariharanandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "hariharanandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-jayanandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/jayanandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "jayanandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-devanandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/devanandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "devanandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-dayanandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/dayanandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "dayanandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "guru-ganeshanandji-portrait",
+    "sourceUrl": "https://omshreemadhavanandji.org/about_us.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/swamiji/ganeshanandji.jpg",
+    "type": "photo",
+    "localPath": null,
+    "relatedEntity": "ganeshanandji",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-july-2014-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-July-2014.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-july-2014",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-august-2014-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-August-2014.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-august-2014",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-september-2014-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-September-2014.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-september-2014",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-october-2014-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-October-2014.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-october-2014",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-november-2014-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-November-2014.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-november-2014",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-december-2014-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-December-2014.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-december-2014",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-january-2015-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-January-2015.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-january-2015",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-february-2015-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-February-2015.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-february-2015",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-march-2015-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-March-2015.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-march-2015",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-april-2015-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-April-2015.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-april-2015",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-may-2015-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-May-2015.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-may-2015",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-june-2015-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-June-2015.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-june-2015",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-july-2015-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-July-2015.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-july-2015",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-august-2015-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-August-2015.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-august-2015",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-september-2015-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-September-2015.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-september-2015",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-october-2015-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-October-2015.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-october-2015",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-november-2015-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-November-2015.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-november-2015",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-december-2015-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-December-2015.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-december-2015",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-january-2016-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-January-2016.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-january-2016",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-february-2016-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-February-2016.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-february-2016",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-march-2016-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-March-2016.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-march-2016",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-april-2016-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-April-2016.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-april-2016",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-may-2016-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-May-2016.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-may-2016",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-june-2016-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-June-2016.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-june-2016",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-july-2016-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-July-2016.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-july-2016",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-august-2016-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-August-2016.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-august-2016",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-september-2016-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-September-2016.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-september-2016",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-october-2016-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-October-2016.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-october-2016",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-november-2016-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-November-2016.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-november-2016",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-december-2016-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-December-2016.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-december-2016",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-january-2017-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-January-2017.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-january-2017",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-february-2017-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-February-2017.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-february-2017",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-march-2017-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-March-2017.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-march-2017",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-april-2017-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-April-2017.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-april-2017",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-may-2017-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-May-2017.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-may-2017",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-june-2017-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-June-2017.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-june-2017",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-july-2017-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-July-2017.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-july-2017",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-august-2017-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-August-2017.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-august-2017",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-september-2017-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-September-2017.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-september-2017",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-october-2017-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-October-2017.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-october-2017",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-november-2017-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-November-2017.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-november-2017",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-december-2017-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-December-2017.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-december-2017",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-january-2018-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-January-2018.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-january-2018",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-february-2018-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-February-2018.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-february-2018",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-march-2018-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-March-2018.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-march-2018",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "veda-rahasya-april-2018-pdf",
+    "sourceUrl": "https://omshreemadhavanandji.org/publication_vedarahasya.php",
+    "assetUrl": "https://omshreemadhavanandji.org/content/pub_vedarahasya/Ved-Rahasya-April-2018.pdf",
+    "type": "pdf",
+    "localPath": null,
+    "relatedEntity": "veda-rahasya-april-2018",
+    "status": "staging-remote-review-required"
+  },
+  {
+    "id": "official-youtube-channel",
+    "sourceUrl": "https://www.youtube.com/@SachchidanandMadhavanand/",
+    "assetUrl": "https://www.youtube.com/@SachchidanandMadhavanand/",
+    "type": "video-channel",
+    "localPath": null,
+    "relatedEntity": "satsang",
+    "status": "repository-supplied-review-required"
+  }
 ]

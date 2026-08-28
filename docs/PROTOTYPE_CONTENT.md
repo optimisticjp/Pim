@@ -16,7 +16,7 @@ The staging public site intentionally renders a mature, populated experience on 
 
 ## Source-derived migration layer
 
-`src/lib/migration/heritage-data.ts` contains source-traceable heritage records and wraps the three repository-known legacy publication records with provenance. `src/data/migration-media.json` is the machine-readable asset ledger. These records are not prototype records, but their historical wording and remote files still require committee launch review. `/heritage` presents only this documented subset; it does not imply that the inaccessible source sites were freshly verified.
+`src/lib/migration/` now contains 17 Guru profiles, 46 monthly Veda Rahasya issues, four Yuvak Mandal chapters, four historical video collections, three archived events, and source-traceable heritage records. `src/data/migration-media.json` is the machine-readable asset ledger. These records are not prototype records, but their historical wording and remote files still require committee launch review. `/heritage` presents only this documented subset; it does not imply that the inaccessible source sites were freshly verified.
 
 Status vocabulary is centralized in `src/lib/types.ts`: `verified-current`, `verified-legacy`, `source-derived`, `prototype`, and `review-required`.
 

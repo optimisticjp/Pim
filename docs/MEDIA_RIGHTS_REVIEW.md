@@ -1,12 +1,27 @@
 # Media rights review
 
-This staging migration assumes organizational use only for material already published by the organization, but formal approval is still required before primary-domain launch.
+All staging-remote media below is externally audited as appearing on the legacy organizational website. Formal organizational ownership/permission and approved originals remain required before primary-domain launch.
 
-| Migrated or linked asset | Source page / website | Assumed basis | Local copy | Review status |
+| Asset | Source page | Assumed basis | Storage | Review |
 |---|---|---|---|---|
-| Veda Rahasya — June 2017 PDF | Legacy organization website | Organization publication archive | no | Committee approval and original file required |
-| Veda Rahasya — May 2016 PDF | Legacy organization website | Organization publication archive | no | Committee approval and original file required |
-| Veda Rahasya — July 2014 PDF | Legacy organization website | Organization publication archive | no | Committee approval and original file required |
-| Official YouTube channel embeds/links | Owner-supplied channel URL | Organization channel association | no | Confirm channel ownership |
+| `madhavanandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `chidanandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `shivohamji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `akhandanandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `jagdishanandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `prakashanandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `hareshanandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `vivekanandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `bhumanandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `mohananandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `sureshwaranandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `brahmanandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `hariharanandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `jayanandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `devanandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `dayanandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| `ganeshanandji.jpg` | `about_us.php` | Named organization personality portrait | remote staging URL | identity, rights, original file |
+| 46 Veda Rahasya PDFs, July 2014–April 2018 | `publication_vedarahasya.php` | Organization publication archive | remote staging URLs | rights, availability, approved originals |
+| Official YouTube channel | Owner-supplied channel URL | Organization channel association | remote | confirm channel ownership |
 
-No photographs were downloaded in this pass because the source hosts were unreachable. This avoids misidentification and prevents importing vendor or third-party artwork. When photographs are harvested, add one row per local file with its page context, direct asset URL, depicted person/place/event, and written approval status.
+No AI-generated replacements, vendor artwork, generic stock, or invented scans are used. Remote portrait failures display the existing BrandMark fallback. When originals are approved, preserve source URLs in the manifest while updating `localPath` to optimized local/R2 assets.

@@ -10,16 +10,19 @@ import type { Publication } from "@/lib/types";
 export function PublicationGrid({ publications, years }: { publications: Publication[]; years: number[] }) {
   const [year, setYear] = useState<number | null>(null);
   const [query, setQuery] = useState("");
+  const [category, setCategory] = useState<"all" | "veda-rahasya" | "other">("all");
+  const [visibleCount, setVisibleCount] = useState(12);
   const filtered = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase("gu");
     return publications.filter((publication) => {
       const matchesYear = year === null || publication.year === year;
+      const matchesCategory = category === "all" || (category === "veda-rahasya" ? publication.kind === "veda-rahasya" : publication.kind !== "veda-rahasya");
       const metadata = [publication.titleGu, publication.subtitleGu, publication.editionGu, publication.monthGu, publication.year, publication.kind, publication.descriptionGu].join(" ").toLocaleLowerCase("gu");
-      return matchesYear && (!normalized || metadata.includes(normalized));
+      return matchesYear && matchesCategory && (!normalized || metadata.includes(normalized));
     });
-  }, [publications, query, year]);
+  }, [category, publications, query, year]);
 
-  const reset = () => { setYear(null); setQuery(""); };
+  const reset = () => { setYear(null); setQuery(""); setCategory("all"); setVisibleCount(12); };
 
   return (
     <div>
@@ -42,11 +45,13 @@ export function PublicationGrid({ publications, years }: { publications: Publica
         </div>
       </div>
 
+      <div className="mt-4 flex flex-wrap gap-2" aria-label="પ્રકાશન પ્રકાર">
+        {([['all','બધાં પ્રકાશનો'],['veda-rahasya','વેદ રહસ્ય'],['other','ગ્રંથો અને અન્ય']] as const).map(([value,label])=><button key={value} type="button" onClick={()=>{setCategory(value);setVisibleCount(12);}} aria-pressed={category===value} className="min-h-11 rounded-full border border-border-strong bg-surface px-4 font-bold text-primary aria-pressed:bg-primary aria-pressed:text-white">{label}</button>)}
+      </div>
+
       <p className="mt-6 text-[15px] text-muted-foreground" aria-live="polite">{year ? `${formatGujaratiNumber(year)}નાં ` : ""}{formatGujaratiNumber(filtered.length)} પ્રકાશન</p>
       {filtered.length ? (
-        <div className="mt-4 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {filtered.map((publication) => <PublicationCard key={publication.id} publication={publication} />)}
-        </div>
+        <><div className="mt-4 grid gap-5 md:grid-cols-2 xl:grid-cols-3">{filtered.slice(0,visibleCount).map((publication) => <PublicationCard key={publication.id} publication={publication} />)}</div>{visibleCount<filtered.length?<div className="mt-8 text-center"><button type="button" onClick={()=>setVisibleCount(count=>count+12)} className="min-h-12 rounded-full bg-primary px-6 font-bold text-white">વધુ પ્રકાશનો જુઓ</button></div>:null}</>
       ) : (
         <div className="mt-4 rounded-[1.25rem] border border-dashed border-[#c9ad89] bg-[#fffaf2] px-5 py-12 text-center">
           <h2 className="font-serif text-2xl font-bold text-primary-strong">આ શોધ માટે કોઈ પ્રકાશન મળ્યું નથી.</h2>

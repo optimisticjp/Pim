@@ -29,6 +29,7 @@ export default function PublicationsPage() {
             <div><p className="eyebrow">વેદ રહસ્ય અને આધ્યાત્મિક વાંચન</p><h2 className="mt-3 font-serif text-3xl font-bold text-primary-strong">પસંદ કરેલો પ્રકાશન સંગ્રહ</h2></div>
             <Link href="/contact?type=publication" className="inline-flex min-h-11 items-center gap-2 self-start rounded-full border border-border-strong bg-surface px-5 font-bold text-primary"><BookOpenText className="size-4" /> પ્રકાશન અંગે પૂછપરછ</Link>
           </div>
+          <dl className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3"><div className="rounded-2xl border border-border bg-surface p-4"><dt className="text-sm text-muted-foreground">વેદ રહસ્ય અંક</dt><dd className="mt-1 font-serif text-3xl font-bold text-primary">૪૬</dd></div><div className="rounded-2xl border border-border bg-surface p-4"><dt className="text-sm text-muted-foreground">સંગ્રહ વર્ષ</dt><dd className="mt-1 font-serif text-3xl font-bold text-primary">૫</dd></div><div className="col-span-2 rounded-2xl border border-border bg-surface p-4 sm:col-span-1"><dt className="text-sm text-muted-foreground">સમયગાળો</dt><dd className="mt-1 font-serif text-lg font-bold text-primary">જુલાઈ ૨૦૧૪—એપ્રિલ ૨૦૧૮</dd></div></dl>
           <div className="mt-7"><PublicationGrid publications={issues} years={getPublicationYears()} /></div>
         </div>
       </main>
