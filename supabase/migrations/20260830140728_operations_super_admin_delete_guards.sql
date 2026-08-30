@@ -1,0 +1,15 @@
+create policy ashram_profiles_super_delete on public.ashram_profiles for delete to authenticated using(private.is_super_admin());
+create policy programme_centres_super_delete on public.programme_centres for delete to authenticated using(private.is_super_admin());
+create policy programme_circulars_super_delete on public.programme_circulars for delete to authenticated using(private.is_super_admin());
+create policy tithi_programmes_super_delete on public.tithi_programmes for delete to authenticated using(private.is_super_admin());
+create policy seva_categories_super_delete on public.seva_categories for delete to authenticated using(private.is_super_admin());
+create policy seva_activities_super_delete on public.seva_activities for delete to authenticated using(private.is_super_admin());
+create policy volunteer_super_delete on public.volunteer_applications for delete to authenticated using(private.is_super_admin());
+create policy stay_requests_super_delete on public.stay_requests for delete to authenticated using(private.is_super_admin());
+create policy stay_guests_super_delete on public.stay_guests for delete to authenticated using(private.is_super_admin());
+create policy stay_meals_super_delete on public.stay_meal_requirements for delete to authenticated using(private.is_super_admin());
+create policy room_types_super_delete on public.room_types for delete to authenticated using(private.is_super_admin());
+create policy rooms_super_delete on public.rooms for delete to authenticated using(private.is_super_admin());
+create policy room_blocks_super_delete on public.room_blocks for delete to authenticated using(private.is_super_admin());
+create policy room_assignments_super_delete on public.room_assignments for delete to authenticated using(private.is_super_admin());
+create policy booking_documents_super_delete on public.booking_documents for delete to authenticated using(private.is_super_admin());

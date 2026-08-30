@@ -1,0 +1,28 @@
+import type { AdminSession } from "@/lib/admin/types";
+import { hasAdminPermission } from "@/lib/admin/data";
+import { getAdminAccessToken, supabaseRest } from "@/lib/supabase/server";
+
+export type AdminAshram={id:string;slug:string;name_gu:string;city_gu:string;state_gu:string|null;full_address:string|null;office_phone:string|null;manager_name:string|null;manager_mobile:string|null;map_url:string|null;rules_md:string|null;accepts_stays:boolean;published:boolean;verified:boolean;archived_at:string|null};
+export type AdminProgrammeCentre={id:string;kind:string;title_gu:string;ashram_id:string|null;address_gu:string;city_gu:string;contact_name:string|null;contact_mobile:string|null;map_url:string|null;schedule_text:string|null;age_range_text:string|null;notes:string|null;published:boolean;sort_order:number;archived_at:string|null};
+export type AdminCircular={id:string;title_gu:string;category:string;description_gu:string|null;image_url:string|null;pdf_url:string|null;valid_from:string|null;valid_until:string|null;published:boolean;archived_at:string|null};
+export type AdminTithi={id:string;title_gu:string;programme_type:string;programme_date:string;weekday_gu:string|null;tithi_name_gu:string|null;tithi_number:string|null;swamiji_name:string|null;village_city_gu:string;venue_gu:string|null;map_url:string|null;details_gu:string|null;image_url:string|null;pdf_url:string|null;status:string;ashram_id:string|null};
+export type AdminSevaCategory={id:string;slug:string;title_gu:string;description_gu:string|null;published:boolean;sort_order:number;archived_at:string|null};
+export type AdminSevaActivity={id:string;category_id:string;title_gu:string;summary_gu:string|null;details_gu:string|null;ashram_id:string|null;activity_date:string|null;metric_label_gu:string|null;metric_value:string|null;cover_url:string|null;published:boolean;archived_at:string|null};
+export type VolunteerApplication={id:string;application_number:string;full_name:string;mobile:string;full_address:string;age:number|null;available_from:string|null;available_until:string|null;time_slot:string|null;preferred_ashram_id:string|null;preferred_seva:string[]|null;skills:string|null;notes:string|null;status:string;review_note:string|null;submitted_at:string};
+export type StayRequest={id:string;request_number:string;applicant_name:string;mobile:string;native_village:string;full_address:string;reference_name:string|null;ashram_id:string;check_in:string;check_out:string;total_members:number;takes_prasad:boolean;breakfast_count:number;lunch_count:number;dinner_count:number;status:string;assigned_to:string|null;admin_note:string|null;submitted_at:string;stay_guests?:Array<{id:string;guest_order:number;full_name:string;age:number|null;relationship:string|null}>;stay_meal_requirements?:Array<{id:string;meal_date:string;breakfast_count:number;lunch_count:number;dinner_count:number}>;room_assignments?:Array<{id:string;room_id:string;assigned_at:string;released_at:string|null}>};
+export type Room={id:string;ashram_id:string;room_type_id:string|null;room_number:string;floor_label:string|null;capacity:number;notes:string|null;active:boolean;archived_at:string|null};
+export type RoomType={id:string;ashram_id:string;name_gu:string;capacity:number;notes:string|null;active:boolean};
+
+async function token(){return getAdminAccessToken();}
+async function list<T>(session:AdminSession,permission:string,path:string):Promise<T[]>{if(!hasAdminPermission(session,permission)&&!session.profile?.is_super_admin)return[];const t=await token();if(!t)return[];return supabaseRest<T[]>(path,t);}
+export const getAdminAshrams=(s:AdminSession)=>list<AdminAshram>(s,"programmes.view","ashram_profiles?select=*&order=name_gu.asc");
+export const getProgrammeCentres=(s:AdminSession)=>list<AdminProgrammeCentre>(s,"programmes.view","programme_centres?select=*&order=sort_order.asc,title_gu.asc");
+export const getProgrammeCirculars=(s:AdminSession)=>list<AdminCircular>(s,"programmes.view","programme_circulars?select=*&order=created_at.desc");
+export const getTithiProgrammes=(s:AdminSession)=>list<AdminTithi>(s,"programmes.view","tithi_programmes?select=*&order=programme_date.asc");
+export const getSevaCategories=(s:AdminSession)=>list<AdminSevaCategory>(s,"content.view","seva_categories?select=*&order=sort_order.asc,title_gu.asc");
+export const getSevaActivities=(s:AdminSession)=>list<AdminSevaActivity>(s,"content.view","seva_activities?select=*&order=created_at.desc");
+export const getVolunteerApplications=(s:AdminSession)=>list<VolunteerApplication>(s,"volunteer.view","volunteer_applications?select=*&order=submitted_at.desc&limit=100");
+export const getStayRequests=(s:AdminSession)=>list<StayRequest>(s,"stays.view","stay_requests?select=*&order=submitted_at.desc&limit=100");
+export async function getStayRequest(s:AdminSession,id:string){if(!hasAdminPermission(s,"stays.view")&&!s.profile?.is_super_admin)return null;const t=await token();if(!t)return null;const rows=await supabaseRest<StayRequest[]>(`stay_requests?select=*,stay_guests(*),stay_meal_requirements(*),room_assignments(*)&id=eq.${encodeURIComponent(id)}&limit=1`,t);return rows[0]??null;}
+export const getRooms=(s:AdminSession)=>list<Room>(s,"stays.view","rooms?select=*&order=ashram_id.asc,room_number.asc");
+export const getRoomTypes=(s:AdminSession)=>list<RoomType>(s,"stays.view","room_types?select=*&order=ashram_id.asc,name_gu.asc");

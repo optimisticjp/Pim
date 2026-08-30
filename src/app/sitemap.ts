@@ -1,18 +1,6 @@
 import type { MetadataRoute } from "next";
-
 import { getAshrams } from "@/lib/ashram-data";
 import { getPublications } from "@/lib/publication-data";
 import { getPublishedEvents } from "@/lib/event-data";
-
-const routes = ["", "/parampara", "/heritage", "/heritage/gallery", "/heritage/letters", "/heritage/gallery/guru-parampara-portraits", "/ashrams", "/activities", "/satsang", "/publications", "/events", "/membership", "/contact"];
-
-export default function sitemap(): MetadataRoute.Sitemap {
-  const branchRoutes = getAshrams().map((ashram) => `/ashrams/${ashram.slug}`);
-  const publicationRoutes = getPublications().map((publication) => `/publications/${publication.slug}`);
-  const eventRoutes = getPublishedEvents().map((event) => `/events/${event.slug}`);
-  return [...routes, ...branchRoutes, ...publicationRoutes, ...eventRoutes].map((route) => ({
-    url: `https://sachchidanandmadhavanand.org${route}`,
-    changeFrequency: route === "/events" || route === "/satsang" ? "weekly" : "monthly",
-    priority: route === "" ? 1 : 0.8,
-  }));
-}
+const routes=["","/parampara","/heritage","/heritage/gallery","/heritage/letters","/heritage/gallery/guru-parampara-portraits","/ashrams","/activities","/seva","/satsang","/programmes","/publications","/events","/forms","/membership","/volunteer","/stay","/contact"];
+export default function sitemap():MetadataRoute.Sitemap{const branchRoutes=getAshrams().map(a=>`/ashrams/${a.slug}`);const publicationRoutes=getPublications().map(p=>`/publications/${p.slug}`);const eventRoutes=getPublishedEvents().map(e=>`/events/${e.slug}`);return [...routes,...branchRoutes,...publicationRoutes,...eventRoutes].map(route=>({url:`https://sachchidanandmadhavanand.org${route}`,changeFrequency:route==="/events"||route==="/satsang"||route==="/programmes"?"weekly":"monthly",priority:route===""?1:0.8}));}
