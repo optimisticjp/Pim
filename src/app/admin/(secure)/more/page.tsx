@@ -3,6 +3,7 @@ import { ArrowRight, BookOpenText, CalendarDays, FileText, Inbox, Landmark, Shie
 
 const links = [
   ["/admin/inbox", "આવેલ અરજીઓ", "બધી applications અને કામની queue", Inbox],
+  ["/admin/members", "સભ્યો અને પરિવાર", "સભ્યપદ અરજી, પરિવાર અને અધિકૃત સભ્ય રેકોર્ડ", Users],
   ["/admin/ashrams", "આશ્રમો", "આશ્રમ માહિતી અને હાલનું content management", Landmark],
   ["/admin/events", "કાર્યક્રમો", "ઉત્સવ અને કાર્યક્રમો", CalendarDays],
   ["/admin/publications", "પ્રકાશનો", "વેદ રહસ્ય અને પ્રકાશન વ્યવસ્થા", BookOpenText],
