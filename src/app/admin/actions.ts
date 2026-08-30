@@ -16,14 +16,6 @@ async function actionContext(permission?: string) {
   return { session, token };
 }
 
-async function audit(token: string, actor: string, action: string, entityType: string, entityId: string | null, oldData?: unknown, newData?: unknown) {
-  await supabaseRest("audit_logs", token, {
-    method: "POST",
-    prefer: "return=minimal",
-    body: JSON.stringify({ actor_user_id: actor, action, entity_type: entityType, entity_id: entityId, old_data: oldData ?? null, new_data: newData ?? null }),
-  });
-}
-
 export async function logoutAction(): Promise<never> {
   const token = await getAdminAccessToken();
   await signOut(token);
@@ -32,7 +24,7 @@ export async function logoutAction(): Promise<never> {
 }
 
 export async function createInboxItemAction(formData: FormData): Promise<void> {
-  const { session, token } = await actionContext("inbox.update");
+  const { token } = await actionContext("inbox.update");
   const title = String(formData.get("title") ?? "").trim();
   if (!title) return;
   const record = {
@@ -46,8 +38,7 @@ export async function createInboxItemAction(formData: FormData): Promise<void> {
     status: "new",
     priority: String(formData.get("priority") ?? "normal"),
   };
-  const created = await supabaseRest<InboxItem[]>("inbox_items", token, { method: "POST", prefer: "return=representation", body: JSON.stringify(record) });
-  await audit(token, session.profile!.id, "create", "inbox_item", created[0]?.id ?? null, null, record);
+  await supabaseRest<InboxItem[]>("inbox_items", token, { method: "POST", prefer: "return=representation", body: JSON.stringify(record) });
   revalidatePath("/admin");
   revalidatePath("/admin/inbox");
 }
@@ -62,29 +53,26 @@ export async function updateInboxStatusAction(formData: FormData): Promise<void>
   if (!current || current.status === toStatus) return;
   await supabaseRest(`inbox_items?id=eq.${encodeURIComponent(id)}`, token, { method: "PATCH", prefer: "return=minimal", body: JSON.stringify({ status: toStatus }) });
   await supabaseRest("status_history", token, { method: "POST", prefer: "return=minimal", body: JSON.stringify({ entity_type: "inbox_item", entity_id: id, from_status: current.status, to_status: toStatus, changed_by: session.profile!.id }) });
-  await audit(token, session.profile!.id, "status_change", "inbox_item", id, { status: current.status }, { status: toStatus });
   revalidatePath("/admin");
   revalidatePath("/admin/inbox");
 }
 
 export async function archiveInboxAction(formData: FormData): Promise<void> {
-  const { session, token } = await actionContext("inbox.archive");
+  const { token } = await actionContext("inbox.archive");
   const id = String(formData.get("id") ?? "");
   const restore = String(formData.get("restore") ?? "") === "true";
   if (!id) return;
   await supabaseRest(`inbox_items?id=eq.${encodeURIComponent(id)}`, token, { method: "PATCH", prefer: "return=minimal", body: JSON.stringify({ archived_at: restore ? null : new Date().toISOString() }) });
-  await audit(token, session.profile!.id, restore ? "restore" : "archive", "inbox_item", id);
   revalidatePath("/admin");
   revalidatePath("/admin/inbox");
 }
 
 export async function assignInboxAction(formData: FormData): Promise<void> {
-  const { session, token } = await actionContext("inbox.assign");
+  const { token } = await actionContext("inbox.assign");
   const id = String(formData.get("id") ?? "");
   const adminId = String(formData.get("admin_id") ?? "").trim() || null;
   if (!id) return;
   await supabaseRest(`inbox_items?id=eq.${encodeURIComponent(id)}`, token, { method: "PATCH", prefer: "return=minimal", body: JSON.stringify({ assigned_to: adminId }) });
-  await audit(token, session.profile!.id, "assign", "inbox_item", id, null, { assigned_to: adminId });
   revalidatePath("/admin/inbox");
 }
 
@@ -98,7 +86,6 @@ export async function saveRolePermissionsAction(formData: FormData): Promise<voi
   if (permissionCodes.length) {
     await supabaseRest("role_permissions", token, { method: "POST", prefer: "return=minimal", body: JSON.stringify(permissionCodes.map((permission_code) => ({ role_id: roleId, permission_code }))) });
   }
-  await audit(token, session.profile.id, "permissions_replace", "role", roleId, null, { permissions: permissionCodes });
   revalidatePath("/admin/roles");
 }
 
@@ -115,7 +102,6 @@ export async function assignAdminRoleAction(formData: FormData): Promise<void> {
     prefer: "resolution=ignore-duplicates,return=minimal",
     body: JSON.stringify({ admin_id: adminId, role_id: roleId, scope_type: scopeType, scope_key: scopeKey, assigned_by: session.profile.id }),
   });
-  await audit(token, session.profile.id, "role_assign", "admin_profile", adminId, null, { role_id: roleId, scope_type: scopeType, scope_key: scopeKey });
   revalidatePath("/admin/team");
 }
 
@@ -126,6 +112,5 @@ export async function setAdminStatusAction(formData: FormData): Promise<void> {
   const status = String(formData.get("status") ?? "");
   if (!adminId || !["active", "suspended"].includes(status) || adminId === session.profile.id) return;
   await supabaseRest(`admin_profiles?id=eq.${encodeURIComponent(adminId)}`, token, { method: "PATCH", prefer: "return=minimal", body: JSON.stringify({ status }) });
-  await audit(token, session.profile.id, "admin_status", "admin_profile", adminId, null, { status });
   revalidatePath("/admin/team");
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Bell, FileText, Home, Inbox, LogOut, ShieldCheck, Users } from "lucide-react";
+import { Bell, BookOpenText, CalendarDays, FileText, Home, Inbox, Landmark, LogOut, ShieldCheck, Users } from "lucide-react";
 
 import { logoutAction } from "@/app/admin/actions";
 import { AdminBottomNav } from "@/components/admin/admin-bottom-nav";
@@ -8,6 +8,9 @@ import type { AdminSession } from "@/lib/admin/types";
 const desktopNav = [
   ["/admin", "ડેશબોર્ડ", Home],
   ["/admin/inbox", "આવેલ અરજીઓ", Inbox],
+  ["/admin/ashrams", "આશ્રમો", Landmark],
+  ["/admin/events", "કાર્યક્રમો", CalendarDays],
+  ["/admin/publications", "પ્રકાશનો", BookOpenText],
   ["/admin/team", "એડમિન ટીમ", Users],
   ["/admin/roles", "ભૂમિકાઓ", ShieldCheck],
   ["/admin/audit", "ઓડિટ લોગ", FileText],
@@ -18,7 +21,7 @@ export function AdminShell({ session, children }: { session: AdminSession; child
   return <div className="min-h-screen bg-[#f5f3ee] text-[#302923]">
     <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 border-r border-[#ded8cf] bg-[#fffdfa] p-4 md:flex md:flex-col">
       <Link href="/admin" className="rounded-2xl bg-[#571621] p-4 text-white"><p className="text-[10px] font-bold tracking-[.12em] text-[#efbd6b]">PARIVAR SEVA</p><p className="mt-1 font-serif text-xl font-bold">Admin</p></Link>
-      <nav className="mt-5 space-y-1">{desktopNav.map(([href, label, Icon]) => <Link key={href} href={href} className="flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm font-bold text-[#554b44] transition hover:bg-[#f3ece2] hover:text-primary"><Icon className="size-[18px]" />{label}</Link>)}</nav>
+      <nav className="mt-5 space-y-1 overflow-y-auto">{desktopNav.map(([href, label, Icon]) => <Link key={href} href={href} className="flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm font-bold text-[#554b44] transition hover:bg-[#f3ece2] hover:text-primary"><Icon className="size-[18px]" />{label}</Link>)}</nav>
       <div className="mt-auto rounded-2xl border border-[#e4ddd3] bg-white p-3"><p className="truncate text-sm font-bold">{profile.display_name}</p><p className="mt-1 text-xs text-muted-foreground">{profile.is_super_admin ? "Super Admin" : "Committee Admin"}</p><form action={logoutAction}><button className="mt-3 flex min-h-10 w-full items-center justify-center gap-2 rounded-xl bg-[#f3ece8] text-sm font-bold text-primary" type="submit"><LogOut className="size-4" /> બહાર નીકળો</button></form></div>
     </aside>
 
