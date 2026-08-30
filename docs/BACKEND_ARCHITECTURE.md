@@ -4,7 +4,7 @@ The production backend is being introduced in controlled phases. Supabase Postgr
 
 ## Phase 1 — live
 
-The Pim Supabase project has the first foundation migration applied:
+The Pim Supabase project has the first foundation migrations applied:
 
 - invite-only admin profiles backed by `auth.users`
 - one Super Admin plus delegated role assignments
@@ -12,11 +12,13 @@ The Pim Supabase project has the first foundation migration applied:
 - unified inbox primitives
 - internal notes and status history
 - in-app notifications
-- immutable-style audit ledger
+- database-enforced audit ledger for critical admin records
 - archive/trash foundations
 - RLS on every exposed foundation table
 
 The web app uses only the Supabase project URL and publishable key. It does **not** require or expose the service-role key.
+
+RBAC helper functions live in a non-exposed `private` Postgres schema. Public-table policies can use them, but they are not available as public PostgREST RPC endpoints.
 
 ## Admin access
 
@@ -33,3 +35,7 @@ Git remains code/data only. Public archive media and private Aadhaar/identity fi
 ## Notifications
 
 Phase 1 uses in-app notifications and dashboard queues. Email delivery is added only after the production domain is connected.
+
+## Security checks
+
+Supabase security advisors were run after the foundation migrations. Project-owned RBAC helper warnings were eliminated by moving them out of the exposed schema. A remaining advisor warning references Supabase's existing `public.rls_auto_enable()` helper rather than application-owned functions.
