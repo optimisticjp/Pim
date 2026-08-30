@@ -1,16 +1,25 @@
 "use client";
 
 import Link from "next/link";
+import type { ComponentType } from "react";
+import type { LucideProps } from "lucide-react";
 import { Home, Inbox, Menu, PlusCircle, Users } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-const items = [
+type NavItem = {
+  href: string;
+  label: string;
+  icon: ComponentType<LucideProps>;
+  primary?: boolean;
+};
+
+const items: NavItem[] = [
   { href: "/admin", label: "હોમ", icon: Home },
   { href: "/admin/inbox", label: "ઇનબોક્સ", icon: Inbox },
   { href: "/admin/quick-add", label: "ઉમેરો", icon: PlusCircle, primary: true },
   { href: "/admin/team", label: "ટીમ", icon: Users },
   { href: "/admin/more", label: "વધુ", icon: Menu },
-] as const;
+];
 
 export function AdminBottomNav() {
   const pathname = usePathname();
