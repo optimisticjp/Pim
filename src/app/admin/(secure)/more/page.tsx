@@ -1,13 +1,15 @@
 import Link from "next/link";
-import { ArrowRight, Banknote, BedDouble, BookOpenText, CalendarDays, FileText, HeartHandshake, Inbox, Landmark, Radio, ShieldCheck, Users } from "lucide-react";
+import { ArrowRight, Banknote, BedDouble, BookOpenText, CalendarDays, FileText, FolderOpen, HeartHandshake, Inbox, Landmark, Radio, ShieldCheck, Users } from "lucide-react";
 const links=[
 ["/admin/inbox","આવેલ અરજીઓ","બધી applications અને કામની queue",Inbox],
 ["/admin/members","સભ્યો અને પરિવાર","સભ્યપદ અરજી, પરિવાર અને અધિકૃત સભ્ય રેકોર્ડ",Users],
 ["/admin/programmes","સત્સંગ અને કાર્યક્રમો","બાળ શિબિર, circular, તિથિ અને પૂનમ",Radio],
 ["/admin/seva","સેવા અને સ્વયંસેવક","સેવા ક્ષેત્ર, પ્રવૃત્તિ અને volunteer queue",HeartHandshake],
-["/admin/stays","ઉતારા અને રૂમ","રહેવાની અરજી, રૂમ અને ભોજન headcount",BedDouble],
+["/admin/stays","ઉતારા અને રૂમ","રહેવાની અરજી, રૂમ, ખાનગી દસ્તાવેજ અને ભોજન",BedDouble],
 ["/admin/veda","વેદ રહસ્ય","સભ્યપદ, subscriber services, લેખ અને PDF archive",BookOpenText],
 ["/admin/cash","નકદ અને રસીદ","Cash Pending, received cash અને સત્તાવાર receipts",Banknote],
+["/admin/heritage","ગુરુ અને હેરિટેજ","ગુરુ પરંપરા chapters અને ઐતિહાસિક દસ્તાવેજ",BookOpenText],
+["/admin/media","મીડિયા લાઇબ્રેરી","Audio, photo, PDF અને YouTube folder management",FolderOpen],
 ["/admin/ashrams","આશ્રમો","આશ્રમ માહિતી અને હાલનું content management",Landmark],
 ["/admin/events","કાર્યક્રમો (જૂનું CMS)","હાલના website event records",CalendarDays],
 ["/admin/publications","પ્રકાશનો","ગ્રંથ અને પ્રકાશન વ્યવસ્થા",BookOpenText],
