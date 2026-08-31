@@ -79,9 +79,9 @@ type Cash = {
 };
 type Receipt = { cash_transaction_id: string; receipt_number: string; status: string; issued_at: string };
 
-// Spreadsheet programs can interpret values beginning with these characters as formulas.
-// Treat leading whitespace/control characters as part of the dangerous prefix too.
 const formulaPrefix = /^[\t\r\n ]*[=+\-@]/;
+const PAGE_SIZE = 1000;
+const MAX_EXPORT_SOURCE_ROWS = 100_000;
 
 function csvCell(value: unknown) {
   let text = value == null ? "" : Array.isArray(value) ? value.join(" | ") : String(value);
@@ -99,10 +99,27 @@ function inRange(value: string | null, from: string, to: string) {
   return (!from || day >= from) && (!to || day <= to);
 }
 
-// Stay dates are [check_in, check_out): the guest is no longer occupying a room
-// on checkout day. The report's `to` filter is inclusive.
+// Stay dates are [check_in, check_out): checkout day is not an occupied night.
+// The report's `to` filter is inclusive.
 function stayOverlapsRange(checkIn: string, checkOut: string, from: string, to: string) {
   return (!from || checkOut > from) && (!to || checkIn <= to);
+}
+
+async function fetchAll<T>(query: string, token: string): Promise<T[]> {
+  const rows: T[] = [];
+  while (true) {
+    const separator = query.includes("?") ? "&" : "?";
+    const page = await supabaseRest<T[]>(
+      `${query}${separator}limit=${PAGE_SIZE}&offset=${rows.length}`,
+      token,
+    );
+    if (!page.length) return rows;
+    rows.push(...page);
+    if (rows.length > MAX_EXPORT_SOURCE_ROWS) {
+      throw new Error("Export source is too large; narrow the requested report range");
+    }
+    if (page.length < PAGE_SIZE) return rows;
+  }
 }
 
 function filename(type: string) {
@@ -142,7 +159,7 @@ export async function GET(request: Request) {
     return Response.json({ error: "Invalid date range" }, { status: 400 });
   }
 
-  const ashrams = await supabaseRest<Ashram[]>(
+  const ashrams = await fetchAll<Ashram>(
     "ashram_profiles?select=id,slug,name_gu&archived_at=is.null&order=name_gu.asc",
     token,
   );
@@ -153,8 +170,8 @@ export async function GET(request: Request) {
   if (["stays", "kitchen", "rooms"].includes(type)) {
     if (!hasAdminPermission(session, "stays.view")) return denied();
 
-    const stays = await supabaseRest<Stay[]>(
-      "stay_requests?select=id,request_number,applicant_name,mobile,native_village,full_address,ashram_id,check_in,check_out,total_members,status,breakfast_count,lunch_count,dinner_count&order=check_in.asc&limit=5000",
+    const stays = await fetchAll<Stay>(
+      "stay_requests?select=id,request_number,applicant_name,mobile,native_village,full_address,ashram_id,check_in,check_out,total_members,status,breakfast_count,lunch_count,dinner_count&order=check_in.asc",
       token,
     );
     const scopedStays = stays.filter(
@@ -164,8 +181,8 @@ export async function GET(request: Request) {
     if (type === "stays") {
       const filtered = scopedStays.filter((stay) => stayOverlapsRange(stay.check_in, stay.check_out, from, to));
       const [assignments, rooms] = await Promise.all([
-        supabaseRest<Assignment[]>("room_assignments?select=id,stay_request_id,room_id,released_at&limit=5000", token),
-        supabaseRest<Room[]>("rooms?select=id,ashram_id,room_number,capacity&limit=5000", token),
+        fetchAll<Assignment>("room_assignments?select=id,stay_request_id,room_id,released_at", token),
+        fetchAll<Room>("rooms?select=id,ashram_id,room_number,capacity", token),
       ]);
       const roomById = new Map(rooms.map((room) => [room.id, room]));
       const roomFor = new Map(
@@ -197,11 +214,11 @@ export async function GET(request: Request) {
     }
 
     if (type === "kitchen") {
-      // Do not filter stays by check-in here: a stay may begin before `from` and
-      // still have meal requirements inside the requested meal-date range.
+      // A stay may begin before `from` while still requiring meals inside the
+      // selected meal-date range, so only meal_date is range-filtered here.
       const stayById = new Map(scopedStays.map((stay) => [stay.id, stay]));
-      const meals = await supabaseRest<Meal[]>(
-        "stay_meal_requirements?select=stay_request_id,meal_date,breakfast_count,lunch_count,dinner_count&order=meal_date.asc&limit=10000",
+      const meals = await fetchAll<Meal>(
+        "stay_meal_requirements?select=stay_request_id,meal_date,breakfast_count,lunch_count,dinner_count&order=meal_date.asc",
         token,
       );
       const operationalStatuses = new Set(["approved", "room_assigned", "checked_in"]);
@@ -235,11 +252,11 @@ export async function GET(request: Request) {
         .map((stay) => [stay.id, stay]),
     );
     const [assignments, rooms] = await Promise.all([
-      supabaseRest<Assignment[]>(
-        "room_assignments?select=id,stay_request_id,room_id,released_at&released_at=is.null&limit=5000",
+      fetchAll<Assignment>(
+        "room_assignments?select=id,stay_request_id,room_id,released_at&released_at=is.null",
         token,
       ),
-      supabaseRest<Room[]>("rooms?select=id,ashram_id,room_number,capacity&limit=5000", token),
+      fetchAll<Room>("rooms?select=id,ashram_id,room_number,capacity", token),
     ]);
     const roomById = new Map(rooms.map((room) => [room.id, room]));
 
@@ -267,8 +284,8 @@ export async function GET(request: Request) {
 
   if (type === "members") {
     if (!hasAdminPermission(session, "membership.view")) return denied();
-    const rows = await supabaseRest<Membership[]>(
-      "membership_applications?select=application_number,first_name,father_name,surname,mobile,native_village,full_address,education,occupation,blood_group,gender,age,family_member_count,status,submitted_at&order=submitted_at.desc&limit=5000",
+    const rows = await fetchAll<Membership>(
+      "membership_applications?select=application_number,first_name,father_name,surname,mobile,native_village,full_address,education,occupation,blood_group,gender,age,family_member_count,status,submitted_at&order=submitted_at.desc",
       token,
     );
     const filtered = rows.filter((row) => (!status || row.status === status) && inRange(row.submitted_at, from, to));
@@ -281,8 +298,8 @@ export async function GET(request: Request) {
 
   if (type === "volunteers") {
     if (!hasAdminPermission(session, "volunteer.view")) return denied();
-    const rows = await supabaseRest<Volunteer[]>(
-      "volunteer_applications?select=application_number,full_name,mobile,full_address,age,available_from,available_until,time_slot,preferred_ashram_id,preferred_seva,skills,status,submitted_at&order=submitted_at.desc&limit=5000",
+    const rows = await fetchAll<Volunteer>(
+      "volunteer_applications?select=application_number,full_name,mobile,full_address,age,available_from,available_until,time_slot,preferred_ashram_id,preferred_seva,skills,status,submitted_at&order=submitted_at.desc",
       token,
     );
     const filtered = rows.filter(
@@ -311,25 +328,27 @@ export async function GET(request: Request) {
 
   if (type === "veda") {
     if (!hasAdminPermission(session, "veda.view")) return denied();
-    const rows = await supabaseRest<VedaSubscriber[]>(
-      "veda_subscribers?select=subscriber_number,full_name,mobile,village,full_address,pincode,status,started_at,ended_at&order=created_at.desc&limit=5000",
+    const rows = await fetchAll<VedaSubscriber>(
+      "veda_subscribers?select=subscriber_number,full_name,mobile,village,full_address,pincode,status,started_at,ended_at&order=created_at.desc",
       token,
     );
     return download(
       "veda-subscribers",
       ["Subscriber No", "Name", "Mobile", "Village", "Address", "PIN Code", "Status", "Started", "Ended"],
-      rows.filter((row) => !status || row.status === status).map((row) => [row.subscriber_number, row.full_name, row.mobile, row.village, row.full_address, row.pincode, row.status, row.started_at, row.ended_at]),
+      rows
+        .filter((row) => (!status || row.status === status) && inRange(row.started_at, from, to))
+        .map((row) => [row.subscriber_number, row.full_name, row.mobile, row.village, row.full_address, row.pincode, row.status, row.started_at, row.ended_at]),
     );
   }
 
   if (type === "cash") {
     if (!hasAdminPermission(session, "cash.record") && !hasAdminPermission(session, "receipts.issue")) return denied();
     const [rows, receipts] = await Promise.all([
-      supabaseRest<Cash[]>(
-        "cash_transactions?select=id,reference_type,reference_id,payer_name,mobile,amount,purpose_gu,ashram_id,received_at,note,voided_at&order=received_at.desc&limit=5000",
+      fetchAll<Cash>(
+        "cash_transactions?select=id,reference_type,reference_id,payer_name,mobile,amount,purpose_gu,ashram_id,received_at,note,voided_at&order=received_at.desc",
         token,
       ),
-      supabaseRest<Receipt[]>("receipts?select=cash_transaction_id,receipt_number,status,issued_at&limit=5000", token),
+      fetchAll<Receipt>("receipts?select=cash_transaction_id,receipt_number,status,issued_at", token),
     ]);
     const receiptByCash = new Map(receipts.map((receipt) => [receipt.cash_transaction_id, receipt]));
     const filtered = rows.filter((row) => matchesAshram(row.ashram_id) && inRange(row.received_at, from, to));
