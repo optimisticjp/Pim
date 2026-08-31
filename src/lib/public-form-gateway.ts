@@ -1,4 +1,5 @@
 import { getSupabaseRuntimeConfig } from "@/lib/supabase/config";
+import { supabasePublicRpc } from "@/lib/supabase/public";
 
 export type PublicFormType = "membership" | "donation" | "stay" | "volunteer" | "veda_subscription" | "veda_change" | "veda_article" | "contact_preview" | "participation_preview";
 
@@ -22,5 +23,16 @@ export async function submitProtectedPublicForm<T>(formType:PublicFormType,paylo
   const text=await response.text();let body:unknown=text;
   if(text){try{body=JSON.parse(text);}catch{/* keep text */}}
   if(!response.ok){const message=typeof body==="object"&&body&&"error" in body?String((body as {error:unknown}).error):`Submission failed (${response.status})`;throw new PublicFormGatewayError(message,response.status);}
-  return body as T;
+  const wrapped=body as {data?:T};
+  return wrapped.data as T;
+}
+
+// Safe two-phase activation: before a production Turnstile site key is configured,
+// keep the existing anonymous RPC path working. Once the site key is present the
+// application automatically requires a Turnstile token and uses the Edge gateway.
+// The final activation migration can then revoke anonymous execution on submit_* RPCs.
+export async function submitPublicForm<T>(formType:PublicFormType,rpcName:string,payload:Record<string,unknown>,formData:FormData):Promise<T>{
+  if(!isTurnstileConfigured())return supabasePublicRpc<T>(rpcName,{payload});
+  const token=String(formData.get("cf-turnstile-response")??"");
+  return submitProtectedPublicForm<T>(formType,payload,token);
 }
