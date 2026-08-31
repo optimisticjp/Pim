@@ -19,7 +19,6 @@ export async function submitProtectedPublicForm<T>(formType:PublicFormType,paylo
     method:"POST",
     headers:{
       apikey:config.publishableKey,
-      authorization:`Bearer ${config.publishableKey}`,
       "content-type":"application/json",
     },
     body:JSON.stringify({form_type:formType,payload,turnstile_token:token}),
