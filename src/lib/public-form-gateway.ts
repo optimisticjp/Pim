@@ -17,7 +17,11 @@ export async function submitProtectedPublicForm<T>(formType:PublicFormType,paylo
   if(!token||token.length>2048)throw new PublicFormGatewayError("Verification required",400);
   const response=await fetch(`${config.url}/functions/v1/public-form-submit`,{
     method:"POST",
-    headers:{apikey:config.publishableKey,"content-type":"application/json"},
+    headers:{
+      apikey:config.publishableKey,
+      authorization:`Bearer ${config.publishableKey}`,
+      "content-type":"application/json",
+    },
     body:JSON.stringify({form_type:formType,payload,turnstile_token:token}),
     cache:"no-store",
   });
