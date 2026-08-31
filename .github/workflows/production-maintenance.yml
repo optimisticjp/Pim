@@ -73,8 +73,7 @@ jobs:
           $cli db dump --db-url "$SUPABASE_DB_BACKUP_URL" -f backup/sql/history_data.sql --use-copy --data-only --schema supabase_migrations
           test -s backup/sql/schema.sql
           test -s backup/sql/data.sql
-          sha256sum backup/sql/*.sql > backup/sql/checksums.sha256
-          (cd backup/sql && sha256sum -c checksums.sha256)
+          (cd backup/sql && sha256sum *.sql > checksums.sha256 && sha256sum -c checksums.sha256)
           {
             echo "created_utc=$stamp"
             echo "git_sha=$GITHUB_SHA"
