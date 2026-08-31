@@ -1,0 +1,5 @@
+import { NextResponse } from "next/server";
+import { supabasePublicRpc } from "@/lib/supabase/public";
+export const runtime="edge";
+type Row={request_number:string;guest_id:string|null;full_name:string;uploaded_count:number;expires_at:string;remaining_uploads:number};
+export async function POST(request:Request){let token="";try{const body=await request.json();token=String(body?.token??"").trim();}catch{return NextResponse.json({error:"Invalid request"},{status:400});}if(token.length!==64)return NextResponse.json({error:"Invalid or expired upload link"},{status:403});try{const rows=await supabasePublicRpc<Row[]>("get_booking_document_upload_context",{raw_token:token});if(!rows.length)return NextResponse.json({error:"Invalid or expired upload link"},{status:403});return NextResponse.json({request_number:rows[0].request_number,expires_at:rows[0].expires_at,remaining_uploads:rows[0].remaining_uploads,people:rows.map(r=>({guest_id:r.guest_id,full_name:r.full_name,uploaded_count:Number(r.uploaded_count)}))},{headers:{"cache-control":"no-store"}});}catch{return NextResponse.json({error:"Upload link could not be verified"},{status:503});}}

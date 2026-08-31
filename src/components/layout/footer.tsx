@@ -4,7 +4,7 @@ import { YouTubeMark } from "@/components/icons/youtube-mark";
 import { BrandMark } from "@/components/ui/brand-mark";
 import { navItems, siteName, youtubeChannel } from "@/lib/site-data";
 
-const serviceLinks=[{href:"/programmes",label:"સત્સંગ / શિબિર"},{href:"/seva",label:"સેવા પ્રવૃત્તિ"},{href:"/forms",label:"ફોર્મ"},{href:"/membership",label:"સભ્યપદ"},{href:"/volunteer",label:"સ્વયંસેવક"},{href:"/stay",label:"ઉતારા / રૂમ"}];
+const serviceLinks=[{href:"/programmes",label:"સત્સંગ / શિબિર"},{href:"/seva",label:"સેવા પ્રવૃત્તિ"},{href:"/forms",label:"ફોર્મ"},{href:"/membership",label:"સભ્યપદ"},{href:"/volunteer",label:"સ્વયંસેવક"},{href:"/stay",label:"ઉતારા / રૂમ"},{href:"/veda-rahasya",label:"વેદ રહસ્ય"},{href:"/downloads",label:"ડિજિટલ પ્રસાદ"},{href:"/donation",label:"દાન / ભેટ"}];
 
 export function Footer() {
   return (
