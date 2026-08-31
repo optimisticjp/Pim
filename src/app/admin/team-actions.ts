@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdminSession } from "@/lib/admin/data";
 import { getSupabaseRuntimeConfig } from "@/lib/supabase/config";
-import { getAdminAccessToken } from "@/lib/supabase/server";
+import { getAdminAccessToken, supabaseRest } from "@/lib/supabase/server";
 
 export async function inviteAdminAction(formData: FormData): Promise<void> {
   const session = await requireAdminSession();
@@ -18,13 +18,19 @@ export async function inviteAdminAction(formData: FormData): Promise<void> {
   const displayName = String(formData.get("display_name") ?? "").trim();
   const roleId = String(formData.get("role_id") ?? "").trim();
   const scopeType = String(formData.get("scope_type") ?? "global");
-  const scopeKey = String(formData.get("scope_key") ?? "").trim();
-  if (!email || !displayName) return;
+  let scopeKey = String(formData.get("scope_key") ?? "").trim() || null;
+  if (!email || !displayName || !["global", "ashram"].includes(scopeType)) return;
+  if (scopeType === "global") scopeKey = null;
+  if (scopeType === "ashram") {
+    if (!scopeKey) throw new Error("Ashram scope required");
+    const rows = await supabaseRest<Array<{ slug: string }>>(`ashram_profiles?select=slug&slug=eq.${encodeURIComponent(scopeKey)}&limit=1`, token);
+    if (!rows.length) throw new Error("Invalid Ashram scope");
+  }
 
   const response = await fetch(`${config.url}/functions/v1/invite-admin`, {
     method: "POST",
     headers: { apikey: config.publishableKey, Authorization: `Bearer ${token}`, "content-type": "application/json" },
-    body: JSON.stringify({ email, display_name: displayName, role_id: roleId || null, scope_type: scopeType, scope_key: scopeKey || null }),
+    body: JSON.stringify({ email, display_name: displayName, role_id: roleId || null, scope_type: scopeType, scope_key: scopeKey }),
     cache: "no-store",
   });
   if (!response.ok) {

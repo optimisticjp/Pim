@@ -3,7 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 
 const json = (data: unknown, status = 200) => new Response(JSON.stringify(data), {
   status,
-  headers: { "content-type": "application/json; charset=utf-8" },
+  headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" },
 });
 
 Deno.serve(async (req: Request) => {
@@ -27,10 +27,22 @@ Deno.serve(async (req: Request) => {
   const email = String(body?.email ?? "").trim().toLowerCase();
   const displayName = String(body?.display_name ?? "").trim();
   const roleId = String(body?.role_id ?? "").trim() || null;
-  const scopeType = ["global", "ashram", "module"].includes(String(body?.scope_type)) ? String(body?.scope_type) : "global";
-  const scopeKey = String(body?.scope_key ?? "").trim() || null;
+  const requestedScope = String(body?.scope_type ?? "global");
+  const scopeType = requestedScope === "ashram" ? "ashram" : requestedScope === "global" ? "global" : null;
+  let scopeKey = String(body?.scope_key ?? "").trim() || null;
   const redirectTo = String(body?.redirect_to ?? "").trim() || undefined;
   if (!email.includes("@") || !displayName) return json({ error: "Valid email and display name are required" }, 400);
+  if (!scopeType) return json({ error: "Only global or Ashram scope is supported" }, 400);
+  if (scopeType === "global") scopeKey = null;
+  if (scopeType === "ashram") {
+    if (!scopeKey) return json({ error: "Ashram scope requires an Ashram" }, 400);
+    const { data: ashram } = await service.from("ashram_profiles").select("slug").eq("slug", scopeKey).is("archived_at", null).maybeSingle();
+    if (!ashram) return json({ error: "Invalid Ashram scope" }, 400);
+  }
+  if (roleId) {
+    const { data: role } = await service.from("roles").select("id,is_archived").eq("id", roleId).maybeSingle();
+    if (!role || role.is_archived) return json({ error: "Invalid role" }, 400);
+  }
 
   const [{ count: activeCount }, { count: openInviteCount }] = await Promise.all([
     service.from("admin_profiles").select("id", { count: "exact", head: true }).eq("status", "active"),
