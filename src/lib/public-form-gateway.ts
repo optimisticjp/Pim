@@ -1,5 +1,6 @@
 import { getSupabaseRuntimeConfig } from "@/lib/supabase/config";
 import { supabasePublicRpc } from "@/lib/supabase/public";
+import { getTurnstileSiteKey } from "@/lib/turnstile-config";
 
 export type PublicFormType = "membership" | "donation" | "stay" | "volunteer" | "veda_subscription" | "veda_change" | "veda_article" | "contact_preview" | "participation_preview";
 
@@ -7,7 +8,7 @@ export class PublicFormGatewayError extends Error {
   constructor(message:string,public readonly status:number){super(message);}
 }
 
-export function isTurnstileConfigured(){return Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim());}
+export function isTurnstileConfigured(){return Boolean(getTurnstileSiteKey());}
 
 export async function submitProtectedPublicForm<T>(formType:PublicFormType,payload:Record<string,unknown>,turnstileToken:string):Promise<T>{
   const config=getSupabaseRuntimeConfig();
@@ -27,10 +28,9 @@ export async function submitProtectedPublicForm<T>(formType:PublicFormType,paylo
   return wrapped.data as T;
 }
 
-// Safe two-phase activation: before a production Turnstile site key is configured,
-// keep the existing anonymous RPC path working. Once the site key is present the
-// application automatically requires a Turnstile token and uses the Edge gateway.
-// The final activation migration can then revoke anonymous execution on submit_* RPCs.
+// The current Pim worker has a public Turnstile site key configured in code, so
+// normal production submissions use the protected Edge gateway. The fallback is
+// retained only for local/temporary builds where the site key is explicitly blanked.
 export async function submitPublicForm<T>(formType:PublicFormType,rpcName:string,payload:Record<string,unknown>,formData:FormData):Promise<T>{
   if(!isTurnstileConfigured())return supabasePublicRpc<T>(rpcName,{payload});
   const token=String(formData.get("cf-turnstile-response")??"");
