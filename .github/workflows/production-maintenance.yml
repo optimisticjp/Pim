@@ -1,0 +1,121 @@
+name: Production maintenance
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 2 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  database-backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SUPABASE_DB_BACKUP_URL: ${{ secrets.SUPABASE_DB_BACKUP_URL }}
+      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BACKUP_BUCKET: ${{ secrets.R2_BACKUP_BUCKET }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: auto
+    steps:
+      - name: Check backup configuration
+        id: config
+        shell: bash
+        run: |
+          missing=0
+          for name in SUPABASE_DB_BACKUP_URL R2_ACCOUNT_ID R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY R2_BACKUP_BUCKET; do
+            if [ -z "${!name}" ]; then
+              echo "::warning::$name is not configured; database backup will be skipped."
+              missing=1
+            fi
+          done
+          if [ "$missing" -eq 0 ]; then echo "ready=true" >> "$GITHUB_OUTPUT"; else echo "ready=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Install R2 client
+        if: steps.config.outputs.ready == 'true'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq awscli
+          docker version >/dev/null
+
+      - name: Create and verify Supabase-safe logical backup
+        if: steps.config.outputs.ready == 'true'
+        id: dump
+        shell: bash
+        run: |
+          set -euo pipefail
+          stamp="$(date -u +%Y%m%dT%H%M%SZ)"
+          mkdir -p backup/sql
+          cli="npx --yes supabase@2.116.0"
+          $cli db dump --db-url "$SUPABASE_DB_BACKUP_URL" -f backup/sql/roles.sql --role-only
+          $cli db dump --db-url "$SUPABASE_DB_BACKUP_URL" -f backup/sql/schema.sql
+          $cli db dump --db-url "$SUPABASE_DB_BACKUP_URL" -f backup/sql/data.sql --use-copy --data-only -x "storage.buckets_vectors" -x "storage.vector_indexes"
+          $cli db dump --db-url "$SUPABASE_DB_BACKUP_URL" -f backup/sql/history_schema.sql --schema supabase_migrations
+          $cli db dump --db-url "$SUPABASE_DB_BACKUP_URL" -f backup/sql/history_data.sql --use-copy --data-only --schema supabase_migrations
+          test -s backup/sql/schema.sql
+          test -s backup/sql/data.sql
+          sha256sum backup/sql/*.sql > backup/sql/checksums.sha256
+          (cd backup/sql && sha256sum -c checksums.sha256)
+          {
+            echo "created_utc=$stamp"
+            echo "git_sha=$GITHUB_SHA"
+            echo "supabase_cli=2.116.0"
+            echo "format=roles+schema+data+migration-history-sql"
+            echo "storage_objects_included=false"
+          } > backup/sql/manifest.txt
+          tar -C backup/sql -czf backup/pim-supabase-backup.tar.gz roles.sql schema.sql data.sql history_schema.sql history_data.sql checksums.sha256 manifest.txt
+          sha256sum backup/pim-supabase-backup.tar.gz > backup/pim-supabase-backup.tar.gz.sha256
+          echo "stamp=$stamp" >> "$GITHUB_OUTPUT"
+
+      - name: Upload and prune R2 backup tiers
+        if: steps.config.outputs.ready == 'true'
+        shell: bash
+        env:
+          STAMP: ${{ steps.dump.outputs.stamp }}
+        run: |
+          set -euo pipefail
+          endpoint="https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
+          upload_tier() {
+            tier="$1"
+            prefix="backups/${tier}/${STAMP}"
+            aws --endpoint-url "$endpoint" s3 cp backup/pim-supabase-backup.tar.gz "s3://${R2_BACKUP_BUCKET}/${prefix}/pim-supabase-backup.tar.gz" --only-show-errors
+            aws --endpoint-url "$endpoint" s3 cp backup/pim-supabase-backup.tar.gz.sha256 "s3://${R2_BACKUP_BUCKET}/${prefix}/pim-supabase-backup.tar.gz.sha256" --only-show-errors
+            aws --endpoint-url "$endpoint" s3 cp backup/sql/manifest.txt "s3://${R2_BACKUP_BUCKET}/${prefix}/manifest.txt" --only-show-errors
+          }
+          prune_tier() {
+            tier="$1"; keep="$2"
+            prefixes="$(aws --endpoint-url "$endpoint" s3api list-objects-v2 --bucket "$R2_BACKUP_BUCKET" --prefix "backups/${tier}/" --delimiter "/" --query 'CommonPrefixes[].Prefix' --output text || true)"
+            printf '%s\n' "$prefixes" | tr '\t' '\n' | grep "^backups/${tier}/" | sort -r | tail -n "+$((keep+1))" | while read -r prefix; do
+              [ -n "$prefix" ] || continue
+              aws --endpoint-url "$endpoint" s3 rm "s3://${R2_BACKUP_BUCKET}/${prefix}" --recursive --only-show-errors
+            done || true
+          }
+
+          upload_tier daily
+          if [ "$(date -u +%u)" = "7" ]; then upload_tier weekly; fi
+          if [ "$(date -u +%d)" = "01" ]; then upload_tier monthly; fi
+          prune_tier daily 7
+          prune_tier weekly 4
+          prune_tier monthly 6
+
+  private-document-cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      OPS_MAINTENANCE_TOKEN: ${{ secrets.OPS_MAINTENANCE_TOKEN }}
+    steps:
+      - name: Run private document retention cleanup
+        shell: bash
+        run: |
+          if [ -z "$OPS_MAINTENANCE_TOKEN" ]; then
+            echo "::warning::OPS_MAINTENANCE_TOKEN is not configured; document cleanup will be skipped."
+            exit 0
+          fi
+          curl --fail-with-body --silent --show-error \
+            --request POST \
+            --header "x-ops-maintenance-token: $OPS_MAINTENANCE_TOKEN" \
+            "https://vknvvuyamyyyskbsmfpb.supabase.co/functions/v1/cleanup-booking-documents" >/dev/null
