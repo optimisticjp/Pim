@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 
-import { supabasePublicRpc } from "@/lib/supabase/public";
+import { submitPublicForm } from "@/lib/public-form-gateway";
 
 function text(formData: FormData, name: string, max = 500): string | null {
   const value = String(formData.get(name) ?? "").trim();
@@ -47,9 +47,11 @@ export async function submitMembershipApplicationAction(formData: FormData): Pro
 
   let applicationNumber = "";
   try {
-    const result = await supabasePublicRpc<Array<{ application_id: string; application_number: string }>>(
+    const result = await submitPublicForm<Array<{ application_id: string; application_number: string }>>(
+      "membership",
       "submit_membership_application",
-      { payload },
+      payload,
+      formData,
     );
     applicationNumber = result[0]?.application_number ?? "";
   } catch {

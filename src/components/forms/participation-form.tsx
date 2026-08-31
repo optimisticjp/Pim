@@ -37,14 +37,18 @@ function ParticipationFormFields({ ashrams, initialTrack }: { ashrams: Pick<Ashr
     setForm((current) => ({ ...current, interests: current.interests.includes(value) ? current.interests.filter((item) => item !== value) : [...current.interests, value] }));
   }
 
-  async function submit(event: FormEvent) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setError("");
     if (form.fullName.trim().length < 2 || form.phone.trim().length < 7 || form.city.trim().length < 2) {
       setError("કૃપા કરીને પૂર્ણ નામ, મોબાઇલ નંબર અને શહેર / ગામ લખો."); return;
     }
+    const turnstileToken = String(new FormData(event.currentTarget).get("cf-turnstile-response") ?? "");
+    if (!turnstileToken) {
+      setError("કૃપા કરીને માનવ ચકાસણી પૂર્ણ કરો."); return;
+    }
     setStatus("loading");
     try {
-      const response = await fetch("/api/participation", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(form) });
+      const response = await fetch("/api/participation", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...form, turnstileToken }) });
       const result = await response.json() as { message?: string; mode?: "preview" };
       if (!response.ok) throw new Error(result.message || "વિનંતી સ્વીકારી શકાઈ નથી.");
       if (result.mode !== "preview") throw new Error("હાલ ઑનલાઇન રસ નોંધણી ઉપલબ્ધ નથી. કૃપા કરીને મુખ્ય આશ્રમનો ફોન દ્વારા સંપર્ક કરો.");
