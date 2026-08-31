@@ -1,58 +1,31 @@
 import type { Metadata } from "next";
-import { ArrowRight, HeartHandshake, Landmark, Radio } from "lucide-react";
+import { ExternalLink, FileText, MapPin } from "lucide-react";
 import Link from "next/link";
 
-import { EventCard } from "@/components/cards/event-card";
-import { getArchivedEvents, getRecurringProgrammes, getUpcomingEvents } from "@/lib/event-data";
+import { getPublicTithiProgrammes } from "@/lib/operations/public-data";
 
 export const metadata: Metadata = {
   title: "કાર્યક્રમ પંચિકા",
-  description: "આશ્રમ પરિવારના જાહેર થયેલા કાર્યક્રમો, ઉત્સવો અને સત્સંગની ચકાસેલી તારીખ, સ્થળ અને જોડાવાની માહિતી મેળવો.",
+  description: "સમિતિ દ્વારા પ્રકાશિત થયેલા આગામી તિથિ, પૂનમ, સત્સંગ અને વિશેષ કાર્યક્રમોની માહિતી.",
 };
 
-export default function EventsPage() {
-  const upcoming = getUpcomingEvents();
-  const recurring = getRecurringProgrammes();
-  const archived = getArchivedEvents();
-  return (
-    <>
-      <section className="border-b border-border bg-[#f5eadc]">
-        <div className="container-site py-9 sm:py-12">
-          <div className="max-w-3xl">
-            <p className="eyebrow">કાર્યક્રમ પંચિકા</p>
-            <h1 className="display-title mt-4 text-primary-strong">આશ્રમ પરિવારના કાર્યક્રમો અને ઉત્સવો</h1>
-            <p className="body-large mt-4">જાહેર થયેલા સત્સંગ, ઉત્સવ, સેવા કાર્યક્રમ અને વિશેષ પ્રસંગોની ચકાસેલી માહિતી અહીં મેળવો.</p>
-          </div>
-        </div>
-      </section>
+const kindLabel: Record<string,string> = {
+  tithi: "તિથિ",
+  satsang: "સત્સંગ",
+  bal_shibir: "બાળ શિબિર",
+  special: "વિશેષ કાર્યક્રમ",
+  tour: "સ્વામીજી કાર્યક્રમ",
+  poonam: "પૂનમ ઉત્સવ",
+};
 
-      <section className="section-pad">
-        <div className="container-site">
-          <p className="eyebrow">તારીખ મુજબ</p>
-          <h2 className="section-title mt-3 text-primary-strong">આગામી કાર્યક્રમો</h2>
-          {upcoming.length > 0 ? (
-            <div className="mt-7 grid gap-5 lg:grid-cols-2">{upcoming.map((event) => <EventCard key={event.id} event={event} />)}</div>
-          ) : (
-            <div className="mt-6 rounded-[1.25rem] border border-[#dbc9b5] bg-[#fffaf3] p-5 sm:flex sm:items-center sm:justify-between sm:gap-8 sm:p-6">
-              <div><h3 className="font-serif text-xl font-bold text-primary">હાલ નવી તારીખો જાહેર થવાની બાકી છે.</h3><p className="mt-2 text-[15px] leading-7 text-muted-foreground">ચકાસેલી તારીખ જાહેર થતાં કાર્યક્રમની સંપૂર્ણ માહિતી અહીં ઉપલબ્ધ થશે.</p></div>
-              <div className="mt-5 flex flex-col gap-2 sm:mt-0 sm:shrink-0 sm:flex-row">
-                <Link href="/satsang" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-primary px-5 font-bold text-white"><Radio className="size-4" /> સત્સંગ જુઓ</Link>
-                <Link href="/ashrams" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-border-strong px-5 font-bold text-primary"><Landmark className="size-4" /> આશ્રમ શોધો</Link>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
+export default async function EventsPage() {
+  const events = await getPublicTithiProgrammes();
+  return <>
+    <section className="border-b border-border bg-[#f5eadc]"><div className="container-site py-10 sm:py-14"><div className="max-w-3xl"><p className="eyebrow">કાર્યક્રમ પંચિકા</p><h1 className="display-title mt-4 text-primary-strong">આગામી કાર્યક્રમો અને ઉત્સવો</h1><p className="body-large mt-4">આ યાદી Admin માં સમિતિ દ્વારા પ્રકાશિત કરાયેલા એ જ કાર્યક્રમ રેકોર્ડમાંથી સીધી આવે છે.</p></div></div></section>
 
-      {recurring.length > 0 && <section className="section-pad border-y border-border bg-surface"><div className="container-site"><p className="eyebrow">નિયમિત જોડાણ</p><h2 className="section-title mt-3 text-primary-strong">નિયમિત સત્સંગ અને જોડાવાના માર્ગો</h2><div className="mt-7 grid gap-5 lg:grid-cols-2">{recurring.map((event) => <EventCard key={event.id} event={event} />)}</div></div></section>}
-      {archived.length > 0 && <section className="section-pad border-t border-border"><div className="container-site"><p className="eyebrow">સ્મૃતિ અને સંદર્ભ</p><h2 className="section-title mt-3 text-primary-strong">પાછલા કાર્યક્રમો</h2><div className="mt-7 grid gap-5 lg:grid-cols-2">{archived.map((event) => <EventCard key={event.id} event={event} />)}</div></div></section>}
-
-      <section className="pb-24 sm:pb-20">
-        <div className="container-site rounded-[1.5rem] border border-primary/15 bg-[#f2e6d5] p-6 sm:flex sm:items-center sm:justify-between sm:gap-10 sm:p-8">
-          <div className="max-w-2xl"><p className="flex items-center gap-2 text-sm font-bold text-gold-deep"><HeartHandshake className="size-5" /> આશ્રમ પરિવાર સાથે જોડાઓ</p><h2 className="mt-3 font-serif text-2xl font-bold text-primary-strong">કાર્યક્રમ અંગે પૂછવું છે કે સેવામાં જોડાવું છે?</h2><p className="mt-2 text-[15px] leading-7 text-muted-foreground">તમારો સંદેશ મોકલો; ઉપલબ્ધ માહિતીના આધારે માર્ગદર્શન મળશે.</p></div>
-          <div className="mt-5 flex flex-col gap-2 sm:mt-0 sm:shrink-0"><Link href="/contact?type=seva" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-primary px-5 font-bold text-white">સેવામાં જોડાઓ <ArrowRight className="size-4" /></Link><Link href="/contact?type=event" className="inline-flex min-h-11 items-center justify-center rounded-full border border-border-strong bg-surface px-5 font-bold text-primary">કાર્યક્રમ અંગે પૂછો</Link></div>
-        </div>
-      </section>
-    </>
-  );
+    <main className="section-pad"><div className="container-site">
+      {events.length ? <div className="grid gap-5 lg:grid-cols-2">{events.map(event=><article key={event.id} className="card-sacred p-5 sm:p-6"><div className="flex flex-wrap items-center justify-between gap-3"><span className="rounded-full bg-[#f2e7d7] px-3 py-1 text-xs font-bold text-gold-deep">{kindLabel[event.programme_type]??event.programme_type}</span><time className="font-bold text-primary">{event.programme_date}</time></div><h2 className="mt-4 font-serif text-2xl font-bold text-primary-strong">{event.title_gu}</h2><p className="mt-2 text-sm leading-7 text-muted-foreground">{event.weekday_gu?`${event.weekday_gu} • `:""}{event.tithi_name_gu?`${event.tithi_name_gu} • `:""}{event.village_city_gu}{event.venue_gu?` • ${event.venue_gu}`:""}</p>{event.swamiji_name?<p className="mt-2 text-sm font-semibold text-primary">{event.swamiji_name}</p>:null}{event.details_gu?<p className="mt-4 text-[15px] leading-7 text-muted-foreground">{event.details_gu}</p>:null}<div className="mt-5 flex flex-wrap gap-2">{event.map_url?<a href={event.map_url} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-4 text-sm font-bold text-white"><MapPin className="size-4"/>મેપ</a>:null}{event.pdf_url?<a href={event.pdf_url} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border-strong px-4 text-sm font-bold text-primary"><FileText className="size-4"/>પરિપત્ર <ExternalLink className="size-3.5"/></a>:null}</div></article>)}</div> : <div className="rounded-2xl border border-dashed border-border p-8 text-center"><h2 className="font-serif text-2xl font-bold text-primary">હાલ કોઈ આગામી કાર્યક્રમ પ્રકાશિત નથી.</h2><p className="mt-2 text-sm text-muted-foreground">Admin માં કાર્યક્રમ Publish થયા પછી તે અહીં આપમેળે દેખાશે.</p></div>}
+      <div className="mt-8 flex flex-wrap gap-3"><Link href="/programmes" className="inline-flex min-h-11 items-center rounded-full border border-border-strong px-5 font-bold text-primary">સત્સંગ કેન્દ્રો અને પરિપત્રો</Link><Link href="/contact?type=event" className="inline-flex min-h-11 items-center rounded-full bg-primary px-5 font-bold text-white">કાર્યક્રમ અંગે પૂછો</Link></div>
+    </div></main>
+  </>;
 }
