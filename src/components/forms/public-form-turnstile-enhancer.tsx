@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 import type { PublicFormType } from "@/lib/public-form-gateway";
+import { getTurnstileSiteKey } from "@/lib/turnstile-config";
 
 type TurnstileApi={render:(container:HTMLElement,options:Record<string,unknown>)=>string;remove:(widgetId:string)=>void};
 declare global{interface Window{turnstile?:TurnstileApi}}
@@ -15,6 +16,8 @@ const routeActions:Record<string,PublicFormType[]>={
   "/volunteer":["volunteer"],
   "/veda-rahasya/membership":["veda_subscription"],
   "/veda-rahasya/services":["veda_change","veda_article"],
+  "/contact":["contact_preview"],
+  "/activities":["participation_preview"],
 };
 
 let loader:Promise<void>|null=null;
@@ -31,7 +34,7 @@ function loadTurnstile(){
 
 export function PublicFormTurnstileEnhancer(){
   const pathname=usePathname();
-  const siteKey=process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim()??"";
+  const siteKey=getTurnstileSiteKey();
   useEffect(()=>{
     const actions=routeActions[pathname]??[];
     if(!siteKey||!actions.length)return;
