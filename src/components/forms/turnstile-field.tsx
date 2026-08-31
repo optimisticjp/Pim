@@ -24,6 +24,6 @@ export function TurnstileField({action,onTokenChange}:{action:PublicFormType;onT
   const siteKey=process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim()??"";
   const hostRef=useRef<HTMLDivElement>(null);const widgetId=useRef<string|null>(null);const[token,setToken]=useState("");const[failed,setFailed]=useState(false);
   useEffect(()=>{if(!siteKey||!hostRef.current)return;let active=true;void loadTurnstile().then(()=>{if(!active||!hostRef.current||!window.turnstile)return;widgetId.current=window.turnstile.render(hostRef.current,{sitekey:siteKey,action,theme:"light",size:"flexible",callback:(value:string)=>{setToken(value);onTokenChange?.(value);},"expired-callback":()=>{setToken("");onTokenChange?.("");},"error-callback":()=>{setToken("");setFailed(true);onTokenChange?.("");}});}).catch(()=>setFailed(true));return()=>{active=false;if(widgetId.current&&window.turnstile){window.turnstile.remove(widgetId.current);widgetId.current=null;}};},[action,onTokenChange,siteKey]);
-  if(!siteKey)return <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs font-semibold text-amber-900">માનવ ચકાસણી હજી સક્રિય નથી. સત્તાવાર Turnstile configuration પછી આ ફોર્મ સુરક્ષિત રીતે મોકલી શકાશે.</div>;
+  if(!siteKey)return null;
   return <div className="space-y-2"><div ref={hostRef}/><input type="hidden" name="cf-turnstile-response" value={token} readOnly/>{failed?<p className="text-xs font-semibold text-red-700">માનવ ચકાસણી લોડ થઈ નથી. કૃપા કરીને પાનું ફરી ખોલીને પ્રયાસ કરો.</p>:null}</div>;
 }
