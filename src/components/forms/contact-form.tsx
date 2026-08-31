@@ -19,11 +19,16 @@ export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState("");
 
-  async function submit(event: FormEvent) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
     if (form.fullName.trim().length < 2 || form.phone.trim().length < 7 || form.message.trim().length < 5) {
       setError("કૃપા કરીને નામ, સંપર્ક નંબર અને સંદેશ સંપૂર્ણ લખો.");
+      return;
+    }
+    const turnstileToken = String(new FormData(event.currentTarget).get("cf-turnstile-response") ?? "");
+    if (!turnstileToken) {
+      setError("કૃપા કરીને માનવ ચકાસણી પૂર્ણ કરો.");
       return;
     }
     setStatus("loading");
@@ -31,10 +36,10 @@ export function ContactForm() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, turnstileToken }),
       });
-      const result = await response.json() as { mode?: "preview" };
-      if (!response.ok) throw new Error("request failed");
+      const result = await response.json() as { mode?: "preview"; message?: string };
+      if (!response.ok) throw new Error(result.message || "request failed");
       if (result.mode !== "preview") throw new Error("unexpected response mode");
       const record: InquiryRecord = {
         id: `inq-${Date.now()}`,
@@ -49,9 +54,9 @@ export function ContactForm() {
       addPreviewInquiry(record);
       setForm({ ...initial, type: defaultType });
       setStatus("success");
-    } catch {
+    } catch (caught) {
       setStatus("error");
-      setError("ફોર્મ મોકલવામાં અડચણ આવી. હાલ માટે કૃપા કરીને મુખ્ય આશ્રમનો ફોન દ્વારા સંપર્ક કરો.");
+      setError(caught instanceof Error ? caught.message : "ફોર્મ મોકલવામાં અડચણ આવી. હાલ માટે કૃપા કરીને મુખ્ય આશ્રમનો ફોન દ્વારા સંપર્ક કરો.");
     }
   }
 
