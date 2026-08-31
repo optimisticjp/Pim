@@ -16,7 +16,7 @@ export type RoomType={id:string;ashram_id:string;name_gu:string;capacity:number;
 
 async function token(){return getAdminAccessToken();}
 async function list<T>(session:AdminSession,permission:string,path:string):Promise<T[]>{if(!hasAdminPermission(session,permission)&&!session.profile?.is_super_admin)return[];const t=await token();if(!t)return[];return supabaseRest<T[]>(path,t);}
-export const getAdminAshrams=(s:AdminSession)=>list<AdminAshram>(s,"programmes.view","ashram_profiles?select=*&order=name_gu.asc");
+export async function getAdminAshrams(s:AdminSession){if(!hasAdminPermission(s,"programmes.view")&&!hasAdminPermission(s,"ashrams.manage")&&!s.profile?.is_super_admin)return[];const t=await token();if(!t)return[];return supabaseRest<AdminAshram[]>("ashram_profiles?select=*&order=name_gu.asc",t);}
 export const getProgrammeCentres=(s:AdminSession)=>list<AdminProgrammeCentre>(s,"programmes.view","programme_centres?select=*&order=sort_order.asc,title_gu.asc");
 export const getProgrammeCirculars=(s:AdminSession)=>list<AdminCircular>(s,"programmes.view","programme_circulars?select=*&order=created_at.desc");
 export const getTithiProgrammes=(s:AdminSession)=>list<AdminTithi>(s,"programmes.view","tithi_programmes?select=*&order=programme_date.asc");
