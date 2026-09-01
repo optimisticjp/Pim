@@ -24,6 +24,7 @@ const routes = [
   "/forms",
   "/membership",
   "/volunteer",
+  "/participation",
   "/stay",
   "/contact",
 ] as const;

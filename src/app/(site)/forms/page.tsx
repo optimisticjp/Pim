@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Banknote, BookOpenText, HeartHandshake, Home, Users } from "lucide-react";
+import { ArrowRight, Banknote, BookOpenText, HeartHandshake, Home, Users, UsersRound } from "lucide-react";
 export const metadata:Metadata={title:"ફોર્મ અને અરજી"};
 const forms=[
 ["/membership","પરિવાર સભ્યપદ","નામ, પરિવાર, અભ્યાસ, વ્યવસાય અને મૂળ વતનની નોંધણી",Users],
 ["/volunteer","સ્વયંસેવક નોંધણી","સેવાનો સમય, તારીખ અને પસંદગીનું આશ્રમ",HeartHandshake],
+["/participation","સેવા / યુવા સહભાગિતા","સેવા, યુવા જોડાણ અથવા વધુ માહિતી માટે રસ નોંધાવો",UsersRound],
 ["/stay","આશ્રમ ઉતારા / રૂમ વિનંતી","રહેવાની તારીખ, સભ્યો અને પ્રસાદની જરૂરિયાત",Home],
 ["/veda-rahasya/membership","વેદ રહસ્ય સભ્યપદ","Postal subscription અરજી અને cash-pending workflow",BookOpenText],
 ["/veda-rahasya/services","વેદ રહસ્ય સુધારા / લેખ","નામ-સરનામું સુધારો અથવા editorial લેખ મોકલો",BookOpenText],
