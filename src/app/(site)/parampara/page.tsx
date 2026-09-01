@@ -29,7 +29,7 @@ export default async function ParamparaPage() {
         <div className="max-w-4xl">
           <p className="eyebrow">ગુરુપરંપરા</p>
           <h1 className="display-title mt-4 max-w-[14ch] text-primary-strong">જ્ઞાન, સાધના અને સેવાથી જીવંત પરંપરા</h1>
-          <p className="body-large mt-5 max-w-3xl">આ પાનાં પર દેખાતી ગુરુ પ્રોફાઇલ હવે સીધી સમિતિના Guru & Heritage Adminમાંથી Publish થાય છે. Draft અથવા Archived પ્રોફાઇલ જાહેરમાં દેખાતી નથી.</p>
+          <p className="body-large mt-5 max-w-3xl">સમિતિ દ્વારા ચકાસી અને જાહેર કરાયેલી ગુરુપરંપરાની ઉપલબ્ધ પ્રોફાઇલ અહીં એક જ જગ્યાએ વાંચી શકાય છે.</p>
         </div>
       </div>
     </header>
@@ -37,7 +37,7 @@ export default async function ParamparaPage() {
     <section className="section-pad">
       <div className="container-site">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div><p className="eyebrow">પ્રકાશિત પ્રોફાઇલ</p><h2 className="section-title mt-3 text-primary-strong">ગુરુપરંપરાના ઉપલબ્ધ પરિચય</h2></div>
+          <div><p className="eyebrow">ગુરુ પરિચય</p><h2 className="section-title mt-3 text-primary-strong">ગુરુપરંપરાના ઉપલબ્ધ પરિચય</h2></div>
           <Link href="/heritage" className="inline-flex min-h-11 items-center gap-2 self-start rounded-full border border-border-strong px-5 font-bold text-primary">વારસા સંગ્રહ <ArrowRight className="size-4" /></Link>
         </div>
 
@@ -46,14 +46,14 @@ export default async function ParamparaPage() {
           <h3 className="mt-5 font-serif text-xl font-bold leading-snug text-primary-strong">{guru.name_gu}</h3>
           {guru.qualification_gu ? <p className="mt-2 text-xs font-bold text-gold-deep">{guru.qualification_gu}</p> : null}
           <p className="mt-4 text-sm font-bold text-primary">વિગત અને અધ્યાય વાંચો →</p>
-        </Link>)}</div> : <div className="mt-8 rounded-2xl border border-dashed border-border bg-surface p-8 text-sm text-muted-foreground">હાલ કોઈ ગુરુ પ્રોફાઇલ Publish નથી. સમિતિ Publish કર્યા પછી અહીં આપમેળે દેખાશે.</div>}
+        </Link>)}</div> : <div className="mt-8 rounded-2xl border border-dashed border-border bg-surface p-8 text-sm text-muted-foreground">હાલ જાહેર વાંચન માટે કોઈ ગુરુ પ્રોફાઇલ ઉપલબ્ધ નથી.</div>}
       </div>
     </section>
 
     <section className="border-y border-border bg-surface-soft section-pad">
       <div className="container-site grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
-        <div><ScrollText className="size-6 text-gold-deep" /><p className="eyebrow mt-4">અધ્યાય અને સ્રોત</p><h2 className="section-title mt-3 text-primary-strong">પ્રોફાઇલ ખોલો, પછી પ્રકાશિત અધ્યાય વાંચો</h2></div>
-        <div className="space-y-4 text-[16px] leading-8 text-muted-foreground"><p>દરેક ગુરુ પ્રોફાઇલનું વિગત પાનું એ જ CMS રેકોર્ડ પરથી બને છે. સમિતિ દ્વારા ચકાસેલા અને Publish કરેલા અધ્યાય જ સામાન્ય ભક્તોને દેખાય છે.</p><p>કોઈ ઐતિહાસિક માહિતી, ઉપાધિ, તારીખ અથવા વંશક્રમ સ્રોત વિના આપમેળે ઉમેરવામાં આવતો નથી.</p></div>
+        <div><ScrollText className="size-6 text-gold-deep" /><p className="eyebrow mt-4">અધ્યાય અને સ્રોત</p><h2 className="section-title mt-3 text-primary-strong">પ્રોફાઇલ ખોલો અને ઉપલબ્ધ અધ્યાય વાંચો</h2></div>
+        <div className="space-y-4 text-[16px] leading-8 text-muted-foreground"><p>દરેક ગુરુ પ્રોફાઇલ સાથે સમિતિ દ્વારા ચકાસીને જાહેર કરાયેલા ઉપલબ્ધ અધ્યાય વાંચી શકાય છે.</p><p>કોઈ ઐતિહાસિક માહિતી, ઉપાધિ, તારીખ અથવા વંશક્રમ સ્રોત વિના આપમેળે ઉમેરવામાં આવતો નથી.</p></div>
       </div>
     </section>
 
