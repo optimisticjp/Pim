@@ -1,7 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { notFound } from "next/navigation";
-import { galleryAlbums } from "@/lib/migration/gallery-data";
-export function generateStaticParams() { return galleryAlbums.map(({ slug }) => ({ slug })); }
-export default async function AlbumPage({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const album=galleryAlbums.find((item)=>item.slug===slug); if(!album) notFound(); return <main><header className="border-b border-border bg-[#efe1ce]"><div className="container-site py-10 sm:py-14"><Link href="/heritage/gallery" className="inline-flex min-h-11 items-center gap-2 font-bold text-primary"><ArrowLeft className="size-4"/>પ્રસંગ સ્મૃતિમાં પાછા જાઓ</Link><p className="eyebrow mt-5">{album.categoryGu}</p><h1 className="display-title mt-3 text-primary-strong">{album.titleGu}</h1></div></header><section className="section-pad"><div className="container-site grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">{album.images.map((item)=><figure key={item.src} className="overflow-hidden rounded-2xl border border-border bg-[#eadcc8]"><div className="relative aspect-[4/3]"><Image src={item.src} alt={item.altGu} fill sizes="(max-width: 640px) 50vw, 25vw" className="object-contain"/></div><figcaption className="bg-surface p-3 text-sm leading-6 text-muted-foreground">{item.altGu}</figcaption></figure>)}</div></section></main>; }
+import { redirect } from "next/navigation";
+
+export default function GalleryAlbumPage() {
+  redirect("/heritage/gallery");
+}
