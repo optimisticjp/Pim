@@ -6,7 +6,7 @@ import { getPublicGuruProfiles } from "@/lib/cms/public-data";
 
 export const metadata: Metadata = {
   title: "ગુરુપરંપરા અને આશ્રમ પરિચય",
-  description: "સમિતિ દ્વારા પ્રકાશિત ગુરુપરંપરા પ્રોફાઇલ અને ઉપલબ્ધ આધ્યાત્મિક અભ્યાસનો પ્રવેશ.",
+  description: "જાહેર કરાયેલા ગુરુપરંપરા પ્રોફાઇલ અને ઉપલબ્ધ આધ્યાત્મિક અભ્યાસનો પ્રવેશ.",
 };
 
 const paths = [
@@ -29,7 +29,7 @@ export default async function ParamparaPage() {
         <div className="max-w-4xl">
           <p className="eyebrow">ગુરુપરંપરા</p>
           <h1 className="display-title mt-4 max-w-[14ch] text-primary-strong">જ્ઞાન, સાધના અને સેવાથી જીવંત પરંપરા</h1>
-          <p className="body-large mt-5 max-w-3xl">સમિતિ દ્વારા ચકાસી અને જાહેર કરાયેલી ગુરુપરંપરાની ઉપલબ્ધ પ્રોફાઇલ અહીં એક જ જગ્યાએ વાંચી શકાય છે.</p>
+          <p className="body-large mt-5 max-w-3xl">જાહેર કરાયેલી ગુરુપરંપરાની ઉપલબ્ધ પ્રોફાઇલ અહીં એક જ જગ્યાએ વાંચી શકાય છે.</p>
         </div>
       </div>
     </header>
@@ -53,7 +53,7 @@ export default async function ParamparaPage() {
     <section className="border-y border-border bg-surface-soft section-pad">
       <div className="container-site grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
         <div><ScrollText className="size-6 text-gold-deep" /><p className="eyebrow mt-4">અધ્યાય અને સ્રોત</p><h2 className="section-title mt-3 text-primary-strong">પ્રોફાઇલ ખોલો અને ઉપલબ્ધ અધ્યાય વાંચો</h2></div>
-        <div className="space-y-4 text-[16px] leading-8 text-muted-foreground"><p>દરેક ગુરુ પ્રોફાઇલ સાથે સમિતિ દ્વારા ચકાસીને જાહેર કરાયેલા ઉપલબ્ધ અધ્યાય વાંચી શકાય છે.</p><p>કોઈ ઐતિહાસિક માહિતી, ઉપાધિ, તારીખ અથવા વંશક્રમ સ્રોત વિના આપમેળે ઉમેરવામાં આવતો નથી.</p></div>
+        <div className="space-y-4 text-[16px] leading-8 text-muted-foreground"><p>દરેક ગુરુ પ્રોફાઇલ સાથે જાહેર કરાયેલા ઉપલબ્ધ અધ્યાય વાંચી શકાય છે.</p><p>કોઈ ઐતિહાસિક માહિતી, ઉપાધિ, તારીખ અથવા વંશક્રમ સ્રોત વિના આપમેળે ઉમેરવામાં આવતો નથી.</p></div>
       </div>
     </section>
 
