@@ -17,7 +17,7 @@ jobs:
         run: |
           set -euo pipefail
           base='https://pim.essanciaonline.workers.dev'
-          routes=(
+          html_routes=(
             '/'
             '/ashrams'
             '/events'
@@ -42,11 +42,9 @@ jobs:
             '/veda-rahasya/membership'
             '/veda-rahasya/services'
             '/admin/login'
-            '/api/events'
-            '/sitemap.xml'
           )
           failures=0
-          for route in "${routes[@]}"; do
+          for route in "${html_routes[@]}"; do
             body=$(mktemp)
             meta=$(curl -sS -L --max-time 30 -o "$body" -w '%{http_code}|%{url_effective}|%{content_type}|%{size_download}' "$base$route") || {
               echo "FAIL $route curl-error"
@@ -54,17 +52,44 @@ jobs:
               rm -f "$body"
               continue
             }
-            code=${meta%%|*}
+            IFS='|' read -r code effective content_type size <<< "$meta"
             echo "$route -> $meta"
-            if [[ "$code" != '200' ]]; then
-              echo "FAIL $route unexpected-status=$code"
+            if [[ "$code" != '200' || "$content_type" != text/html* || "$size" -lt 1000 ]]; then
+              echo "FAIL $route bad-html-response"
               failures=$((failures+1))
             fi
-            if grep -Eqi 'Application error|Internal Server Error|This page could not be found' "$body"; then
-              echo "FAIL $route error-page-marker"
+            if ! head -c 500 "$body" | grep -Eqi '<!doctype html|<html'; then
+              echo "FAIL $route missing-html-document"
               failures=$((failures+1))
             fi
             rm -f "$body"
           done
+
+          events=$(mktemp)
+          events_meta=$(curl -sS -L --max-time 30 -o "$events" -w '%{http_code}|%{content_type}|%{size_download}' "$base/api/events") || true
+          echo "/api/events -> $events_meta"
+          IFS='|' read -r events_code events_type events_size <<< "$events_meta"
+          if [[ "$events_code" != '200' || "$events_type" != application/json* ]]; then
+            echo 'FAIL /api/events bad-response'
+            failures=$((failures+1))
+          elif ! node -e 'JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"))' "$events"; then
+            echo 'FAIL /api/events invalid-json'
+            failures=$((failures+1))
+          fi
+          rm -f "$events"
+
+          sitemap=$(mktemp)
+          sitemap_meta=$(curl -sS -L --max-time 30 -o "$sitemap" -w '%{http_code}|%{content_type}|%{size_download}' "$base/sitemap.xml") || true
+          echo "/sitemap.xml -> $sitemap_meta"
+          IFS='|' read -r sitemap_code sitemap_type sitemap_size <<< "$sitemap_meta"
+          if [[ "$sitemap_code" != '200' || "$sitemap_type" != application/xml* || "$sitemap_size" -lt 100 ]]; then
+            echo 'FAIL /sitemap.xml bad-response'
+            failures=$((failures+1))
+          elif ! grep -q '<urlset' "$sitemap"; then
+            echo 'FAIL /sitemap.xml invalid-sitemap'
+            failures=$((failures+1))
+          fi
+          rm -f "$sitemap"
+
           echo "failures=$failures"
           test "$failures" -eq 0
