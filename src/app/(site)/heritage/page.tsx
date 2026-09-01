@@ -1,80 +1,76 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BookOpenText, CalendarDays, ExternalLink, LibraryBig, PlayCircle, Radio, ScrollText } from "lucide-react";
+import { ArrowRight, BookOpenText, FileImage, FolderOpen, PlayCircle, ScrollText } from "lucide-react";
 
-import { GuruCard } from "@/components/heritage/guru-card";
-import { GuruPortrait } from "@/components/heritage/guru-portrait";
-import { SectionHeading } from "@/components/ui/section-heading";
-import { heritageRecords } from "@/lib/migration/heritage-data";
-import { featuredGuruProfiles, guruProfiles } from "@/lib/migration/guru-data";
-import { legacyArchivedEvents } from "@/lib/migration/legacy-event-data";
-import { historicalVideoCollections } from "@/lib/migration/video-data";
-import { legacyVedaRahasyaIssues } from "@/lib/migration/veda-rahasya-data";
+import { getPublicGuruProfiles, getPublicHeritageDocuments, getPublicMediaAssets, getPublicMediaFolders } from "@/lib/cms/public-data";
+import { getPublicVedaIssues } from "@/lib/veda/public-data";
 
 export const metadata: Metadata = {
   title: "વારસા સંગ્રહ",
-  description: "શ્રી માધવાનંદજી મહારાજ, ગુરુપરંપરા અને ઉપલબ્ધ વેદ રહસ્ય પ્રકાશનોનો સ્રોતસચેત ડિજિટલ વારસા પ્રવેશ.",
+  description: "સમિતિ દ્વારા પ્રકાશિત ગુરુપરંપરા, ઐતિહાસિક દસ્તાવેજ, વેદ રહસ્ય અને ડિજિટલ વારસાનો સંગ્રહ.",
 };
 
-export default function HeritagePage() {
-  const history = heritageRecords.filter((record) => record.kind !== "channel");
+const guMonths = ["", "જાન્યુઆરી", "ફેબ્રુઆરી", "માર્ચ", "એપ્રિલ", "મે", "જૂન", "જુલાઈ", "ઓગસ્ટ", "સપ્ટેમ્બર", "ઓક્ટોબર", "નવેમ્બર", "ડિસેમ્બર"];
+const guNumber = (value: number) => new Intl.NumberFormat("gu-IN").format(value);
+
+export default async function HeritagePage() {
+  const [gurus, documents, folders, assets, vedaIssues] = await Promise.all([
+    getPublicGuruProfiles(),
+    getPublicHeritageDocuments(),
+    getPublicMediaFolders(),
+    getPublicMediaAssets(),
+    getPublicVedaIssues(),
+  ]);
+
+  const featuredGurus = gurus.filter(guru => guru.featured).slice(0, 6);
+  const shownGurus = featuredGurus.length ? featuredGurus : gurus.slice(0, 6);
+  const letters = documents.filter(document => document.kind === "historical_letter");
+  const otherDocuments = documents.filter(document => document.kind !== "historical_letter").slice(0, 6);
+  const videos = assets.filter(asset => asset.media_type === "youtube" || asset.media_type === "video");
+  const images = assets.filter(asset => asset.media_type === "image");
+
   return <main>
     <header className="relative overflow-hidden border-b border-border bg-[#efe1ce]">
       <div className="pattern-jali absolute inset-0 opacity-30" aria-hidden="true" />
       <div className="container-site relative py-12 sm:py-16 lg:py-20">
         <p className="eyebrow">વારસા સંગ્રહ</p>
-        <h1 className="display-title mt-4 max-w-[13ch] text-primary-strong">સ્મૃતિને સંદર્ભ સાથે સાચવતો ડિજિટલ વારસો</h1>
-        <p className="body-large mt-5 max-w-3xl">ગુરુપરંપરાની ઉપલબ્ધ ઐતિહાસિક નોંધો, વેદ રહસ્યના અંકો અને અધિકૃત સત્સંગ તરફનો શાંત, સંપાદકીય પ્રવેશ.</p>
+        <h1 className="display-title mt-4 max-w-[14ch] text-primary-strong">સમિતિ દ્વારા સંચાલિત જીવંત ડિજિટલ વારસો</h1>
+        <p className="body-large mt-5 max-w-3xl">આ પાનાં પર હવે Guru & Heritage CMS, Media Library અને Veda Rahasya Adminમાંથી Publish થયેલી સામગ્રી જ દેખાય છે. Draft અથવા Archived સામગ્રી જાહેરમાં દેખાતી નથી.</p>
       </div>
     </header>
 
-    <section className="border-b border-border bg-[#37151c] text-white"><div className="container-site grid gap-8 py-12 lg:grid-cols-[.72fr_1.28fr] lg:items-center lg:gap-14"><GuruPortrait profile={guruProfiles[0]} className="sacred-arch mx-auto aspect-[4/5] w-full max-w-sm" priority/><div><p className="text-xs font-bold text-[#efbd6b]">પરંપરાનું દૃશ્ય અભિલેખ</p><h2 className="mt-3 font-serif text-3xl font-bold sm:text-4xl">{guruProfiles[0].nameGu}</h2><p className="mt-4 max-w-2xl leading-8 text-[#d8c7bb]">ઉપલબ્ધ અભિલેખોમાં નામ અને ચિત્ર સાથે નોંધાયેલી ૧૭ આધ્યાત્મિક વ્યક્તિત્વોની પસંદ કરેલી દૃશ્યસૂચિ.</p><Link href="/parampara" className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-white px-5 font-bold text-primary">ગુરુપરંપરા જુઓ <ArrowRight className="size-4"/></Link></div></div></section>
-
-    <section className="section-pad"><div className="container-site"><SectionHeading eyebrow="સંત-સ્વામી ચિત્રસંગ્રહ" title="સ્રોત સાથે ઓળખાયેલી વ્યક્તિત્વ છબીઓ" description="ગુરુપરંપરાના ઉપલબ્ધ ઐતિહાસિક ચિત્રો — નામ અને ઉપાધિ સાથે સંભાળપૂર્વક ગોઠવાયેલ સંગ્રહ."/><div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">{featuredGuruProfiles.map(profile=><GuruCard key={profile.id} profile={profile}/>)}</div></div></section>
-
     <section className="section-pad">
-      <div className="container-site grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:gap-14">
-        <SectionHeading eyebrow="પરંપરાનું મૂળ" title="પ્રમાણિત નોંધ જેટલું જ કહીએ" description="આ સંગ્રહ અપૂર્ણ હોવા છતાં ઉપયોગી છે. ચોક્કસ વર્ષ, ઉપાધિ કે ઓળખ સ્રોત વિના ઉમેરવામાં આવતી નથી." />
-        <div className="grid gap-4 sm:grid-cols-2">
-          {history.map((record, index) => <article key={record.id} className={`rounded-[1.35rem] border p-6 ${index === 0 ? "border-primary/20 bg-primary text-white sm:row-span-2" : "border-[#d8c2a5] bg-surface"}`}>
-            <ScrollText className={`size-6 ${index === 0 ? "text-[#efbd6b]" : "text-gold-deep"}`} aria-hidden="true" />
-            <h2 className={`mt-8 font-serif text-2xl font-bold ${index === 0 ? "text-white" : "text-primary-strong"}`}>{record.titleGu}</h2>
-            <p className={`mt-3 leading-8 ${index === 0 ? "text-[#eadbd0]" : "text-muted-foreground"}`}>{record.descriptionGu}</p>
-            <Link href="/parampara" className="mt-6 inline-flex min-h-11 items-center gap-2 font-bold">ગુરુપરંપરા વાંચો <ArrowRight className="size-4" /></Link>
-          </article>)}
-        </div>
-      </div>
-    </section>
-
-    <section className="border-y border-border bg-[#f1e5d3] section-pad"><div className="container-site grid gap-8 lg:grid-cols-[.75fr_1.25fr]"><div><ScrollText className="size-7 text-gold-deep"/><p className="eyebrow mt-4">ઐતિહાસિક પત્રો</p><h2 className="section-title mt-3 text-primary-strong">માધવાનંદ પરિવાર માટે સાચવાયેલ પત્રવારસો</h2></div><article className="rounded-[1.4rem] border border-[#cdb18d] bg-[#fffaf1] p-6 sm:p-8"><p className="font-serif text-2xl font-bold leading-relaxed text-primary">સ્વામી શ્રી દ્વારા લખાયેલા ઐતિહાસિક પત્રો માધવાનંદ પરિવાર માટે સંરક્ષિત કરવામાં આવ્યા છે.</p><p className="mt-4 leading-8 text-muted-foreground">આ પત્રસંગ્રહ માટે શ્રી દેવરાજભાઈ પ્રેમજીભાઈ મોનપરા (નવડા)નું સન્માનપૂર્વક સ્મરણ કરવામાં આવ્યું છે.</p><Link href="/heritage/letters" className="mt-6 inline-flex min-h-11 items-center gap-2 font-bold text-primary">પત્રસંગ્રહ જુઓ <ArrowRight className="size-4"/></Link></article></div></section>
-
-    <section className="border-y border-border bg-surface section-pad">
       <div className="container-site">
-        <SectionHeading eyebrow="ડિજિટલ ગ્રંથાલય" title="વેદ રહસ્યના ઉપલબ્ધ વારસા અંકો" description="૨૦૧૪થી ૨૦૧૮ વચ્ચેના ઉપલબ્ધ વેદ રહસ્ય અંકોમાંથી પસંદ કરેલા અંકો." />
-        <div className="mt-9 grid gap-5 md:grid-cols-3">
-          {legacyVedaRahasyaIssues.slice(0, 3).map((publication) => <article key={publication.id} className="flex min-h-72 flex-col overflow-hidden rounded-[1.25rem] border border-[#d8c4aa] bg-[#fffaf2]">
-            <div className="pattern-jali flex flex-1 flex-col justify-end border-b border-[#d8c4aa] bg-[#f1e5d3] p-5">
-              <BookOpenText className="size-6 text-gold-deep" aria-hidden="true" />
-              <h2 className="mt-8 font-serif text-2xl font-bold text-primary-strong">{publication.titleGu}</h2>
-              <p className="mt-2 font-bold text-primary">{publication.editionGu}</p>
-            </div>
-            <div className="grid grid-cols-2 gap-2 p-4">
-              <Link href={`/publications/${publication.slug}`} className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary px-3 font-bold text-white">વાંચો</Link>
-              {publication.pdfUrl ? <a href={publication.pdfUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border-strong px-3 font-bold text-primary">PDF <ExternalLink className="size-4" /></a> : null}
-            </div>
-          </article>)}
-        </div>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p className="eyebrow">ગુરુપરંપરા</p><h2 className="section-title mt-3 text-primary-strong">પ્રકાશિત ગુરુ પ્રોફાઇલ</h2></div><Link href="/parampara" className="inline-flex min-h-11 items-center gap-2 self-start rounded-full border border-border-strong px-5 font-bold text-primary">બધી પ્રોફાઇલ જુઓ <ArrowRight className="size-4" /></Link></div>
+        {shownGurus.length ? <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{shownGurus.map(guru => <Link href={`/parampara/${guru.slug}`} key={guru.id} className="rounded-2xl border border-[#d8c4aa] bg-surface p-5"><div className="flex size-11 items-center justify-center rounded-full bg-primary font-bold text-white">{guru.name_gu.trim().charAt(0)}</div><h3 className="mt-4 font-serif text-xl font-bold text-primary-strong">{guru.name_gu}</h3>{guru.qualification_gu ? <p className="mt-2 text-xs font-bold text-gold-deep">{guru.qualification_gu}</p> : null}<p className="mt-4 text-sm font-bold text-primary">વિગત વાંચો →</p></Link>)}</div> : <p className="mt-6 rounded-2xl border border-dashed border-border p-6 text-sm text-muted-foreground">હાલ કોઈ ગુરુ પ્રોફાઇલ Publish નથી.</p>}
       </div>
     </section>
 
-    <section className="section-pad"><div className="container-site"><SectionHeading eyebrow="ઐતિહાસિક સત્સંગ" title="ઐતિહાસિક વિડિયો સંગ્રહ" description="પ્રવચન, જ્ઞાનયજ્ઞ અને પરંપરાના ઉપલબ્ધ વિડિયો સંગ્રહો."/><div className="mt-8 grid gap-4 md:grid-cols-2">{historicalVideoCollections.map(item=><a key={item.id} href={item.sourceUrl} target="_blank" rel="noreferrer" className="rounded-[1.25rem] border border-border bg-surface p-5"><PlayCircle className="size-6 text-gold-deep"/><h3 className="mt-5 font-serif text-xl font-bold text-primary">{item.titleGu}</h3>{item.contextGu?<p className="mt-2 text-sm text-muted-foreground">{item.contextGu}</p>:null}<p className="mt-4 font-bold text-sacred-green">{item.videoCount} વિડિયો • સંગ્રહ ખોલો</p></a>)}</div></div></section>
-
-    <section className="border-y border-border bg-surface section-pad"><div className="container-site"><div className="mb-6 flex justify-end"><Link href="/heritage/gallery" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border-strong px-5 font-bold text-primary">ચિત્રસંગ્રહ જુઓ <ArrowRight className="size-4"/></Link></div><SectionHeading eyebrow="પ્રસંગ સ્મૃતિ" title="પરિવારના ઐતિહાસિક કાર્યક્રમો"/><div className="mt-8 grid gap-4 md:grid-cols-3">{legacyArchivedEvents.map(event=><Link key={event.id} href={`/events/${event.slug}`} className="rounded-[1.25rem] border border-border bg-background p-5"><CalendarDays className="size-5 text-gold-deep"/><h3 className="mt-4 font-serif text-xl font-bold text-primary">{event.titleGu}</h3><p className="mt-3 text-sm text-muted-foreground">{event.venueGu}</p><span className="mt-5 inline-flex min-h-11 items-center gap-2 font-bold text-primary">પ્રસંગ જુઓ <ArrowRight className="size-4"/></span></Link>)}</div></div></section>
+    <section className="border-y border-border bg-[#f1e5d3] section-pad">
+      <div className="container-site">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><ScrollText className="size-6 text-gold-deep" /><p className="eyebrow mt-3">ઐતિહાસિક પત્રો</p><h2 className="section-title mt-3 text-primary-strong">પ્રકાશિત પત્ર અને સ્કેન</h2></div><Link href="/heritage/letters" className="inline-flex min-h-11 items-center gap-2 self-start rounded-full border border-border-strong px-5 font-bold text-primary">પત્રસંગ્રહ જુઓ <ArrowRight className="size-4" /></Link></div>
+        <div className="mt-6 rounded-2xl border border-[#d8c2a5] bg-[#fffaf2] p-6"><p className="font-serif text-2xl font-bold text-primary">{guNumber(letters.length)} પ્રકાશિત પત્ર નોંધ</p><p className="mt-2 text-sm leading-7 text-muted-foreground">Adminમાં Historical Letter તરીકે Publish કરેલી નોંધો અહીં અને પત્રસંગ્રહ પાનાં પર દેખાય છે.</p></div>
+      </div>
+    </section>
 
     <section className="section-pad">
-      <div className="container-site grid gap-5 md:grid-cols-2">
-        <Link href="/publications" className="rounded-[1.25rem] border border-border bg-surface p-6"><LibraryBig className="size-6 text-gold-deep" /><h2 className="mt-5 font-serif text-2xl font-bold text-primary">ડિજિટલ ગ્રંથાલય</h2><p className="mt-2 leading-7 text-muted-foreground">પ્રકાશન પ્રકાર, વર્ષ અને વર્ણન દ્વારા ઉપલબ્ધ સંગ્રહ શોધો.</p><span className="mt-5 inline-flex min-h-11 items-center gap-2 font-bold text-primary">પ્રકાશનો જુઓ <ArrowRight className="size-4" /></span></Link>
-        <Link href="/satsang" className="rounded-[1.25rem] bg-[#37151c] p-6 text-white"><Radio className="size-6 text-[#efbd6b]" /><h2 className="mt-5 font-serif text-2xl font-bold">જીવંત સત્સંગ વારસો</h2><p className="mt-2 leading-7 text-[#d8c7bb]">અધિકૃત YouTube ચેનલ પર ઉપલબ્ધ પ્રવચન અને પાઠ સાથે જોડાઓ.</p><span className="mt-5 inline-flex min-h-11 items-center gap-2 font-bold">સત્સંગ જુઓ <ArrowRight className="size-4" /></span></Link>
+      <div className="container-site">
+        <p className="eyebrow">દસ્તાવેજ સંગ્રહ</p><h2 className="section-title mt-3 text-primary-strong">પ્રકાશિત ઐતિહાસિક દસ્તાવેજ</h2>
+        {otherDocuments.length ? <div className="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{otherDocuments.map(document => <article key={document.id} className="rounded-2xl border border-border bg-surface p-5"><ScrollText className="size-5 text-gold-deep" /><p className="mt-4 text-xs font-bold uppercase tracking-wide text-muted-foreground">{document.kind}</p><h3 className="mt-2 font-serif text-xl font-bold text-primary-strong">{document.title_gu}</h3>{document.description_gu ? <p className="mt-2 text-sm leading-7 text-muted-foreground">{document.description_gu}</p> : null}<div className="mt-4 flex flex-wrap gap-2">{document.file_url ? <a href={document.file_url} target="_blank" rel="noreferrer" className="inline-flex min-h-10 items-center rounded-xl bg-primary px-3 text-sm font-bold text-white">ફાઇલ ખોલો</a> : null}{document.image_url ? <a href={document.image_url} target="_blank" rel="noreferrer" className="inline-flex min-h-10 items-center rounded-xl border border-border-strong px-3 text-sm font-bold text-primary">સ્કેન જુઓ</a> : null}</div></article>)}</div> : <p className="mt-6 rounded-2xl border border-dashed border-border p-6 text-sm text-muted-foreground">હાલ અન્ય ઐતિહાસિક દસ્તાવેજ Publish નથી.</p>}
+      </div>
+    </section>
+
+    <section className="border-y border-border bg-surface-soft section-pad">
+      <div className="container-site">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><BookOpenText className="size-6 text-primary" /><p className="eyebrow mt-3">વેદ રહસ્ય</p><h2 className="section-title mt-3 text-primary-strong">તાજેતરના પ્રકાશિત અંકો</h2></div><Link href="/publications" className="inline-flex min-h-11 items-center gap-2 self-start rounded-full border border-border-strong px-5 font-bold text-primary">ડિજિટલ ગ્રંથાલય <ArrowRight className="size-4" /></Link></div>
+        {vedaIssues.length ? <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{vedaIssues.slice(0, 3).map(issue => <article key={issue.id} className="rounded-2xl border border-border bg-white p-5"><p className="text-xs font-bold text-gold-deep">{guMonths[issue.issue_month]} {guNumber(issue.issue_year)}</p><h3 className="mt-2 font-serif text-xl font-bold text-primary">{issue.title_gu}</h3>{issue.pdf_url ? <a href={issue.pdf_url} target="_blank" rel="noreferrer" className="mt-4 inline-flex min-h-10 items-center rounded-xl bg-primary px-3 text-sm font-bold text-white">PDF વાંચો</a> : null}</article>)}</div> : <p className="mt-6 text-sm text-muted-foreground">હાલ કોઈ Veda issue Publish નથી.</p>}
+      </div>
+    </section>
+
+    <section className="section-pad">
+      <div className="container-site">
+        <p className="eyebrow">ડિજિટલ મીડિયા</p><h2 className="section-title mt-3 text-primary-strong">Media Library સાથે જોડાયેલ સંગ્રહ</h2>
+        <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><div className="rounded-2xl border border-border bg-surface p-5"><FolderOpen className="size-5 text-gold-deep" /><p className="mt-3 font-serif text-3xl font-bold text-primary">{guNumber(folders.length)}</p><p className="mt-1 text-sm text-muted-foreground">પ્રકાશિત ફોલ્ડર</p></div><div className="rounded-2xl border border-border bg-surface p-5"><PlayCircle className="size-5 text-primary" /><p className="mt-3 font-serif text-3xl font-bold text-primary">{guNumber(videos.length)}</p><p className="mt-1 text-sm text-muted-foreground">Video / YouTube</p></div><div className="rounded-2xl border border-border bg-surface p-5"><FileImage className="size-5 text-sacred-green" /><p className="mt-3 font-serif text-3xl font-bold text-primary">{guNumber(images.length)}</p><p className="mt-1 text-sm text-muted-foreground">પ્રકાશિત ફોટા</p></div><Link href="/downloads" className="rounded-2xl border border-primary/20 bg-primary p-5 text-white"><FolderOpen className="size-5 text-[#efbd6b]" /><h3 className="mt-3 font-serif text-xl font-bold">ડિજિટલ પ્રસાદ ખોલો</h3><p className="mt-2 text-sm text-white/75">Audio, PDF, photos અને video folders જુઓ.</p></Link></div>
       </div>
     </section>
   </main>;
