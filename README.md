@@ -1,56 +1,99 @@
 # શ્રી માધવાનંદ આશ્રમ વેબ પ્લેટફોર્મ
 
-Gujarati-first redesign and committee portal preview for **Shree Madhavanand Ashram / Sachchidanand Madhavanand Parivar**.
+Gujarati-first public website and committee Admin portal for **Shree Madhavanand Ashram / Sachchidanand Madhavanand Parivar**.
 
-## What is included
+## Current architecture
 
-- Fully responsive public website for mobile, tablet and desktop
-- Gujarati navigation, devotional/editorial design system and accessibility baseline
-- Guruparampara/about experience
-- Searchable directory covering 50+ legacy branch names
-- Verified legacy contact details only where sourced
-- YouTube uploads + live embed for the official channel
-- Veda Rahasya digital-library preview using real legacy public PDFs
-- Events and seva sections
-- Contact/seva form with a working browser-preview inbox flow
-- Committee admin preview with dashboard, inquiry status workflow, CSV export, event CRUD preview, branch audit view and publication migration view
-- `schema.sql` for the planned Cloudflare D1 backend
-- SEO metadata, sitemap, robots and web manifest
-- Project-specific `CLAUDE.md`
-- The supplied Claude web-builder skill library retained under `.claude/skills/` and `.agents/skills/`
+- Next.js application deployed to Cloudflare Workers through vinext.
+- Supabase is the canonical database/Auth backend for Admin-managed content and operational workflows.
+- Public pages read published records through constrained public RPCs; Admin pages use authenticated, RLS-protected access.
+- Public submissions use protected server/Edge-function gateways with Cloudflare Turnstile where configured.
+- Contact and Participation persist to Admin Inbox; Membership, Stay, Volunteer, Donation and Veda workflows persist to their canonical tables and also feed Inbox as appropriate.
+- In-app Admin notifications are generated from new Inbox arrivals according to active Admin `inbox.view` permission and Ashram scope.
+- Sensitive Stay documents use private storage, temporary upload tokens and short-lived signed viewing URLs.
+- Audit/RBAC, report exports, cash/receipt workflows, publishing/archive behavior and Super Admin Ops are database-enforced rather than browser-local demo state.
 
-## Codespaces preview
+Legacy files under migration/prototype areas are source/reference material unless a current route explicitly imports them. See `docs/PROTOTYPE_CONTENT.md` for the boundary.
+
+## Functional testing
+
+Use **`docs/TESTING.md`** as the end-to-end runbook. It covers the required dependency order and expected results for:
+
+- Admin login, team, roles and scoped RBAC
+- Ashrams and public visibility
+- Rooms, Stays, meals and private documents
+- Programmes/events and Seva
+- Contact, Participation, Membership and Volunteer submissions
+- Donation → cash → receipt
+- Veda subscription/change/article/issue workflows
+- Guru, Heritage and Media publishing
+- Inbox + Notifications
+- Reports/CSV, Audit and Super Admin Ops
+
+Do not seed fake production data through SQL. Create clearly labelled synthetic test records through the real UI, verify the full downstream workflow, then archive/clean them up using authorized controls.
+
+## Public routes worth smoke-testing
+
+- `/`
+- `/ashrams`
+- `/events`
+- `/programmes`
+- `/seva`
+- `/activities`
+- `/parampara`
+- `/heritage`
+- `/heritage/letters`
+- `/heritage/gallery`
+- `/satsang`
+- `/downloads`
+- `/publications`
+- `/veda-rahasya`
+- `/forms`
+- `/contact`
+- `/participation`
+- `/membership`
+- `/volunteer`
+- `/stay`
+- `/donation`
+- `/veda-rahasya/membership`
+- `/veda-rahasya/services`
+
+Admin entry point: `/admin/login`.
+
+## Local development
+
+Copy the public Supabase values from the intended environment into a local `.env.local` using `.env.example` as the shape. Never commit private keys or secrets.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Then open the forwarded browser port.
-
-Useful preview URLs:
-
-- `/` public homepage
-- `/ashrams` searchable branch directory
-- `/satsang` YouTube experience
-- `/publications` Veda Rahasya reader
-- `/contact` working preview form
-- `/admin/login` committee admin preview
-
-Submit a public contact form and then open `/admin/inquiries` in the same browser. The entry appears using localStorage so the product workflow can be evaluated before infrastructure is connected.
-
-## Validation
+For the Cloudflare/vinext development path:
 
 ```bash
+npm run dev:vinext
+```
+
+## Required validation before merge
+
+```bash
+npm ci
 npm run typecheck
 npm run lint
 npm run build
 ```
 
-## Cloudflare direction
+Changes intended for production should also pass the Cloudflare Workers preview for the exact pull-request head, then the same validation and production Workers build on the exact merged `main` commit.
 
-As of August 2026, Cloudflare recommends **vinext on Cloudflare Workers** for new Next.js full-stack deployments. See `docs/DEPLOYMENT.md` before connecting production hosting.
+## Data/content integrity
 
-## Data integrity
+Do not invent phone numbers, bank details, historical claims, honorifics, committee approvals, or operational records. `published=true` controls public visibility; it does not automatically mean legacy provenance has received committee verification.
 
-Do not invent phone numbers, bank details, historical claims or honorifics. See `docs/CONTENT_SOURCES.md` and obtain committee approval before production launch.
+See:
+
+- `docs/CONTENT_SOURCES.md` — source/provenance notes
+- `docs/PROTOTYPE_CONTENT.md` — canonical runtime vs migration/reference boundary
+- `docs/TESTING.md` — functional test plan
+- `docs/BACKUP_AND_RECOVERY.md` — backup/restore setup and procedure
+- `docs/DEPLOYMENT.md` — deployment notes
