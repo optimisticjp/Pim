@@ -30,6 +30,8 @@ export const inboxCategoryLabels: Record<string, string> = {
   article_submission: "લેખ મોકલાવેલ",
   address_change: "સરનામું સુધારો",
   inquiry: "પૂછપરછ",
+  contact: "સંપર્ક પૂછપરછ",
+  participation: "સહભાગિતા / સેવા રસ",
   manual: "આંતરિક નોંધ",
 };
 

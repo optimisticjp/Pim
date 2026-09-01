@@ -15,6 +15,8 @@ const rpcByForm: Partial<Record<FormType,string>> = {
   veda_article:"submit_veda_article",
 };
 const allowedForms = new Set<FormType>(["membership","donation","stay","volunteer","veda_subscription","veda_change","veda_article","contact_preview","participation_preview"]);
+const participationInterests = new Set(["gau-seva","health","food","environment","sanskar","event-support","youth-mandal","media-digital","other"]);
+const participationAvailability = new Set(["","પ્રસંગોપાત","સપ્તાહાંત / રજા દરમિયાન","જરૂર મુજબ સંપર્ક કરી શકાય","હજુ નક્કી નથી"]);
 const json=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers:{"content-type":"application/json; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff"}});
 const isObject=(value:unknown):value is JsonObject=>Boolean(value)&&typeof value==="object"&&!Array.isArray(value);
 const str=(payload:JsonObject,key:string)=>typeof payload[key]==="string"?(payload[key] as string).trim():"";
@@ -22,6 +24,7 @@ const validText=(value:string,min:number,max:number)=>value.length>=min&&value.l
 const optionalText=(value:string,max:number)=>!value||value.length<=max;
 const integerIn=(value:unknown,min:number,max:number)=>{const n=typeof value==="number"?value:Number(value);return Number.isInteger(n)&&n>=min&&n<=max;};
 const uuidLike=(value:string)=>/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+const slugLike=(value:string)=>/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
 const dateOnly=(value:string)=>/^\d{4}-\d{2}-\d{2}$/.test(value)&&!Number.isNaN(Date.parse(`${value}T00:00:00Z`));
 
 function validateMembership(p:JsonObject){
@@ -73,8 +76,10 @@ function validateContact(p:JsonObject){return validText(str(p,"fullName"),2,120)
 function validateParticipation(p:JsonObject){
   if(!validText(str(p,"fullName"),2,120)||!validText(str(p,"phone"),7,30)||!validText(str(p,"city"),2,120)||!optionalText(str(p,"message"),1500))return false;
   if(!new Set(["seva","youth","both","information"]).has(str(p,"track")))return false;
-  const interests=Array.isArray(p.interests)?p.interests:[];if(interests.length>9||new Set(interests).size!==interests.length||interests.some(v=>typeof v!=="string"||v.length>40))return false;
-  return optionalText(str(p,"availability"),80)&&optionalText(str(p,"ashramId"),80);
+  const interests=Array.isArray(p.interests)?p.interests:[];
+  if(interests.length>9||new Set(interests).size!==interests.length||interests.some(v=>typeof v!=="string"||!participationInterests.has(v)))return false;
+  const availability=str(p,"availability");if(!participationAvailability.has(availability))return false;
+  const ashram=str(p,"ashramId");return !ashram||((uuidLike(ashram)||slugLike(ashram))&&ashram.length<=80);
 }
 function validatePayload(formType:FormType,p:JsonObject){switch(formType){case "membership":return validateMembership(p);case "donation":return validateDonation(p);case "stay":return validateStay(p);case "volunteer":return validateVolunteer(p);case "veda_subscription":return validateVedaSubscription(p);case "veda_change":return validateVedaChange(p);case "veda_article":return validateVedaArticle(p);case "contact_preview":return validateContact(p);case "participation_preview":return validateParticipation(p);}}
 
@@ -108,7 +113,62 @@ Deno.serve(async(req:Request)=>{
   if(quotaError){console.error("public-form quota error",{formType,code:quotaError.code??null,message:quotaError.message??null});return json({error:"Submission protection unavailable"},503);}
   if(quota!==true)return json({error:"Too many submissions. Please try again later."},429);
 
-  if(formType==="contact_preview"||formType==="participation_preview")return json({ok:true,data:{mode:"preview",receivedAt:new Date().toISOString()}});
+  if((formType==="contact_preview"||formType==="participation_preview")&&str(payload,"delivery")!=="inbox_v1"){
+    return json({ok:true,data:{mode:"preview",receivedAt:new Date().toISOString()}});
+  }
+
+  if(formType==="contact_preview"){
+    const receivedAt=new Date().toISOString();
+    const {data,error}=await service.from("inbox_items").insert({
+      source_type:"contact_submission",
+      source_id:crypto.randomUUID(),
+      category:"contact",
+      title:"નવી સંપર્ક પૂછપરછ",
+      subtitle:[str(payload,"type"),str(payload,"city")].filter(Boolean).join(" • ")||null,
+      contact_name:str(payload,"fullName"),
+      contact_mobile:str(payload,"phone"),
+      status:"new",
+      priority:"normal",
+      payload:{type:str(payload,"type"),city:str(payload,"city"),message:str(payload,"message")},
+      created_at:receivedAt,
+      updated_at:receivedAt,
+    }).select("id,created_at").single();
+    if(error){console.error("contact inbox insert error",{code:error.code??null,message:error.message??null});return json({error:"Submission could not be saved"},503);}
+    return json({ok:true,data:{referenceId:data.id,receivedAt:data.created_at}});
+  }
+
+  if(formType==="participation_preview"){
+    const requestedAshram=str(payload,"ashramId");
+    let ashramId:string|null=null,ashramKey:string|null=null,ashramName:string|null=null;
+    if(requestedAshram){
+      let query=service.from("ashram_profiles").select("id,slug,name_gu").eq("published",true).is("archived_at",null);
+      query=uuidLike(requestedAshram)?query.eq("id",requestedAshram):query.eq("slug",requestedAshram);
+      const {data:ashram,error:ashramError}=await query.maybeSingle();
+      if(ashramError){console.error("participation ashram lookup error",{code:ashramError.code??null,message:ashramError.message??null});return json({error:"Ashram verification unavailable"},503);}
+      if(!ashram)return json({error:"Selected Ashram is not available"},422);
+      ashramId=ashram.id;ashramKey=ashram.slug;ashramName=ashram.name_gu;
+    }
+    const receivedAt=new Date().toISOString();
+    const selectedInterests=(Array.isArray(payload.interests)?payload.interests:[]).filter((value):value is string=>typeof value==="string");
+    const {data,error}=await service.from("inbox_items").insert({
+      source_type:"participation_submission",
+      source_id:crypto.randomUUID(),
+      category:"participation",
+      title:"નવી સહભાગિતા વિનંતી",
+      subtitle:[str(payload,"track"),str(payload,"city"),ashramName].filter(Boolean).join(" • ")||null,
+      contact_name:str(payload,"fullName"),
+      contact_mobile:str(payload,"phone"),
+      ashram_key:ashramKey,
+      status:"new",
+      priority:"normal",
+      payload:{track:str(payload,"track"),interests:selectedInterests,availability:str(payload,"availability"),city:str(payload,"city"),message:str(payload,"message"),ashram_id:ashramId,ashram_slug:ashramKey,ashram_name:ashramName},
+      created_at:receivedAt,
+      updated_at:receivedAt,
+    }).select("id,created_at").single();
+    if(error){console.error("participation inbox insert error",{code:error.code??null,message:error.message??null});return json({error:"Submission could not be saved"},503);}
+    return json({ok:true,data:{referenceId:data.id,receivedAt:data.created_at}});
+  }
+
   const rpc=rpcByForm[formType];if(!rpc)return json({error:"Unsupported form"},400);
   const {data,error}=await service.rpc(rpc,{payload});
   if(error){console.error("public-form submit rpc error",{formType,code:error.code??null,message:error.message??null});return json({error:"Submission could not be saved"},422);}

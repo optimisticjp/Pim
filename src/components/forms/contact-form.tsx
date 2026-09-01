@@ -4,10 +4,9 @@ import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { FormEvent, useMemo, useState } from "react";
 
-import { addPreviewInquiry } from "@/lib/demo-store";
-import type { InquiryRecord } from "@/lib/types";
-
 const initial = { fullName: "", phone: "", city: "", type: "general", message: "" };
+
+type SubmissionResponse = { referenceId?: string; receivedAt?: string; message?: string };
 
 export function ContactForm() {
   const params = useSearchParams();
@@ -38,25 +37,14 @@ export function ContactForm() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ ...form, turnstileToken }),
       });
-      const result = await response.json() as { mode?: "preview"; message?: string };
-      if (!response.ok) throw new Error(result.message || "request failed");
-      if (result.mode !== "preview") throw new Error("unexpected response mode");
-      const record: InquiryRecord = {
-        id: `inq-${Date.now()}`,
-        fullName: form.fullName.trim(),
-        phone: form.phone.trim(),
-        city: form.city.trim(),
-        type: form.type as InquiryRecord["type"],
-        message: form.message.trim(),
-        status: "new",
-        createdAt: new Date().toISOString(),
-      };
-      addPreviewInquiry(record);
+      const result = await response.json() as SubmissionResponse;
+      if (!response.ok) throw new Error(result.message || "સંદેશ મોકલી શકાયો નથી.");
+      if (!result.referenceId || !result.receivedAt) throw new Error("સંદેશની નોંધની પુષ્ટિ મળી નથી. ફરી પ્રયાસ કરો.");
       setForm({ ...initial, type: defaultType });
       setStatus("success");
     } catch (caught) {
       setStatus("error");
-      setError(caught instanceof Error ? caught.message : "ફોર્મ મોકલવામાં અડચણ આવી. હાલ માટે કૃપા કરીને મુખ્ય આશ્રમનો ફોન દ્વારા સંપર્ક કરો.");
+      setError(caught instanceof Error ? caught.message : "ફોર્મ મોકલવામાં અડચણ આવી. ફરી પ્રયાસ કરો.");
     }
   }
 
@@ -65,8 +53,8 @@ export function ContactForm() {
       <div className="card-sacred grid min-h-[380px] place-items-center p-8 text-center">
         <div>
           <CheckCircle2 className="mx-auto h-12 w-12 text-sacred-green" />
-          <h2 className="mt-5 font-serif text-3xl font-bold text-primary">ફોર્મનું પૂર્વદર્શન પૂર્ણ થયું.</h2>
-          <p className="mx-auto mt-3 max-w-lg text-[14px] leading-7 text-muted-foreground">આ સંદેશ આશ્રમ સમિતિ સુધી પહોંચ્યો નથી અને માત્ર આ ઉપકરણ પરના પૂર્વદર્શન માટે રહે છે. સત્તાવાર સંપર્ક માટે કૃપા કરીને મુખ્ય આશ્રમનો ચકાસેલો ફોન નંબર વાપરો.</p>
+          <h2 className="mt-5 font-serif text-3xl font-bold text-primary">આપનો સંદેશ પ્રાપ્ત થયો.</h2>
+          <p className="mx-auto mt-3 max-w-lg text-[14px] leading-7 text-muted-foreground">આ સંદેશ આશ્રમના એડમિન ઇનબોક્સમાં નોંધાયો છે. જરૂરી હોય તો સમિતિ આપેલી સંપર્ક વિગતો પર આપનો સંપર્ક કરશે.</p>
           <button type="button" onClick={() => setStatus("idle")} className="mt-6 min-h-11 rounded-full bg-primary px-6 font-bold text-primary-foreground">બીજો સંદેશ મોકલો</button>
         </div>
       </div>
@@ -75,7 +63,7 @@ export function ContactForm() {
 
   return (
     <form onSubmit={submit} className="card-sacred p-5 sm:p-7">
-      <div className="mb-6 rounded-2xl border border-[#d8c2a5] bg-[#fff8ec] p-4 text-[14px] leading-7 text-[#554842]"><strong className="block text-primary">હાલ ઑનલાઇન સંદેશ મોકલવાની સેવા સક્રિય નથી.</strong>આ ફોર્મ પૂર્વદર્શન માટે છે; અહીં આપેલી વિગતો આશ્રમ સમિતિ સુધી મોકલાતી નથી. સત્તાવાર સંપર્ક માટે મુખ્ય આશ્રમનો ફોન વાપરો.</div>
+      <div className="mb-6 rounded-2xl border border-[#d8c2a5] bg-[#fff8ec] p-4 text-[14px] leading-7 text-[#554842]"><strong className="block text-primary">ઑનલાઇન સંદેશ સેવા સક્રિય છે.</strong>આપનો સંદેશ માનવ ચકાસણી પછી આશ્રમના એડમિન ઇનબોક્સમાં નોંધાશે.</div>
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="પૂર્ણ નામ *"><input value={form.fullName} onChange={(e) => setForm({ ...form, fullName: e.target.value })} className="field" autoComplete="name" /></Field>
         <Field label="મોબાઇલ નંબર *"><input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="field" inputMode="tel" autoComplete="tel" /></Field>
