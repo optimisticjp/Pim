@@ -1,0 +1,43 @@
+name: Security audit triage
+
+on:
+  push:
+    branches:
+      - chore/security-audit-triage
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Full npm audit
+        run: npm audit --json > audit-all.json || true
+      - name: Runtime-only npm audit
+        run: npm audit --omit=dev --json > audit-runtime.json || true
+      - name: Print audit summaries
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          for (const file of ['audit-all.json', 'audit-runtime.json']) {
+            const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+            console.log(file, JSON.stringify(data.metadata?.vulnerabilities ?? {}));
+            for (const [name, item] of Object.entries(data.vulnerabilities ?? {})) {
+              console.log(JSON.stringify({ file, name, severity: item.severity, direct: item.isDirect, via: item.via, range: item.range, fixAvailable: item.fixAvailable }));
+            }
+          }
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: security-audit-json
+          path: |
+            audit-all.json
+            audit-runtime.json
+          if-no-files-found: error
