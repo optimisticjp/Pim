@@ -1,35 +1,46 @@
-# Prototype content boundary
+# Prototype and source-derived content boundary
 
-The staging public site intentionally renders a mature, populated experience on normal routes. Synthetic editorial records are centralized in `src/lib/prototype-content.ts`; records carry `prototype: true` or, for current guidance, `prototypeReviewRequired: true`. These flags are internal and are never public badges.
+The public runtime now treats Supabase as the canonical source for Admin-managed content and operational workflows. Legacy/prototype modules may remain in the repository as migration inputs or reference material, but they must not become a second runtime source for a module that Admin manages.
 
-## Verified foundation
+## Canonical runtime sources
 
-`src/lib/site-data.ts` retains verified Ashram contacts and the three legacy Veda Rahasya PDF records. The historical statements on `/parampara` are limited to the public source notes in `docs/CONTENT_SOURCES.md`: Vedic/Upanishadic roots, association with Swami Shree Madhavanandji Maharaj, the approximately two-century public description, leaving home at age 12, and approximately 12 years of Veda/Upanishad study in Kashi.
+The following public surfaces now read the same live Supabase records that their Admin modules manage:
 
-## Prototype datasets and pages
+- Events and Programmes: programme centres, circulars, and Tithi/programme records.
+- Ashrams and Stay: published Ashram profiles and live `accepts_stays` availability.
+- Seva: published Seva categories and activities; child activities are hidden when their category is hidden.
+- Guru Parampara: published Guru profiles and chapters.
+- Heritage: published Heritage documents.
+- Media: published folders/assets power Downloads, Heritage Gallery, and historical Satsang collections. Folder visibility is hierarchical.
+- Veda Rahasya and Publications: published Veda issue records.
+- Contact and Participation: protected public submissions persist to the Admin Inbox rather than a browser/demo store.
 
-- `prototypeEvents`: public `/events`, event details, and up to three homepage cards. Dates, programme descriptions, statuses, and associations are staging content.
-- `prototypePublications`: `/publications` and their internal detail introductions. No nonexistent PDF or download link is rendered.
-- `paramparaLife`, `heritageModules`, and `currentGuidance`: the editorial modules on `/parampara`. The leadership title comes from owner research notes and requires committee confirmation.
-- Existing unverified Satsang series in `src/lib/site-data.ts` provide six content pathways while the official YouTube uploads facade remains the canonical playable media surface.
-- Ashram names and verified contacts remain source data. No synthetic address or phone is added.
+Public contact details that identify the Surat Ashram are also resolved from the published Ashram record instead of a duplicated hard-coded address/phone.
 
-## Source-derived migration layer
+## Repository-only prototype and migration material
 
-`src/lib/migration/` now contains 17 Guru profiles, 46 monthly Veda Rahasya issues, four Yuvak Mandal chapters, four historical video collections, three archived events, and source-traceable heritage records. `src/data/migration-media.json` is the machine-readable asset ledger. These records are not prototype records, but their historical wording and remote files still require committee launch review. `/heritage` presents only this documented subset; it does not imply that the inaccessible source sites were freshly verified.
+`src/lib/prototype-content.ts`, legacy static data helpers, and `src/lib/migration/` remain migration/reference material unless a current route explicitly imports them. They are not authoritative for modules listed above.
+
+The source-derived migration layer contains historical material collected from documented organizational sources. Records marked `source-derived` or `review-required` still require committee review for wording, dates, remote files, and links before primary-domain launch, even where the data has subsequently been seeded into Supabase.
 
 Status vocabulary is centralized in `src/lib/types.ts`: `verified-current`, `verified-legacy`, `source-derived`, `prototype`, and `review-required`.
 
+## Remaining non-canonical public material
+
+- The Satsang series list in `src/lib/site-data.ts` is navigation taxonomy only. It links into the official YouTube channel; it is not the source for the Admin Media library or historical collection records.
+- `/activities` still shows four source-derived Yuvak Mandal links from `src/lib/migration/mandal-data.ts`. Those records are explicitly `reviewRequired: true`. There is currently no canonical Admin Yuvak Mandal module, so they must be committee-reviewed (or given an approved canonical model) before primary-domain launch.
+
 ## Before primary-domain launch
 
-- [ ] Remove or replace prototype events.
-- [ ] Verify all dates.
-- [ ] Verify Guru titles.
-- [ ] Verify leadership.
-- [ ] Verify Ashram facilities.
-- [ ] Verify branch programmes.
-- [ ] Verify publication metadata.
-- [ ] Verify photos.
-- [ ] Verify contact numbers.
-- [ ] Verify external URLs.
-- [ ] Remove preview form wording after the backend is real.
+- [x] Replace prototype Events with live Admin-managed programme/Tithi data.
+- [x] Replace prototype Publications with live Veda issue data.
+- [x] Move historical Media collections to the live Media library and enforce archive/unpublish parity.
+- [x] Make Contact/Participation submissions persist through the protected backend to Admin Inbox.
+- [x] Remove public preview-only form wording after the backend became real.
+- [x] Remove duplicated public Surat contact details in favor of the live Ashram record.
+- [ ] Committee-review the source-derived Yuvak Mandal links/cities or approve a canonical Admin model.
+- [ ] Verify historical dates and Guru titles.
+- [ ] Verify leadership wording.
+- [ ] Verify Ashram facilities and contact numbers in the Admin records.
+- [ ] Verify branch programme details.
+- [ ] Verify photos and remaining external URLs.
