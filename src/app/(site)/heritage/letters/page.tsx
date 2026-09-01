@@ -1,8 +1,21 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { historicalLetters } from "@/lib/migration/letter-data";
+import { ExternalLink, ScrollText } from "lucide-react";
 
-export const metadata: Metadata = { title: "ઐતિહાસિક પત્રો", description: "માધવાનંદ પરિવાર માટે સંરક્ષિત સ્વામી શ્રીના ઉપલબ્ધ ઐતિહાસિક પત્રોની પ્રતિઓ." };
-export default function HistoricalLettersPage() {
-  return <main><header className="border-b border-border bg-[#efe1ce]"><div className="container-site py-12 sm:py-16"><p className="eyebrow">વારસા સંગ્રહ</p><h1 className="display-title mt-4 text-primary-strong">ઐતિહાસિક પત્રો</h1><p className="body-large mt-4 max-w-2xl">માધવાનંદ પરિવાર માટે સંરક્ષિત ઉપલબ્ધ પત્રપ્રતિઓ. તારીખ, લેખક અથવા પ્રાપ્તકર્તા સ્પષ્ટ ન હોય ત્યાં કોઈ અનુમાન ઉમેરાયું નથી.</p></div></header><section className="section-pad"><div className="container-site grid gap-6 md:grid-cols-2">{historicalLetters.map((letter) => <article key={letter.id} className="overflow-hidden rounded-[1.35rem] border border-border bg-surface"><div className="relative aspect-[4/3] bg-[#eadcc8]"><Image src={letter.scanImages[0]} alt={`${letter.titleGu}ની પ્રથમ ઉપલબ્ધ પ્રતિ`} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" /></div><div className="p-5"><h2 className="font-serif text-2xl font-bold text-primary">{letter.titleGu}</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">{letter.descriptionGu}</p><div className="mt-4 flex flex-wrap gap-2">{letter.scanImages.map((scan, index) => <a key={scan} href={scan} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-full border border-border-strong px-4 font-bold text-primary">પ્રતિ {index + 1} જુઓ</a>)}</div></div></article>)}</div></section></main>;
+import { getPublicHeritageDocuments } from "@/lib/cms/public-data";
+
+export const metadata: Metadata = {
+  title: "ઐતિહાસિક પત્રો",
+  description: "સમિતિ દ્વારા Publish કરાયેલા ઉપલબ્ધ ઐતિહાસિક પત્ર અને સ્કેન.",
+};
+
+export default async function HistoricalLettersPage() {
+  const documents = await getPublicHeritageDocuments();
+  const letters = documents.filter(document => document.kind === "historical_letter");
+
+  return <main>
+    <header className="border-b border-border bg-[#efe1ce]"><div className="container-site py-12 sm:py-16"><p className="eyebrow">વારસા સંગ્રહ</p><h1 className="display-title mt-4 text-primary-strong">ઐતિહાસિક પત્રો</h1><p className="body-large mt-4 max-w-2xl">Guru & Heritage Adminમાંથી Historical Letter તરીકે Publish કરેલી નોંધો અહીં દેખાય છે. Draft અથવા Archived નોંધો જાહેરમાં દેખાતી નથી.</p></div></header>
+    <section className="section-pad"><div className="container-site">
+      {letters.length ? <div className="grid gap-6 md:grid-cols-2">{letters.map(letter => <article key={letter.id} className="rounded-[1.35rem] border border-border bg-surface p-5 sm:p-6"><ScrollText className="size-6 text-gold-deep" /><p className="mt-4 text-xs font-bold text-gold-deep">{letter.date_label_gu || letter.document_date || "તારીખ ઉપલબ્ધ નથી"}</p><h2 className="mt-2 font-serif text-2xl font-bold text-primary">{letter.title_gu}</h2>{letter.description_gu ? <p className="mt-3 text-sm leading-7 text-muted-foreground">{letter.description_gu}</p> : null}<div className="mt-5 flex flex-wrap gap-2">{letter.image_url ? <a href={letter.image_url} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-4 font-bold text-white">સ્કેન જુઓ <ExternalLink className="size-4" /></a> : null}{letter.file_url ? <a href={letter.file_url} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border-strong px-4 font-bold text-primary">ફાઇલ ખોલો <ExternalLink className="size-4" /></a> : null}{!letter.image_url && !letter.file_url ? <span className="text-sm text-muted-foreground">હાલ ડિજિટલ પ્રતિ જોડાયેલી નથી.</span> : null}</div></article>)}</div> : <div className="rounded-2xl border border-dashed border-border bg-surface p-8 text-sm text-muted-foreground">હાલ કોઈ ઐતિહાસિક પત્ર Publish નથી. Adminમાંથી Publish કર્યા પછી અહીં દેખાશે.</div>}
+    </div></section>
+  </main>;
 }
