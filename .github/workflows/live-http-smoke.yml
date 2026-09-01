@@ -1,0 +1,70 @@
+name: Live HTTP smoke
+
+on:
+  push:
+    branches:
+      - chore/live-http-smoke
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Smoke production routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://pim.essanciaonline.workers.dev'
+          routes=(
+            '/'
+            '/ashrams'
+            '/events'
+            '/programmes'
+            '/seva'
+            '/activities'
+            '/parampara'
+            '/heritage'
+            '/heritage/letters'
+            '/heritage/gallery'
+            '/satsang'
+            '/downloads'
+            '/publications'
+            '/veda-rahasya'
+            '/forms'
+            '/contact'
+            '/participation'
+            '/membership'
+            '/volunteer'
+            '/stay'
+            '/donation'
+            '/veda-rahasya/membership'
+            '/veda-rahasya/services'
+            '/admin/login'
+            '/api/events'
+            '/sitemap.xml'
+          )
+          failures=0
+          for route in "${routes[@]}"; do
+            body=$(mktemp)
+            meta=$(curl -sS -L --max-time 30 -o "$body" -w '%{http_code}|%{url_effective}|%{content_type}|%{size_download}' "$base$route") || {
+              echo "FAIL $route curl-error"
+              failures=$((failures+1))
+              rm -f "$body"
+              continue
+            }
+            code=${meta%%|*}
+            echo "$route -> $meta"
+            if [[ "$code" != '200' ]]; then
+              echo "FAIL $route unexpected-status=$code"
+              failures=$((failures+1))
+            fi
+            if grep -Eqi 'Application error|Internal Server Error|This page could not be found' "$body"; then
+              echo "FAIL $route error-page-marker"
+              failures=$((failures+1))
+            fi
+            rm -f "$body"
+          done
+          echo "failures=$failures"
+          test "$failures" -eq 0
