@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 
 import { PublicFormGatewayError, submitProtectedPublicForm } from "@/lib/public-form-gateway";
 
+type SubmissionResult = { referenceId: string; receivedAt: string };
+
 export async function POST(request: Request) {
   let body: Record<string, unknown>;
   try { body = await request.json() as Record<string, unknown>; }
@@ -23,11 +25,17 @@ export async function POST(request: Request) {
   if (!turnstileToken || turnstileToken.length > 2048) return NextResponse.json({ ok: false, message: "માનવ ચકાસણી જરૂરી છે" }, { status: 400 });
 
   try {
-    const result = await submitProtectedPublicForm<{ mode: "preview"; receivedAt: string }>("contact_preview", { fullName, phone, city, message, type }, turnstileToken);
+    const result = await submitProtectedPublicForm<SubmissionResult>("contact_preview", { fullName, phone, city, message, type }, turnstileToken);
     return NextResponse.json({ ok: true, ...result }, { headers: { "cache-control": "no-store" } });
   } catch (error) {
     const status = error instanceof PublicFormGatewayError ? error.status : 503;
-    const messageGu = status === 429 ? "ઘણા પ્રયાસ થયા છે. થોડા સમય પછી ફરી પ્રયાસ કરો." : status === 403 ? "માનવ ચકાસણી નિષ્ફળ ગઈ. ફરી પ્રયાસ કરો." : "ફોર્મ ચકાસી શકાયું નથી. ફરી પ્રયાસ કરો.";
+    const messageGu = status === 429
+      ? "ઘણા પ્રયાસ થયા છે. થોડા સમય પછી ફરી પ્રયાસ કરો."
+      : status === 403
+        ? "માનવ ચકાસણી નિષ્ફળ ગઈ. ફરી પ્રયાસ કરો."
+        : status === 422
+          ? "ફોર્મની માહિતી ચકાસીને ફરી મોકલો."
+          : "ફોર્મ મોકલી શકાયું નથી. ફરી પ્રયાસ કરો.";
     return NextResponse.json({ ok: false, message: messageGu }, { status: Math.min(599, Math.max(400, status)), headers: { "cache-control": "no-store" } });
   }
 }
