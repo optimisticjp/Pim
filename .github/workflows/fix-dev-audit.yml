@@ -1,0 +1,51 @@
+name: Fix dev audit
+
+on:
+  push:
+    branches:
+      - fix/next-security-upgrade
+
+permissions:
+  contents: write
+
+jobs:
+  fix-and-validate:
+    if: github.event.head_commit.message == 'Prepare dev audit fix generation'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Apply non-breaking npm audit fixes
+        run: npm audit fix
+      - name: Require clean full audit high/critical
+        run: |
+          npm audit --json > audit-all.json || true
+          node - <<'NODE'
+          const fs = require('fs');
+          const data = JSON.parse(fs.readFileSync('audit-all.json', 'utf8'));
+          const v = data.metadata?.vulnerabilities ?? {};
+          console.log('full audit', JSON.stringify(v));
+          for (const [name, item] of Object.entries(data.vulnerabilities ?? {})) {
+            console.log(JSON.stringify({name, severity:item.severity, range:item.range, fixAvailable:item.fixAvailable}));
+          }
+          if ((v.high ?? 0) > 0 || (v.critical ?? 0) > 0) process.exit(1);
+          NODE
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run build:vinext
+      - name: Commit generated audit fixes
+        run: |
+          git config user.name optimisticjp
+          git config user.email optimistic.jp@gmail.com
+          git add package.json package-lock.json
+          if git diff --cached --quiet; then
+            echo 'No package changes required'
+            exit 0
+          fi
+          git commit -m 'Apply non-breaking dependency audit fixes'
+          git push origin HEAD:fix/next-security-upgrade
