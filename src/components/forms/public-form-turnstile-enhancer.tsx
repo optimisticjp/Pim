@@ -17,7 +17,7 @@ const routeActions:Record<string,PublicFormType[]>={
   "/veda-rahasya/membership":["veda_subscription"],
   "/veda-rahasya/services":["veda_change","veda_article"],
   "/contact":["contact_preview"],
-  "/activities":["participation_preview"],
+  "/participation":["participation_preview"],
 };
 
 let loader:Promise<void>|null=null;
