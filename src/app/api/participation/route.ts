@@ -41,7 +41,7 @@ export async function POST(request: Request) {
   }
   if (!turnstileToken || turnstileToken.length > 2048) return NextResponse.json({ ok: false, message: "માનવ ચકાસણી જરૂરી છે." }, { status: 400 });
 
-  const payload = { fullName, phone, city, track, interests: selectedInterests, availability: selectedAvailability, ashramId, message };
+  const payload = { fullName, phone, city, track, interests: selectedInterests, availability: selectedAvailability, ashramId, message, delivery: "inbox_v1" };
   try {
     const result = await submitProtectedPublicForm<SubmissionResult>("participation_preview", payload, turnstileToken);
     return NextResponse.json({ ok: true, ...result }, { headers: { "cache-control": "no-store" } });
