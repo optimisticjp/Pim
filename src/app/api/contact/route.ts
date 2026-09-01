@@ -25,7 +25,7 @@ export async function POST(request: Request) {
   if (!turnstileToken || turnstileToken.length > 2048) return NextResponse.json({ ok: false, message: "માનવ ચકાસણી જરૂરી છે" }, { status: 400 });
 
   try {
-    const result = await submitProtectedPublicForm<SubmissionResult>("contact_preview", { fullName, phone, city, message, type }, turnstileToken);
+    const result = await submitProtectedPublicForm<SubmissionResult>("contact_preview", { fullName, phone, city, message, type, delivery: "inbox_v1" }, turnstileToken);
     return NextResponse.json({ ok: true, ...result }, { headers: { "cache-control": "no-store" } });
   } catch (error) {
     const status = error instanceof PublicFormGatewayError ? error.status : 503;
