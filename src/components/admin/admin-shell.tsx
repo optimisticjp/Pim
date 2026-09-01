@@ -16,7 +16,7 @@ const desktopNav = [
   ["/admin/audit", "ઓડિટ લોગ", FileText],
 ] as const;
 
-export function AdminShell({ session, unreadNotifications, children }: { session: AdminSession; unreadNotifications: number; children: React.ReactNode }) {
+export function AdminShell({ session, unreadNotifications = 0, children }: { session: AdminSession; unreadNotifications?: number; children: React.ReactNode }) {
   const profile = session.profile!;
   return <div className="min-h-screen bg-[#f5f3ee] text-[#302923]">
     <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 border-r border-[#ded8cf] bg-[#fffdfa] p-4 md:flex md:flex-col">
