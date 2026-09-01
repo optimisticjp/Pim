@@ -185,3 +185,38 @@ export async function setAdminStatusAction(formData: FormData): Promise<void> {
   });
   revalidatePath("/admin/team");
 }
+
+export async function setNotificationStatusAction(formData: FormData): Promise<void> {
+  const { session, token } = await actionContext();
+  const id = String(formData.get("id") ?? "");
+  const status = String(formData.get("status") ?? "");
+  if (!id || !["unread", "read", "archived"].includes(status)) return;
+
+  await supabaseRest(
+    `notifications?id=eq.${encodeURIComponent(id)}&admin_id=eq.${encodeURIComponent(session.profile!.id)}`,
+    token,
+    {
+      method: "PATCH",
+      prefer: "return=minimal",
+      body: JSON.stringify({
+        status,
+        read_at: status === "read" || status === "archived" ? new Date().toISOString() : null,
+      }),
+    },
+  );
+  revalidatePath("/admin/notifications");
+}
+
+export async function markAllNotificationsReadAction(): Promise<void> {
+  const { session, token } = await actionContext();
+  await supabaseRest(
+    `notifications?admin_id=eq.${encodeURIComponent(session.profile!.id)}&status=eq.unread`,
+    token,
+    {
+      method: "PATCH",
+      prefer: "return=minimal",
+      body: JSON.stringify({ status: "read", read_at: new Date().toISOString() }),
+    },
+  );
+  revalidatePath("/admin/notifications");
+}
