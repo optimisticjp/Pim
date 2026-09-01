@@ -113,6 +113,10 @@ Deno.serve(async(req:Request)=>{
   if(quotaError){console.error("public-form quota error",{formType,code:quotaError.code??null,message:quotaError.message??null});return json({error:"Submission protection unavailable"},503);}
   if(quota!==true)return json({error:"Too many submissions. Please try again later."},429);
 
+  if((formType==="contact_preview"||formType==="participation_preview")&&str(payload,"delivery")!=="inbox_v1"){
+    return json({ok:true,data:{mode:"preview",receivedAt:new Date().toISOString()}});
+  }
+
   if(formType==="contact_preview"){
     const receivedAt=new Date().toISOString();
     const {data,error}=await service.from("inbox_items").insert({
@@ -145,7 +149,7 @@ Deno.serve(async(req:Request)=>{
       ashramId=ashram.id;ashramKey=ashram.slug;ashramName=ashram.name_gu;
     }
     const receivedAt=new Date().toISOString();
-    const interests=(Array.isArray(payload.interests)?payload.interests:[]).filter((value):value is string=>typeof value==="string");
+    const selectedInterests=(Array.isArray(payload.interests)?payload.interests:[]).filter((value):value is string=>typeof value==="string");
     const {data,error}=await service.from("inbox_items").insert({
       source_type:"participation_submission",
       source_id:crypto.randomUUID(),
@@ -157,7 +161,7 @@ Deno.serve(async(req:Request)=>{
       ashram_key:ashramKey,
       status:"new",
       priority:"normal",
-      payload:{track:str(payload,"track"),interests,availability:str(payload,"availability"),city:str(payload,"city"),message:str(payload,"message"),ashram_id:ashramId,ashram_slug:ashramKey,ashram_name:ashramName},
+      payload:{track:str(payload,"track"),interests:selectedInterests,availability:str(payload,"availability"),city:str(payload,"city"),message:str(payload,"message"),ashram_id:ashramId,ashram_slug:ashramKey,ashram_name:ashramName},
       created_at:receivedAt,
       updated_at:receivedAt,
     }).select("id,created_at").single();
