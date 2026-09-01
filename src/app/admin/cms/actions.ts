@@ -12,11 +12,57 @@ async function ctx(permission:string){const s=await requireAdminSession();if(!ha
 async function upsert(table:string,id:string|null,record:Record<string,unknown>,token:string){if(id)await supabaseRest(`${table}?id=eq.${encodeURIComponent(id)}`,token,{method:"PATCH",body:JSON.stringify(record),prefer:"return=minimal"});else await supabaseRest(table,token,{method:"POST",body:JSON.stringify(record),prefer:"return=minimal"});}
 const refresh=()=>{revalidatePath("/admin/heritage");revalidatePath("/admin/media");revalidatePath("/parampara");revalidatePath("/heritage");revalidatePath("/heritage/letters");revalidatePath("/heritage/gallery");revalidatePath("/downloads");revalidatePath("/");};
 
-export async function saveGuruProfileAction(fd:FormData){const{s,token}=await ctx("guru.manage");const published=bool(fd,"published");if(published&&!hasAdminPermission(s,"guru.publish")&&!s.profile?.is_super_admin)throw new Error("Publish permission required");await upsert("guru_profiles",str(fd,"id",40),{slug:str(fd,"slug",120),name_gu:str(fd,"name_gu",240),source_title_en:str(fd,"source_title_en",300),qualification_gu:str(fd,"qualification_gu",160),portrait_url:str(fd,"portrait_url",1000),source_url:str(fd,"source_url",1000),source_status:str(fd,"source_status",120)??"committee-entered-review-required",lineage_order:str(fd,"lineage_order",10)?num(fd,"lineage_order"):null,featured:bool(fd,"featured"),published,archived_at:null},token);refresh();}
-export async function saveGuruChapterAction(fd:FormData){const{s,token}=await ctx("guru.manage");const status=str(fd,"status",20)??"draft";if(status==="published"&&!hasAdminPermission(s,"guru.publish")&&!s.profile?.is_super_admin)throw new Error("Publish permission required");await upsert("guru_chapters",str(fd,"id",40),{guru_profile_id:str(fd,"guru_profile_id",40),slug:str(fd,"slug",120),title_gu:str(fd,"title_gu",240),summary_gu:str(fd,"summary_gu",1200),body_md:str(fd,"body_md",30000),sort_order:num(fd,"sort_order"),status,source_url:str(fd,"source_url",1000),review_required:bool(fd,"review_required"),updated_by:s.profile?.id??null},token);refresh();}
-export async function saveHeritageDocumentAction(fd:FormData){const{s,token}=await ctx("heritage.manage");const status=str(fd,"status",20)??"draft";if(status==="published"&&!hasAdminPermission(s,"heritage.publish")&&!s.profile?.is_super_admin)throw new Error("Publish permission required");await upsert("heritage_documents",str(fd,"id",40),{kind:str(fd,"kind",40),title_gu:str(fd,"title_gu",240),description_gu:str(fd,"description_gu",3000),document_date:str(fd,"document_date",10),date_label_gu:str(fd,"date_label_gu",120),file_url:str(fd,"file_url",1000),image_url:str(fd,"image_url",1000),source_url:str(fd,"source_url",1000),status,sort_order:num(fd,"sort_order")},token);refresh();}
-export async function saveMediaFolderAction(fd:FormData){const{s,token}=await ctx("media.manage");const published=bool(fd,"published");if(published&&!hasAdminPermission(s,"media.publish")&&!s.profile?.is_super_admin)throw new Error("Publish permission required");await upsert("media_folders",str(fd,"id",40),{parent_id:str(fd,"parent_id",40),slug:str(fd,"slug",120),title_gu:str(fd,"title_gu",240),category:str(fd,"category",30),description_gu:str(fd,"description_gu",1500),sort_order:num(fd,"sort_order"),published,archived_at:null},token);refresh();}
-export async function saveMediaAssetAction(fd:FormData){const{s,token}=await ctx("media.manage");const published=bool(fd,"published");if(published&&!hasAdminPermission(s,"media.publish")&&!s.profile?.is_super_admin)throw new Error("Publish permission required");await upsert("media_assets",str(fd,"id",40),{folder_id:str(fd,"folder_id",40),title_gu:str(fd,"title_gu",240),media_type:str(fd,"media_type",30),asset_url:str(fd,"asset_url",1200),thumbnail_url:str(fd,"thumbnail_url",1200),mime_type:str(fd,"mime_type",120),duration_seconds:str(fd,"duration_seconds",10)?num(fd,"duration_seconds",0):null,source_url:str(fd,"source_url",1200),source_label:str(fd,"source_label",300),sort_order:num(fd,"sort_order"),published,archived_at:null},token);refresh();}
+export async function saveGuruProfileAction(fd:FormData){
+  const{s,token}=await ctx("guru.manage");
+  const id=str(fd,"id",40),canPublish=hasAdminPermission(s,"guru.publish")||Boolean(s.profile?.is_super_admin),requestedPublished=bool(fd,"published");
+  if(requestedPublished&&!canPublish)throw new Error("Publish permission required");
+  const record:Record<string,unknown>={slug:str(fd,"slug",120),name_gu:str(fd,"name_gu",240),source_title_en:str(fd,"source_title_en",300),qualification_gu:str(fd,"qualification_gu",160),portrait_url:str(fd,"portrait_url",1000),source_url:str(fd,"source_url",1000),source_status:str(fd,"source_status",120)??"committee-entered-review-required",lineage_order:str(fd,"lineage_order",10)?num(fd,"lineage_order"):null,featured:bool(fd,"featured"),archived_at:null};
+  if(canPublish)record.published=requestedPublished;
+  else if(!id)record.published=false;
+  await upsert("guru_profiles",id,record,token);refresh();
+}
+
+export async function saveGuruChapterAction(fd:FormData){
+  const{s,token}=await ctx("guru.manage");
+  const id=str(fd,"id",40),canPublish=hasAdminPermission(s,"guru.publish")||Boolean(s.profile?.is_super_admin),requestedStatus=str(fd,"status",20)??"draft";
+  if(!["draft","published"].includes(requestedStatus))throw new Error("Invalid chapter status");
+  if(requestedStatus==="published"&&!canPublish)throw new Error("Publish permission required");
+  const record:Record<string,unknown>={guru_profile_id:str(fd,"guru_profile_id",40),slug:str(fd,"slug",120),title_gu:str(fd,"title_gu",240),summary_gu:str(fd,"summary_gu",1200),body_md:str(fd,"body_md",30000),sort_order:num(fd,"sort_order"),source_url:str(fd,"source_url",1000),review_required:bool(fd,"review_required"),updated_by:s.profile?.id??null};
+  if(canPublish)record.status=requestedStatus;
+  else if(!id)record.status="draft";
+  await upsert("guru_chapters",id,record,token);refresh();
+}
+
+export async function saveHeritageDocumentAction(fd:FormData){
+  const{s,token}=await ctx("heritage.manage");
+  const id=str(fd,"id",40),canPublish=hasAdminPermission(s,"heritage.publish")||Boolean(s.profile?.is_super_admin),requestedStatus=str(fd,"status",20)??"draft";
+  if(!["draft","published"].includes(requestedStatus))throw new Error("Invalid heritage status");
+  if(requestedStatus==="published"&&!canPublish)throw new Error("Publish permission required");
+  const record:Record<string,unknown>={kind:str(fd,"kind",40),title_gu:str(fd,"title_gu",240),description_gu:str(fd,"description_gu",3000),document_date:str(fd,"document_date",10),date_label_gu:str(fd,"date_label_gu",120),file_url:str(fd,"file_url",1000),image_url:str(fd,"image_url",1000),source_url:str(fd,"source_url",1000),sort_order:num(fd,"sort_order")};
+  if(canPublish)record.status=requestedStatus;
+  else if(!id)record.status="draft";
+  await upsert("heritage_documents",id,record,token);refresh();
+}
+
+export async function saveMediaFolderAction(fd:FormData){
+  const{s,token}=await ctx("media.manage");
+  const id=str(fd,"id",40),canPublish=hasAdminPermission(s,"media.publish")||Boolean(s.profile?.is_super_admin),requestedPublished=bool(fd,"published");
+  if(requestedPublished&&!canPublish)throw new Error("Publish permission required");
+  const record:Record<string,unknown>={parent_id:str(fd,"parent_id",40),slug:str(fd,"slug",120),title_gu:str(fd,"title_gu",240),category:str(fd,"category",30),description_gu:str(fd,"description_gu",1500),sort_order:num(fd,"sort_order"),archived_at:null};
+  if(canPublish)record.published=requestedPublished;
+  else if(!id)record.published=false;
+  await upsert("media_folders",id,record,token);refresh();
+}
+
+export async function saveMediaAssetAction(fd:FormData){
+  const{s,token}=await ctx("media.manage");
+  const id=str(fd,"id",40),canPublish=hasAdminPermission(s,"media.publish")||Boolean(s.profile?.is_super_admin),requestedPublished=bool(fd,"published");
+  if(requestedPublished&&!canPublish)throw new Error("Publish permission required");
+  const record:Record<string,unknown>={folder_id:str(fd,"folder_id",40),title_gu:str(fd,"title_gu",240),media_type:str(fd,"media_type",30),asset_url:str(fd,"asset_url",1200),thumbnail_url:str(fd,"thumbnail_url",1200),mime_type:str(fd,"mime_type",120),duration_seconds:str(fd,"duration_seconds",10)?num(fd,"duration_seconds",0):null,source_url:str(fd,"source_url",1200),source_label:str(fd,"source_label",300),sort_order:num(fd,"sort_order"),archived_at:null};
+  if(canPublish)record.published=requestedPublished;
+  else if(!id)record.published=false;
+  await upsert("media_assets",id,record,token);refresh();
+}
 
 export async function archiveCmsRecordAction(fd:FormData){const table=str(fd,"table",80),id=str(fd,"id",40);if(!table||!id||!permissions[table])return;const{token}=await ctx(permissions[table]);const patch=table==="guru_chapters"||table==="heritage_documents"?{status:"archived"}:{archived_at:new Date().toISOString(),published:false};await supabaseRest(`${table}?id=eq.${encodeURIComponent(id)}`,token,{method:"PATCH",body:JSON.stringify(patch),prefer:"return=minimal"});refresh();}
 export async function restoreCmsRecordAction(fd:FormData){const table=str(fd,"table",80),id=str(fd,"id",40);if(!table||!id||!permissions[table])return;const{token}=await ctx(permissions[table]);const patch=table==="guru_chapters"||table==="heritage_documents"?{status:"draft"}:{archived_at:null,published:false};await supabaseRest(`${table}?id=eq.${encodeURIComponent(id)}`,token,{method:"PATCH",body:JSON.stringify(patch),prefer:"return=minimal"});refresh();}
