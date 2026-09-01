@@ -17,6 +17,12 @@ The following public surfaces now read the same live Supabase records that their
 
 Public contact details that identify the Surat Ashram are also resolved from the published Ashram record instead of a duplicated hard-coded address/phone.
 
+## Publication state versus source review
+
+`published=true` means an Admin-managed record is allowed on the public surface. It does not, by itself, rewrite historical provenance or prove that every legacy title/date has received committee confirmation. Source fields such as `legacy-source-review-required`, `source-derived`, and `review-required` remain meaningful review metadata.
+
+Public copy must therefore describe these records as published/available unless a separate source-review field or committee process supports stronger wording such as "verified", "checked", or "approved".
+
 ## Repository-only prototype and migration material
 
 `src/lib/prototype-content.ts`, legacy static data helpers, and `src/lib/migration/` remain migration/reference material unless a current route explicitly imports them. They are not authoritative for modules listed above.
@@ -25,10 +31,10 @@ The source-derived migration layer contains historical material collected from d
 
 Status vocabulary is centralized in `src/lib/types.ts`: `verified-current`, `verified-legacy`, `source-derived`, `prototype`, and `review-required`.
 
-## Remaining non-canonical public material
+## Remaining non-canonical material
 
 - The Satsang series list in `src/lib/site-data.ts` is navigation taxonomy only. It links into the official YouTube channel; it is not the source for the Admin Media library or historical collection records.
-- `/activities` still shows four source-derived Yuvak Mandal links from `src/lib/migration/mandal-data.ts`. Those records are explicitly `reviewRequired: true`. There is currently no canonical Admin Yuvak Mandal module, so they must be committee-reviewed (or given an approved canonical model) before primary-domain launch.
+- `src/lib/migration/mandal-data.ts` retains the four legacy Yuvak Mandal records as migration/source evidence only. `/activities` no longer renders that directory because there is no canonical Admin Yuvak Mandal model and the legacy detail links have not all been independently reverified.
 
 ## Before primary-domain launch
 
@@ -38,9 +44,10 @@ Status vocabulary is centralized in `src/lib/types.ts`: `verified-current`, `ver
 - [x] Make Contact/Participation submissions persist through the protected backend to Admin Inbox.
 - [x] Remove public preview-only form wording after the backend became real.
 - [x] Remove duplicated public Surat contact details in favor of the live Ashram record.
-- [ ] Committee-review the source-derived Yuvak Mandal links/cities or approve a canonical Admin model.
-- [ ] Verify historical dates and Guru titles.
-- [ ] Verify leadership wording.
-- [ ] Verify Ashram facilities and contact numbers in the Admin records.
-- [ ] Verify branch programme details.
-- [ ] Verify photos and remaining external URLs.
+- [x] Remove the source-derived Yuvak Mandal directory from public runtime until an approved canonical model exists.
+- [x] Stop public Guru copy from implying committee verification when the stored source status still requires review.
+- [ ] Committee-review historical dates and Guru titles.
+- [ ] Committee-confirm leadership wording.
+- [ ] Committee-confirm Ashram facilities/contact details where organizational sign-off is required.
+- [ ] Committee-review branch programme details.
+- [ ] Committee-review photos and remaining external URLs.
