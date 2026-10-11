@@ -68,6 +68,33 @@ export async function signInWithPassword(email: string, password: string): Promi
   return parseResponse<AuthTokenResponse>(response);
 }
 
+export async function requestPasswordRecovery(email: string, redirectTo: string): Promise<void> {
+  const config = getSupabaseRuntimeConfig();
+  if (!config) throw new SupabaseHttpError("Supabase is not configured", 503);
+  const response = await fetch(
+    `${config.url}/auth/v1/recover?redirect_to=${encodeURIComponent(redirectTo)}`,
+    {
+      method: "POST",
+      headers: apiHeaders(undefined, { "content-type": "application/json" }),
+      body: JSON.stringify({ email }),
+      cache: "no-store",
+    },
+  );
+  await parseResponse<unknown>(response);
+}
+
+export async function updatePasswordWithAccessToken(accessToken: string, password: string): Promise<void> {
+  const config = getSupabaseRuntimeConfig();
+  if (!config) throw new SupabaseHttpError("Supabase is not configured", 503);
+  const response = await fetch(`${config.url}/auth/v1/user`, {
+    method: "PUT",
+    headers: apiHeaders(accessToken, { "content-type": "application/json" }),
+    body: JSON.stringify({ password }),
+    cache: "no-store",
+  });
+  await parseResponse<unknown>(response);
+}
+
 export async function getAuthUser(accessToken: string): Promise<SupabaseAuthUser> {
   const config = getSupabaseRuntimeConfig();
   if (!config) throw new SupabaseHttpError("Supabase is not configured", 503);
