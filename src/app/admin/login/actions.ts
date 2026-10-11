@@ -4,7 +4,22 @@ import { redirect } from "next/navigation";
 
 import type { AdminProfile } from "@/lib/admin/types";
 import { getSupabaseRuntimeConfig } from "@/lib/supabase/config";
-import { setAdminSession, signInWithPassword, signOut, SupabaseHttpError, supabaseRest } from "@/lib/supabase/server";
+import {
+  requestPasswordRecovery,
+  setAdminSession,
+  signInWithPassword,
+  signOut,
+  SupabaseHttpError,
+  supabaseRest,
+} from "@/lib/supabase/server";
+
+const DEFAULT_SITE_URL = "https://pim.essanciaonline.workers.dev";
+
+function getPasswordResetRedirectUrl(): string {
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "");
+  const siteUrl = configured && /^https:\/\//i.test(configured) ? configured : DEFAULT_SITE_URL;
+  return `${siteUrl}/admin/reset-password`;
+}
 
 export async function loginAction(formData: FormData): Promise<never> {
   if (!getSupabaseRuntimeConfig()) redirect("/admin/login?error=configuration");
@@ -33,4 +48,25 @@ export async function loginAction(formData: FormData): Promise<never> {
   }
 
   redirect("/admin");
+}
+
+export async function forgotPasswordAction(formData: FormData): Promise<never> {
+  if (!getSupabaseRuntimeConfig()) redirect("/admin/forgot-password?error=configuration");
+
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  if (!email) redirect("/admin/forgot-password?error=missing");
+
+  try {
+    await requestPasswordRecovery(email, getPasswordResetRedirectUrl());
+  } catch (error) {
+    if (error instanceof SupabaseHttpError && error.status === 429) {
+      redirect("/admin/forgot-password?error=rate");
+    }
+    if (error instanceof SupabaseHttpError) {
+      redirect("/admin/forgot-password?error=send");
+    }
+    throw error;
+  }
+
+  redirect("/admin/forgot-password?sent=1");
 }
