@@ -82,7 +82,7 @@ export async function inviteAdminAction(formData: FormData): Promise<void> {
       secure: true,
       sameSite: "strict",
       path: "/admin/team",
-      maxAge: 300,
+      maxAge: 5 * 60,
     });
     redirect("/admin/team?notice=manual");
   }
