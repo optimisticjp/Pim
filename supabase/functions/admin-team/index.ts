@@ -158,28 +158,22 @@ Deno.serve(async (req: Request) => {
       .eq("auth_user_id", targetId)
       .in("status", ["pending", "sent", "accepted"]);
 
-    const { error: banError } = await service.auth.admin.updateUserById(targetId, {
-      ban_duration: "876000h",
-    });
-
     await service.from("audit_logs").insert({
       actor_user_id: userData.user.id,
-      action: banError ? "staff.delete_auth_ban_failed" : "staff.delete",
+      action: "staff.delete",
       entity_type: "admin_profile",
       entity_id: targetId,
       old_data: { display_name: target.display_name, status: target.status },
       new_data: { status: "suspended", deleted_at: now },
       metadata: {
         auth_identity_retained_for_history: true,
-        auth_user_banned: !banError,
-        auth_ban_error: banError?.message ?? null,
+        access_revoked_by_profile_and_rbac: true,
       },
     });
 
     return json({
       ok: true,
       access_revoked: true,
-      auth_user_banned: !banError,
     });
   }
 
