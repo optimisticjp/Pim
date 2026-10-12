@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { requireAdminSession } from "@/lib/admin/data";
@@ -55,6 +56,8 @@ export async function inviteAdminAction(formData: FormData): Promise<void> {
     error?: string;
     code?: string;
     reactivated?: boolean;
+    delivery?: "email" | "manual";
+    setup_link?: string;
   };
 
   if (!response.ok) {
@@ -62,13 +65,28 @@ export async function inviteAdminAction(formData: FormData): Promise<void> {
       ? "exists"
       : payload.code === "team_limit"
         ? "limit"
-        : payload.code === "invalid_scope" || payload.code === "invalid_role" || payload.code === "invalid_input"
-          ? "invalid"
-          : "invite";
+        : payload.code === "email_rate_limit"
+          ? "rate"
+          : payload.code === "invalid_scope" || payload.code === "invalid_role" || payload.code === "invalid_input"
+            ? "invalid"
+            : "invite";
     redirect("/admin/team?error=" + errorCode);
   }
 
   revalidatePath("/admin/team");
+
+  if (payload.delivery === "manual" && payload.setup_link) {
+    const cookieStore = await cookies();
+    cookieStore.set("pim_staff_setup_link", JSON.stringify({ email, link: payload.setup_link }), {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      path: "/admin/team",
+      maxAge: 5 * 60,
+    });
+    redirect("/admin/team?notice=manual");
+  }
+
   redirect("/admin/team?notice=" + (payload.reactivated ? "reinvited" : "invited"));
 }
 

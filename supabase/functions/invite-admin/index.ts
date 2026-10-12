@@ -90,9 +90,31 @@ Deno.serve(async (req: Request) => {
       return json({ error: "This staff member already exists", code: "staff_exists" }, 409);
     }
 
+    let delivery: "email" | "manual" = "email";
+    let setupLink: string | null = null;
     const { error: recoveryError } = await service.auth.resetPasswordForEmail(email, { redirectTo });
     if (recoveryError) {
-      return json({ error: recoveryError.message, code: "reinvite_email_failed" }, 400);
+      const isEmailRateLimit =
+        recoveryError.code === "over_email_send_rate_limit"
+        || /email rate limit|rate limit exceeded/i.test(recoveryError.message);
+
+      if (!isEmailRateLimit) {
+        return json({ error: recoveryError.message, code: "reinvite_email_failed" }, 400);
+      }
+
+      const { data: generated, error: generateError } = await service.auth.admin.generateLink({
+        type: "recovery",
+        email,
+        options: { redirectTo },
+      });
+      setupLink = generated?.properties?.action_link ?? null;
+      if (generateError || !setupLink) {
+        return json({
+          error: generateError?.message ?? "Supabase email rate limit reached and setup link generation failed",
+          code: "email_rate_limit",
+        }, 429);
+      }
+      delivery = "manual";
     }
 
     await service
@@ -147,10 +169,16 @@ Deno.serve(async (req: Request) => {
       entity_type: "admin_profile",
       entity_id: existingUser.id,
       new_data: { display_name: displayName, status: "invited" },
-      metadata: { invitation_id: invitation.id, scope_type: scopeType, scope_key: scopeKey, role_id: roleId },
+      metadata: { invitation_id: invitation.id, scope_type: scopeType, scope_key: scopeKey, role_id: roleId, delivery },
     });
 
-    return json({ invitation, admin_id: existingUser.id, reactivated: true });
+    return json({
+      invitation,
+      admin_id: existingUser.id,
+      reactivated: true,
+      delivery,
+      ...(setupLink ? { setup_link: setupLink } : {}),
+    });
   }
 
   const { data: invited, error: inviteError } = await service.auth.admin.inviteUserByEmail(email, {
