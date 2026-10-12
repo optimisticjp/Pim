@@ -81,6 +81,7 @@ export default async function AdminTeamPage({ searchParams }: { searchParams: Pr
 
   const roleName = new Map(roles.map((role) => [role.id, role.name_gu]));
   const ashramName = new Map(ashrams.map((ashram) => [ashram.slug, ashram.name_gu]));
+  const openInvitations = invitations.filter((invitation) => invitation.status === "pending" || invitation.status === "sent");
   const latestInvite = new Map<string, Invitation>();
   for (const invitation of invitations) {
     if (invitation.auth_user_id && !latestInvite.has(invitation.auth_user_id)) latestInvite.set(invitation.auth_user_id, invitation);
@@ -117,9 +118,9 @@ export default async function AdminTeamPage({ searchParams }: { searchParams: Pr
             </div>
           </form>
 
-          {invitations.length ? (
+          {openInvitations.length ? (
             <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {invitations.slice(0, 6).map((invitation) => (
+              {openInvitations.slice(0, 6).map((invitation) => (
                 <div className="rounded-xl bg-[#f8f5f0] p-3 text-xs" key={invitation.id}>
                   <div className="font-bold">{invitation.display_name}</div>
                   <div className="mt-1 truncate text-muted-foreground">{invitation.email}</div>
