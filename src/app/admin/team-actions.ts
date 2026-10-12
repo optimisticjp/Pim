@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 import { requireAdminSession } from "@/lib/admin/data";
 import { getSupabaseRuntimeConfig } from "@/lib/supabase/config";
-import { getAdminAccessToken, supabaseRest } from "@/lib/supabase/server";
+import { getAdminAccessToken } from "@/lib/supabase/server";
 
 const SETUP_URL = "https://pim.essanciaonline.workers.dev/admin/setup";
 
