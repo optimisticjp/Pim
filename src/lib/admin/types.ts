@@ -6,6 +6,11 @@ export type AdminProfile = {
   mobile: string | null;
   is_super_admin: boolean;
   status: "invited" | "active" | "suspended";
+  password_set_at: string | null;
+  approved_at: string | null;
+  approved_by: string | null;
+  deleted_at: string | null;
+  deleted_by: string | null;
   last_seen_at: string | null;
   created_at: string;
   updated_at: string;
