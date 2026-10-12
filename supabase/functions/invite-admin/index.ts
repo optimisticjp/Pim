@@ -181,16 +181,48 @@ Deno.serve(async (req: Request) => {
     });
   }
 
+  let delivery: "email" | "manual" = "email";
+  let setupLink: string | null = null;
+  let invitedUser = null;
+
   const { data: invited, error: inviteError } = await service.auth.admin.inviteUserByEmail(email, {
     data: { display_name: displayName, pim_admin_invite: true },
     redirectTo,
   });
-  if (inviteError || !invited.user) {
-    return json({ error: inviteError?.message ?? "Invite failed", code: "invite_failed" }, 400);
+
+  if (!inviteError && invited.user) {
+    invitedUser = invited.user;
+  } else {
+    const isEmailRateLimit =
+      inviteError?.code === "over_email_send_rate_limit"
+      || /email rate limit|rate limit exceeded/i.test(inviteError?.message ?? "");
+
+    if (!isEmailRateLimit) {
+      return json({ error: inviteError?.message ?? "Invite failed", code: "invite_failed" }, 400);
+    }
+
+    const { data: generated, error: generateError } = await service.auth.admin.generateLink({
+      type: "invite",
+      email,
+      options: {
+        redirectTo,
+        data: { display_name: displayName, pim_admin_invite: true },
+      },
+    });
+
+    setupLink = generated?.properties?.action_link ?? null;
+    invitedUser = generated?.user ?? null;
+    if (generateError || !setupLink || !invitedUser) {
+      return json({
+        error: generateError?.message ?? "Supabase email rate limit reached and setup link generation failed",
+        code: "email_rate_limit",
+      }, 429);
+    }
+    delivery = "manual";
   }
 
   const { error: profileError } = await service.from("admin_profiles").upsert({
-    id: invited.user.id,
+    id: invitedUser.id,
     display_name: displayName,
     is_super_admin: false,
     status: "invited",
@@ -210,13 +242,13 @@ Deno.serve(async (req: Request) => {
     scope_key: scopeKey,
     status: "sent",
     invited_by: userData.user.id,
-    auth_user_id: invited.user.id,
+    auth_user_id: invitedUser.id,
   }).select("id,email,status,expires_at").single();
   if (invitationError) return json({ error: invitationError.message, code: "invite_record_failed" }, 500);
 
   if (roleId) {
     const { error: assignmentError } = await service.from("admin_role_assignments").insert({
-      admin_id: invited.user.id,
+      admin_id: invitedUser.id,
       role_id: roleId,
       scope_type: scopeType,
       scope_key: scopeKey,
@@ -225,5 +257,20 @@ Deno.serve(async (req: Request) => {
     if (assignmentError) return json({ error: assignmentError.message, code: "role_assignment_failed" }, 500);
   }
 
-  return json({ invitation, admin_id: invited.user.id, reactivated: false });
+  await service.from("audit_logs").insert({
+    actor_user_id: userData.user.id,
+    action: "staff.invite",
+    entity_type: "admin_profile",
+    entity_id: invitedUser.id,
+    new_data: { display_name: displayName, status: "invited" },
+    metadata: { invitation_id: invitation.id, scope_type: scopeType, scope_key: scopeKey, role_id: roleId, delivery },
+  });
+
+  return json({
+    invitation,
+    admin_id: invitedUser.id,
+    reactivated: false,
+    delivery,
+    ...(setupLink ? { setup_link: setupLink } : {}),
+  });
 });
