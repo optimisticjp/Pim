@@ -28,16 +28,10 @@ export async function inviteAdminAction(formData: FormData): Promise<void> {
   const scopeType = String(formData.get("scope_type") ?? "global");
   let scopeKey = String(formData.get("scope_key") ?? "").trim() || null;
 
-  if (!email || !displayName || !["global", "ashram"].includes(scopeType)) return;
-  if (scopeType === "global") scopeKey = null;
-  if (scopeType === "ashram") {
-    if (!scopeKey) throw new Error("Ashram scope required");
-    const rows = await supabaseRest<Array<{ slug: string }>>(
-      "ashram_profiles?select=slug&slug=eq." + encodeURIComponent(scopeKey) + "&archived_at=is.null&limit=1",
-      token,
-    );
-    if (!rows.length) throw new Error("Invalid Ashram scope");
+  if (!email || !displayName || !["global", "ashram"].includes(scopeType)) {
+    redirect("/admin/team?error=invalid");
   }
+  if (scopeType === "global") scopeKey = null;
 
   const response = await fetch(config.url + "/functions/v1/invite-admin", {
     method: "POST",
@@ -57,12 +51,25 @@ export async function inviteAdminAction(formData: FormData): Promise<void> {
     cache: "no-store",
   });
 
+  const payload = await response.json().catch(() => ({})) as {
+    error?: string;
+    code?: string;
+    reactivated?: boolean;
+  };
+
   if (!response.ok) {
-    const payload = await response.json().catch(() => ({})) as { error?: string };
-    throw new Error(payload.error || "Admin invite failed");
+    const errorCode = payload.code === "staff_exists"
+      ? "exists"
+      : payload.code === "team_limit"
+        ? "limit"
+        : payload.code === "invalid_scope" || payload.code === "invalid_role" || payload.code === "invalid_input"
+          ? "invalid"
+          : "invite";
+    redirect("/admin/team?error=" + errorCode);
   }
 
   revalidatePath("/admin/team");
+  redirect("/admin/team?notice=" + (payload.reactivated ? "reinvited" : "invited"));
 }
 
 export async function deleteAdminAction(formData: FormData): Promise<void> {
