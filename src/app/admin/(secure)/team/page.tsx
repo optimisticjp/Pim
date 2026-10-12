@@ -28,8 +28,23 @@ function lifecycle(admin: AdminProfile) {
   return { label: "સક્રિય", tone: "bg-emerald-50 text-emerald-900", icon: CheckCircle2 };
 }
 
-export default async function AdminTeamPage() {
+export default async function AdminTeamPage({ searchParams }: { searchParams: Promise<{ notice?: string; error?: string }> }) {
+  const params = await searchParams;
   const session = await requireAdminSession();
+  const notice = params.notice === "reinvited"
+    ? "આ સ્ટાફ સભ્યને ફરી આમંત્રિત કરવામાં આવ્યો છે. નવો સેટઅપ ઇમેઇલ મોકલાયો છે."
+    : params.notice === "invited"
+      ? "નવું સ્ટાફ આમંત્રણ મોકલાયું છે."
+      : null;
+  const error = params.error === "exists"
+    ? "આ સ્ટાફ સભ્ય પહેલેથી ટીમમાં છે. તેની હાલની કાર્ડમાંથી સ્થિતિ અથવા role બદલો."
+    : params.error === "limit"
+      ? "સ્ટાફ ટીમની મહત્તમ મર્યાદા પહોંચી ગઈ છે."
+      : params.error === "invalid"
+        ? "આમંત્રણની વિગતો માન્ય નથી. Role અને scope ફરી તપાસો."
+        : params.error === "invite"
+          ? "આમંત્રણ મોકલી શકાયું નથી. ફરી પ્રયત્ન કરો."
+          : null;
   const [admins, roles, assignments] = await Promise.all([
     getAdminProfiles(session),
     getRoles(session),
@@ -56,6 +71,8 @@ export default async function AdminTeamPage() {
       <p className="text-xs font-bold text-gold-deep">COMMITTEE TEAM</p>
       <h1 className="mt-1 font-serif text-2xl font-bold text-primary sm:text-3xl">સ્ટાફ અને અધિકારો</h1>
       <p className="mt-1 text-sm leading-6 text-muted-foreground">મુખ્ય એડમિન સ્ટાફને આમંત્રિત કરે છે, role/scope આપે છે અને અંતિમ મંજૂરી આપે છે. સ્ટાફ પોતાનો પાસવર્ડ પોતે બનાવે છે.</p>
+      {notice ? <p className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-900">{notice}</p> : null}
+      {error ? <p className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-900">{error}</p> : null}
 
       {session.profile?.is_super_admin ? (
         <section className="mt-5 rounded-2xl border border-[#ded6ca] bg-white p-4 shadow-sm">
