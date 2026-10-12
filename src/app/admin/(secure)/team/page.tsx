@@ -1,4 +1,5 @@
 import { CheckCircle2, Clock3, MailPlus, ShieldAlert, UserCog, Users, X } from "lucide-react";
+import { cookies } from "next/headers";
 
 import { assignAdminRoleAction, removeAdminRoleAction, setAdminStatusAction } from "@/app/admin/actions";
 import { inviteAdminAction } from "@/app/admin/team-actions";
@@ -31,7 +32,24 @@ function lifecycle(admin: AdminProfile) {
 export default async function AdminTeamPage({ searchParams }: { searchParams: Promise<{ notice?: string; error?: string }> }) {
   const params = await searchParams;
   const session = await requireAdminSession();
-  const notice = params.notice === "reinvited"
+  const cookieStore = await cookies();
+  let manualSetup: { email: string; link: string } | null = null;
+  if (session.profile?.is_super_admin && params.notice === "manual") {
+    const raw = cookieStore.get("pim_staff_setup_link")?.value;
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw) as { email?: unknown; link?: unknown };
+        if (typeof parsed.email === "string" && typeof parsed.link === "string") {
+          manualSetup = { email: parsed.email, link: parsed.link };
+        }
+      } catch {
+        manualSetup = null;
+      }
+    }
+  }
+  const notice = params.notice === "manual"
+    ? "Supabase ઇમેઇલ મર્યાદા કારણે ઇમેઇલ મોકલી શક્યું નથી. નીચે આપેલી એક-વખતની સેટઅપ લિંક સ્ટાફને મોકલો."
+    : params.notice === "reinvited"
     ? "આ સ્ટાફ સભ્યને ફરી આમંત્રિત કરવામાં આવ્યો છે. નવો સેટઅપ ઇમેઇલ મોકલાયો છે."
     : params.notice === "invited"
       ? "નવું સ્ટાફ આમંત્રણ મોકલાયું છે."
@@ -42,9 +60,11 @@ export default async function AdminTeamPage({ searchParams }: { searchParams: Pr
       ? "સ્ટાફ ટીમની મહત્તમ મર્યાદા પહોંચી ગઈ છે."
       : params.error === "invalid"
         ? "આમંત્રણની વિગતો માન્ય નથી. Role અને scope ફરી તપાસો."
-        : params.error === "invite"
-          ? "આમંત્રણ મોકલી શકાયું નથી. ફરી પ્રયત્ન કરો."
-          : null;
+        : params.error === "rate"
+          ? "Supabase ની ઇમેઇલ મર્યાદા પહોંચી ગઈ છે અને સેટઅપ લિંક બનાવી શકાઈ નથી."
+          : params.error === "invite"
+            ? "આમંત્રણ મોકલી શકાયું નથી. ફરી પ્રયત્ન કરો."
+            : null;
   const [admins, roles, assignments] = await Promise.all([
     getAdminProfiles(session),
     getRoles(session),
@@ -71,7 +91,15 @@ export default async function AdminTeamPage({ searchParams }: { searchParams: Pr
       <p className="text-xs font-bold text-gold-deep">COMMITTEE TEAM</p>
       <h1 className="mt-1 font-serif text-2xl font-bold text-primary sm:text-3xl">સ્ટાફ અને અધિકારો</h1>
       <p className="mt-1 text-sm leading-6 text-muted-foreground">મુખ્ય એડમિન સ્ટાફને આમંત્રિત કરે છે, role/scope આપે છે અને અંતિમ મંજૂરી આપે છે. સ્ટાફ પોતાનો પાસવર્ડ પોતે બનાવે છે.</p>
-      {notice ? <p className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-900">{notice}</p> : null}
+      {notice ? <p className={"mt-4 rounded-xl border px-4 py-3 text-sm font-semibold " + (params.notice === "manual" ? "border-amber-200 bg-amber-50 text-amber-950" : "border-emerald-200 bg-emerald-50 text-emerald-900")}>{notice}</p> : null}
+      {manualSetup ? (
+        <div className="mt-3 rounded-xl border border-amber-200 bg-white p-4">
+          <p className="text-sm font-bold text-primary">એક-વખતની સ્ટાફ સેટઅપ લિંક • {manualSetup.email}</p>
+          <p className="mt-1 text-xs leading-5 text-muted-foreground">આ લિંક ફક્ત આ સ્ટાફ સભ્યને ખાનગી રીતે મોકલો. મુખ્ય એડમિન લિંક પોતે ખોલે નહીં.</p>
+          <input className="field mt-3 w-full font-mono text-xs" readOnly value={manualSetup.link} aria-label="Staff setup link" />
+          <p className="mt-2 text-xs font-semibold text-amber-900">લિંક પસંદ કરીને Copy કરો. સુરક્ષા માટે આ પેજ પર તે થોડા સમય માટે જ દેખાશે.</p>
+        </div>
+      ) : null}
       {error ? <p className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-900">{error}</p> : null}
 
       {session.profile?.is_super_admin ? (
