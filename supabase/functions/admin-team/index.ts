@@ -140,14 +140,9 @@ Deno.serve(async (req: Request) => {
     if (!target || target.deleted_at) return json({ error: "Staff account not found" }, 404);
     if (target.is_super_admin) return json({ error: "The Super Admin cannot be deleted" }, 409);
 
-    const now = new Date().toISOString();
     const { error: lockError } = await service
       .from("admin_profiles")
-      .update({
-        status: "suspended",
-        deleted_at: now,
-        deleted_by: userData.user.id,
-      })
+      .update({ status: "suspended" })
       .eq("id", targetId);
     if (lockError) return json({ error: lockError.message }, 500);
 
@@ -158,6 +153,30 @@ Deno.serve(async (req: Request) => {
       .eq("auth_user_id", targetId)
       .in("status", ["pending", "sent", "accepted"]);
 
+    const { error: deleteUserError } = await service.auth.admin.deleteUser(targetId);
+    if (deleteUserError) {
+      await service.from("audit_logs").insert({
+        actor_user_id: userData.user.id,
+        action: "staff.delete_failed",
+        entity_type: "admin_profile",
+        entity_id: targetId,
+        old_data: { display_name: target.display_name, status: target.status },
+        new_data: { status: "suspended" },
+        metadata: { auth_identity_removed: false, error: deleteUserError.message },
+      });
+      return json({
+        error: "Staff access was revoked, but the Auth identity could not be removed. The staff member remains suspended so removal can be retried.",
+        access_revoked: true,
+      }, 500);
+    }
+
+    const now = new Date().toISOString();
+    const { error: tombstoneError } = await service
+      .from("admin_profiles")
+      .update({ deleted_at: now, deleted_by: userData.user.id })
+      .eq("id", targetId);
+    if (tombstoneError) return json({ error: tombstoneError.message, auth_identity_removed: true }, 500);
+
     await service.from("audit_logs").insert({
       actor_user_id: userData.user.id,
       action: "staff.delete",
@@ -167,14 +186,6 @@ Deno.serve(async (req: Request) => {
       new_data: { status: "suspended", deleted_at: now },
       metadata: { auth_identity_removed: true },
     });
-
-    const { error: deleteUserError } = await service.auth.admin.deleteUser(targetId);
-    if (deleteUserError) {
-      return json({
-        error: "Staff access was revoked, but the Auth identity could not be removed: " + deleteUserError.message,
-        access_revoked: true,
-      }, 500);
-    }
 
     return json({ ok: true });
   }
