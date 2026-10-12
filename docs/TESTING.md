@@ -15,18 +15,25 @@ This runbook is for functional testing of the current Supabase-backed production
 
 Several workflows depend on earlier setup. Running the sections in this order avoids false failures.
 
-### 1. Authentication, team and RBAC
+### 1. Authentication, staff lifecycle and RBAC
 
-Admin: `/admin/login`, `/admin/team`, `/admin/roles`, `/admin/audit`
+Admin: `/admin/login`, `/admin/setup`, `/admin/account`, `/admin/team`, `/admin/roles`, `/admin/audit`
 
-- Sign in with an active Admin account and confirm logout/login.
-- Invite or use a second Admin account for restricted-role testing.
-- Assign a stock role globally and verify its allowed modules.
-- Assign an Ashram-scoped role and verify records from another Ashram are not visible/editable.
-- Remove the assignment and verify access is removed.
-- Confirm role/team mutations appear in Audit where the relevant operation is audited.
+Run this flow with a disposable staff email that the tester controls:
 
-Expected: Super Admin bypass remains available; non-Super-Admin access follows explicit permission + scope grants.
+- Sign in as the existing Super Admin and confirm the account cannot be suspended, demoted or removed.
+- From `/admin/team`, invite the test staff member. Optionally assign a stock role and Global/Ashram scope during the invite.
+- Open the invitation email. It must land on the website setup flow. Set a password of at least 10 characters on `/admin/setup`.
+- Before Super Admin approval, attempt `/admin/login` with the new password. Access must remain blocked with a pending-approval message.
+- Return to `/admin/team` as Super Admin. The staff card should show that password setup is complete and approval is pending.
+- Approve the staff member. Sign in as that staff member and verify only the assigned role/scope is available.
+- From `/admin/account`, change the staff password using the current password plus a new password. The user should be signed out and required to sign in again with the new password.
+- Suspend the staff member and verify Admin access is blocked. Reactivate and verify access returns without changing role assignments.
+- Remove one role assignment and verify the permission disappears.
+- Finally use the red Remove control for this disposable staff account. Confirm its login no longer works and it disappears from the active staff list.
+- Confirm the relevant invitation/profile/role/delete actions are visible in Audit where the workflow records them.
+
+Expected: Supabase Auth is the only login identity; invited staff create their own password; no staff access is granted before explicit Super Admin approval; non-Super-Admin access follows explicit permission + scope grants; the Super Admin account is protected from accidental removal.
 
 ### 2. Ashram publishing and public directory
 

@@ -1,6 +1,8 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
+const DEFAULT_SETUP_URL = "https://pim.essanciaonline.workers.dev/admin/setup";
+
 const json = (data: unknown, status = 200) => new Response(JSON.stringify(data), {
   status,
   headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" },
@@ -20,8 +22,14 @@ Deno.serve(async (req: Request) => {
   if (userError || !userData.user) return json({ error: "Unauthorized" }, 401);
 
   const service = createClient(supabaseUrl, serviceRoleKey, { auth: { autoRefreshToken: false, persistSession: false } });
-  const { data: profile } = await service.from("admin_profiles").select("id,is_super_admin,status").eq("id", userData.user.id).maybeSingle();
-  if (!profile || profile.status !== "active" || !profile.is_super_admin) return json({ error: "Super Admin required" }, 403);
+  const { data: profile } = await service
+    .from("admin_profiles")
+    .select("id,is_super_admin,status,deleted_at")
+    .eq("id", userData.user.id)
+    .maybeSingle();
+  if (!profile || profile.status !== "active" || profile.deleted_at || !profile.is_super_admin) {
+    return json({ error: "Super Admin required" }, 403);
+  }
 
   const body = await req.json().catch(() => null) as null | Record<string, unknown>;
   const email = String(body?.email ?? "").trim().toLowerCase();
@@ -30,40 +38,75 @@ Deno.serve(async (req: Request) => {
   const requestedScope = String(body?.scope_type ?? "global");
   const scopeType = requestedScope === "ashram" ? "ashram" : requestedScope === "global" ? "global" : null;
   let scopeKey = String(body?.scope_key ?? "").trim() || null;
-  const redirectTo = String(body?.redirect_to ?? "").trim() || undefined;
+  const redirectTo = String(body?.redirect_to ?? "").trim() || DEFAULT_SETUP_URL;
+
   if (!email.includes("@") || !displayName) return json({ error: "Valid email and display name are required" }, 400);
   if (!scopeType) return json({ error: "Only global or Ashram scope is supported" }, 400);
   if (scopeType === "global") scopeKey = null;
+
   if (scopeType === "ashram") {
     if (!scopeKey) return json({ error: "Ashram scope requires an Ashram" }, 400);
-    const { data: ashram } = await service.from("ashram_profiles").select("slug").eq("slug", scopeKey).is("archived_at", null).maybeSingle();
+    const { data: ashram } = await service
+      .from("ashram_profiles")
+      .select("slug")
+      .eq("slug", scopeKey)
+      .is("archived_at", null)
+      .maybeSingle();
     if (!ashram) return json({ error: "Invalid Ashram scope" }, 400);
   }
+
   if (roleId) {
     const { data: role } = await service.from("roles").select("id,is_archived").eq("id", roleId).maybeSingle();
     if (!role || role.is_archived) return json({ error: "Invalid role" }, 400);
   }
 
   const [{ count: activeCount }, { count: openInviteCount }] = await Promise.all([
-    service.from("admin_profiles").select("id", { count: "exact", head: true }).eq("status", "active"),
+    service.from("admin_profiles").select("id", { count: "exact", head: true }).eq("status", "active").is("deleted_at", null),
     service.from("admin_invitations").select("id", { count: "exact", head: true }).in("status", ["pending", "sent"]),
   ]);
-  if ((activeCount ?? 0) + (openInviteCount ?? 0) >= 10) return json({ error: "Maximum admin team size reached" }, 409);
+  if ((activeCount ?? 0) + (openInviteCount ?? 0) >= 10) {
+    return json({ error: "Maximum admin team size reached" }, 409);
+  }
 
   const { data: invited, error: inviteError } = await service.auth.admin.inviteUserByEmail(email, {
     data: { display_name: displayName, pim_admin_invite: true },
-    ...(redirectTo ? { redirectTo } : {}),
+    redirectTo,
   });
   if (inviteError || !invited.user) return json({ error: inviteError?.message ?? "Invite failed" }, 400);
 
-  const { error: profileError } = await service.from("admin_profiles").upsert({ id: invited.user.id, display_name: displayName, is_super_admin: false, status: "invited" }, { onConflict: "id" });
+  const { error: profileError } = await service.from("admin_profiles").upsert({
+    id: invited.user.id,
+    display_name: displayName,
+    is_super_admin: false,
+    status: "invited",
+    password_set_at: null,
+    approved_at: null,
+    approved_by: null,
+    deleted_at: null,
+    deleted_by: null,
+  }, { onConflict: "id" });
   if (profileError) return json({ error: profileError.message }, 500);
 
-  const { data: invitation, error: invitationError } = await service.from("admin_invitations").insert({ email, display_name: displayName, role_id: roleId, scope_type: scopeType, scope_key: scopeKey, status: "sent", invited_by: userData.user.id, auth_user_id: invited.user.id }).select("id,email,status,expires_at").single();
+  const { data: invitation, error: invitationError } = await service.from("admin_invitations").insert({
+    email,
+    display_name: displayName,
+    role_id: roleId,
+    scope_type: scopeType,
+    scope_key: scopeKey,
+    status: "sent",
+    invited_by: userData.user.id,
+    auth_user_id: invited.user.id,
+  }).select("id,email,status,expires_at").single();
   if (invitationError) return json({ error: invitationError.message }, 500);
 
   if (roleId) {
-    const { error: assignmentError } = await service.from("admin_role_assignments").upsert({ admin_id: invited.user.id, role_id: roleId, scope_type: scopeType, scope_key: scopeKey, assigned_by: userData.user.id }, { onConflict: "admin_id,role_id,scope_type,scope_key", ignoreDuplicates: true });
+    const { error: assignmentError } = await service.from("admin_role_assignments").upsert({
+      admin_id: invited.user.id,
+      role_id: roleId,
+      scope_type: scopeType,
+      scope_key: scopeKey,
+      assigned_by: userData.user.id,
+    }, { onConflict: "admin_id,role_id,scope_type,scope_key", ignoreDuplicates: true });
     if (assignmentError) return json({ error: assignmentError.message }, 500);
   }
 

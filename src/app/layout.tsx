@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Noto_Sans_Gujarati, Noto_Serif_Gujarati } from "next/font/google";
 
+import { InviteLinkRedirect } from "@/components/admin/invite-link-redirect";
+
 import "./globals.css";
 
 const gujaratiSans = Noto_Sans_Gujarati({
@@ -58,7 +60,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="gu" className={`${gujaratiSans.variable} ${gujaratiSerif.variable}`}>
-      <body>{children}</body>
+      <body><InviteLinkRedirect />{children}</body>
     </html>
   );
 }

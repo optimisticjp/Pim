@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Bell, BookOpenText, CalendarDays, FileText, Home, Inbox, Landmark, LogOut, ShieldCheck, Users } from "lucide-react";
+import { Bell, BookOpenText, CalendarDays, FileText, Home, Inbox, KeyRound, Landmark, LogOut, ShieldCheck, Users } from "lucide-react";
 
 import { logoutAction } from "@/app/admin/actions";
 import { AdminBottomNav } from "@/components/admin/admin-bottom-nav";
@@ -14,6 +14,7 @@ const desktopNav = [
   ["/admin/team", "એડમિન ટીમ", Users],
   ["/admin/roles", "ભૂમિકાઓ", ShieldCheck],
   ["/admin/audit", "ઓડિટ લોગ", FileText],
+  ["/admin/account", "મારું ખાતું", KeyRound],
 ] as const;
 
 export function AdminShell({ session, unreadNotifications = 0, children }: { session: AdminSession; unreadNotifications?: number; children: React.ReactNode }) {
@@ -26,7 +27,7 @@ export function AdminShell({ session, unreadNotifications = 0, children }: { ses
     </aside>
 
     <div className="md:pl-64">
-      <header className="sticky top-0 z-20 border-b border-[#dfd9d0] bg-[#f8f6f1]/92 backdrop-blur"><div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6"><div><p className="text-[10px] font-bold tracking-[.12em] text-gold-deep md:hidden">PARIVAR SEVA</p><p className="text-sm font-bold text-primary md:text-base">જય સચ્ચિદાનંદ</p></div><div className="flex items-center gap-2"><Link href="/admin/notifications" aria-label={unreadNotifications ? `સૂચનાઓ — ${unreadNotifications} ન વાંચેલી` : "સૂચનાઓ"} className="relative flex size-10 items-center justify-center rounded-full border border-[#ded7ce] bg-white"><Bell className="size-[18px]" />{unreadNotifications ? <span className="absolute -right-1 -top-1 flex min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold leading-5 text-white">{unreadNotifications > 99 ? "99+" : unreadNotifications}</span> : null}</Link><div className="flex size-9 items-center justify-center rounded-full bg-primary font-bold text-white">{profile.display_name.trim().charAt(0) || "A"}</div></div></div></header>
+      <header className="sticky top-0 z-20 border-b border-[#dfd9d0] bg-[#f8f6f1]/92 backdrop-blur"><div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6"><div><p className="text-[10px] font-bold tracking-[.12em] text-gold-deep md:hidden">PARIVAR SEVA</p><p className="text-sm font-bold text-primary md:text-base">જય સચ્ચિદાનંદ</p></div><div className="flex items-center gap-2"><Link href="/admin/notifications" aria-label={unreadNotifications ? `સૂચનાઓ — ${unreadNotifications} ન વાંચેલી` : "સૂચનાઓ"} className="relative flex size-10 items-center justify-center rounded-full border border-[#ded7ce] bg-white"><Bell className="size-[18px]" />{unreadNotifications ? <span className="absolute -right-1 -top-1 flex min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold leading-5 text-white">{unreadNotifications > 99 ? "99+" : unreadNotifications}</span> : null}</Link><Link href="/admin/account" aria-label="મારું ખાતું" className="flex size-9 items-center justify-center rounded-full bg-primary font-bold text-white">{profile.display_name.trim().charAt(0) || "A"}</Link></div></div></header>
       <main className="mx-auto max-w-6xl px-4 pb-24 pt-5 sm:px-6 md:pb-10 md:pt-7">{children}</main>
     </div>
     <AdminBottomNav />

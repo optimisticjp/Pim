@@ -78,6 +78,18 @@ export async function getAuthUser(accessToken: string): Promise<SupabaseAuthUser
   return parseResponse<SupabaseAuthUser>(response);
 }
 
+export async function updateAuthPassword(accessToken: string, password: string): Promise<SupabaseAuthUser> {
+  const config = getSupabaseRuntimeConfig();
+  if (!config) throw new SupabaseHttpError("Supabase is not configured", 503);
+  const response = await fetch(`${config.url}/auth/v1/user`, {
+    method: "PUT",
+    headers: apiHeaders(accessToken, { "content-type": "application/json" }),
+    body: JSON.stringify({ password }),
+    cache: "no-store",
+  });
+  return parseResponse<SupabaseAuthUser>(response);
+}
+
 export async function signOut(accessToken: string | null): Promise<void> {
   const config = getSupabaseRuntimeConfig();
   if (!config || !accessToken) return;

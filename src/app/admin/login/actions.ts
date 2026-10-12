@@ -20,9 +20,17 @@ export async function loginAction(formData: FormData): Promise<never> {
       tokens.access_token,
     );
     const profile = profiles[0];
-    if (!profile || profile.status !== "active") {
+    if (!profile || profile.deleted_at) {
       await signOut(tokens.access_token);
-      redirect("/admin/login?error=access");
+      redirect("/admin/login?error=removed");
+    }
+    if (profile.status === "invited") {
+      await signOut(tokens.access_token);
+      redirect("/admin/login?error=pending");
+    }
+    if (profile.status === "suspended") {
+      await signOut(tokens.access_token);
+      redirect("/admin/login?error=suspended");
     }
     await setAdminSession(tokens);
   } catch (error) {

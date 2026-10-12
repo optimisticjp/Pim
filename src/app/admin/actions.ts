@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { hasAdminPermission, requireAdminSession } from "@/lib/admin/data";
-import type { InboxItem } from "@/lib/admin/types";
+import type { AdminProfile, InboxItem } from "@/lib/admin/types";
 import { clearAdminSession, getAdminAccessToken, signOut, supabaseRest } from "@/lib/supabase/server";
 
 async function actionContext(permission?: string) {
@@ -175,13 +175,29 @@ export async function removeAdminRoleAction(formData: FormData): Promise<void> {
 export async function setAdminStatusAction(formData: FormData): Promise<void> {
   const { session, token } = await actionContext();
   if (!session.profile?.is_super_admin) throw new Error("Super Admin required");
+
   const adminId = String(formData.get("admin_id") ?? "");
   const status = String(formData.get("status") ?? "");
   if (!adminId || !["active", "suspended"].includes(status) || adminId === session.profile.id) return;
+
+  const rows = await supabaseRest<AdminProfile[]>(
+    `admin_profiles?select=*&id=eq.${encodeURIComponent(adminId)}&deleted_at=is.null&limit=1`,
+    token,
+  );
+  const target = rows[0];
+  if (!target || target.is_super_admin) throw new Error("Staff account not found");
+
+  const patch: Record<string, unknown> = { status };
+  if (status === "active") {
+    if (!target.password_set_at) throw new Error("Staff must set their password before approval");
+    patch.approved_at = target.approved_at ?? new Date().toISOString();
+    patch.approved_by = target.approved_by ?? session.profile.id;
+  }
+
   await supabaseRest(`admin_profiles?id=eq.${encodeURIComponent(adminId)}`, token, {
     method: "PATCH",
     prefer: "return=minimal",
-    body: JSON.stringify({ status }),
+    body: JSON.stringify(patch),
   });
   revalidatePath("/admin/team");
 }

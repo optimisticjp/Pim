@@ -10,14 +10,18 @@ export const metadata: Metadata = { title: "એડમિન પ્રવેશ" 
 const errorMessages: Record<string, string> = {
   invalid: "ઇમેઇલ અથવા પાસવર્ડ સાચો નથી.",
   access: "આ ખાતાને એડમિન પ્રવેશ સક્રિય નથી.",
+  pending: "તમારો પાસવર્ડ સેટ થઈ ગયો છે, પરંતુ મુખ્ય એડમિનની મંજૂરી હજી બાકી છે.",
+  suspended: "આ સ્ટાફ ખાતું હાલમાં સસ્પેન્ડ છે. મુખ્ય એડમિનનો સંપર્ક કરો.",
+  removed: "આ સ્ટાફ ખાતું હવે સક્રિય નથી.",
   missing: "ઇમેઇલ અને પાસવર્ડ બંને લખો.",
   configuration: "Supabase કનેક્શન હજી પર્યાવરણમાં સેટ નથી.",
 };
 
-export default async function AdminLoginPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+export default async function AdminLoginPage({ searchParams }: { searchParams: Promise<{ error?: string; notice?: string }> }) {
   const params = await searchParams;
   const configured = Boolean(getSupabaseRuntimeConfig());
   const error = params.error ? errorMessages[params.error] : null;
+  const notice = params.notice === "password" ? "પાસવર્ડ સફળતાપૂર્વક બદલાયો. નવા પાસવર્ડથી ફરી પ્રવેશ કરો." : null;
 
   return (
     <main className="min-h-screen bg-[#f4f1eb] px-4 py-8 sm:grid sm:place-items-center sm:py-12">
@@ -36,6 +40,7 @@ export default async function AdminLoginPage({ searchParams }: { searchParams: P
             </div>
           ) : (
             <form action={loginAction} className="space-y-4">
+              {notice ? <p className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-900">{notice}</p> : null}
               {error ? <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">{error}</p> : null}
               <label className="block text-sm font-bold text-[#463b34]">ઇમેઇલ<input className="field mt-2" name="email" type="email" autoComplete="email" required /></label>
               <label className="block text-sm font-bold text-[#463b34]">પાસવર્ડ<input className="field mt-2" name="password" type="password" autoComplete="current-password" required /></label>
