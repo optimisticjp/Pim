@@ -1,0 +1,41 @@
+name: Staff lifecycle live smoke
+
+on:
+  push:
+    branches:
+      - chore/staff-lifecycle-live-smoke
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check production routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://pim.essanciaonline.workers.dev"
+          failures=0
+          for path in "/" "/admin/login" "/admin/setup"; do
+            body="$(mktemp)"
+            headers="$(mktemp)"
+            code="$(curl --retry 3 --retry-delay 2 -sS -D "$headers" -o "$body" -w '%{http_code}' "$base$path")"
+            content_type="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/ {gsub("\r",""); print substr($0,index($0,":")+2)}' "$headers" | tail -1)"
+            echo "$path status=$code content-type=$content_type bytes=$(wc -c < "$body")"
+            if [[ "$code" != "200" ]]; then
+              echo "::error::$path returned HTTP $code"
+              failures=$((failures+1))
+            fi
+            if [[ "$content_type" != text/html* ]]; then
+              echo "::error::$path did not return HTML"
+              failures=$((failures+1))
+            fi
+            if ! grep -qi '<!doctype html' "$body"; then
+              echo "::error::$path missing HTML document"
+              failures=$((failures+1))
+            fi
+          done
+          echo "failures=$failures"
+          test "$failures" -eq 0
