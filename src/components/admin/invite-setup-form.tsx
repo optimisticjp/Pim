@@ -34,6 +34,9 @@ export function InviteSetupForm() {
 
       let accessToken = hash.get("access_token") ?? query.get("access_token") ?? "";
       const tokenHash = query.get("token_hash") ?? hash.get("token_hash") ?? "";
+      const flowType = hash.get("type") ?? query.get("type") ?? "invite";
+      const supportedFlow = flowType === "invite" || flowType === "recovery";
+      if (!supportedFlow) throw new Error("આ સ્ટાફ સેટઅપ લિંક માન્ય નથી.");
 
       if (!accessToken && tokenHash) {
         const verifyResponse = await fetch(supabaseUrl + "/auth/v1/verify", {
@@ -42,7 +45,7 @@ export function InviteSetupForm() {
             apikey: publishableKey,
             "content-type": "application/json",
           },
-          body: JSON.stringify({ token_hash: tokenHash, type: "invite" }),
+          body: JSON.stringify({ token_hash: tokenHash, type: flowType }),
         });
         const verifyPayload = await verifyResponse.json().catch(() => ({})) as {
           access_token?: string;
