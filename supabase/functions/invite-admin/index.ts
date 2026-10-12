@@ -60,14 +60,6 @@ Deno.serve(async (req: Request) => {
     if (!role || role.is_archived) return json({ error: "Invalid role" }, 400);
   }
 
-  const [{ count: activeCount }, { count: openInviteCount }] = await Promise.all([
-    service.from("admin_profiles").select("id", { count: "exact", head: true }).eq("status", "active").is("deleted_at", null),
-    service.from("admin_invitations").select("id", { count: "exact", head: true }).in("status", ["pending", "sent"]),
-  ]);
-  if ((activeCount ?? 0) + (openInviteCount ?? 0) >= 10) {
-    return json({ error: "Maximum admin team size reached" }, 409);
-  }
-
   const { data: invited, error: inviteError } = await service.auth.admin.inviteUserByEmail(email, {
     data: { display_name: displayName, pim_admin_invite: true },
     redirectTo,
